@@ -4,13 +4,13 @@
 Level::Level(sf::RenderWindow &w) {
 	player = new Player(25,4, sf::Vector2f(370,100));
 	platforms.push_back(new Platform(50, 4, sf::Vector2f(150,300)));
-	/*platforms.push_back(new Platform(50, 4, sf::Vector2f(225, 300)));
+	platforms.push_back(new Platform(50, 4, sf::Vector2f(225, 300)));
 	platforms.push_back(new Platform(50, 4, sf::Vector2f(300, 300)));
 	platforms.push_back(new Platform(50, 4, sf::Vector2f(375, 300)));
 	platforms.push_back(new Platform(50, 4, sf::Vector2f(450, 300)));
 	platforms.push_back(new Platform(50, 4, sf::Vector2f(525, 300)));
-	platforms.push_back(new Platform(50, 4, sf::Vector2f(600, 300)));*/
-	platforms.push_back(new Platform(50, 3, sf::Vector2f(375, 225)));
+	platforms.push_back(new Platform(50, 4, sf::Vector2f(600, 300)));
+	//platforms.push_back(new Platform(50, 3, sf::Vector2f(375, 225)));
 }
 
 #define FIND_KEY(key) std::find( begin, end, key ) != end //find a key in a vector	(tidies Update method)
@@ -30,15 +30,22 @@ void Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
 			g.y = -0.9;
 	}
 
-	player->Update(g);
+	
 	
 	for (auto itr = platforms.begin(); itr != platforms.end(); itr++)
 	{
 		(*itr)->Update();
-		if (player->Collision(w, (*itr)).first)
+		std::pair<float, sf::Vector2f> temp = player->Collision(w, (*itr));
+		if (temp.first)
+		{
 			player->SetColor(sf::Color::Red);
+			player->Update(g, temp.second);
+		}
 		else
+		{
 			player->SetColor(sf::Color::Blue);
+			player->Update(g, sf::Vector2f(0,0));
+		}
 	}
 }
 

@@ -31,9 +31,12 @@ public:
 	virtual std::pair<bool, sf::Vector2f> Collision(sf::RenderWindow &w, GameEntity* shape2);
 	sf::Vector2f ProjectOnToAxis(sf::Vector2f axis) const;
 	std::pair<bool, double> checkOverlap(const sf::Vector2f &A, const sf::Vector2f &B);
-	float vectorDotProduct(const sf::Vector2f &A, const sf::Vector2f &B) const;
-	sf::Vector2f vectorNormalize(const sf::Vector2f &V);
 	sf::Vector2f GetDirection();
 	std::vector<sf::Vector2<float>> GetAxis();
+	void GetAxis(std::vector<sf::Vector2f> normalsList);
+
+	//vector methods
+	float vectorDotProduct(const sf::Vector2f &A, const sf::Vector2f &B) const;
+	sf::Vector2f vectorNormalize(const sf::Vector2f &V);
 };
 #endif

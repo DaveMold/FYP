@@ -46,7 +46,7 @@ GameEntity::GameEntity(float size, float sides, sf::Vector2f pos):shape(sides) {
 	
 	/*direction.x = (rand() % 10 - 5) / 60.0;
 	direction.y = (rand() % 10 - 5) / 60.0;*/
-	shape.setOutlineThickness(4);
+	shape.setOutlineThickness(-4);
 	shape.setOutlineColor(sf::Color::Green);
 	shape.setFillColor(sf::Color::Black);
 }
@@ -82,7 +82,7 @@ std::pair<bool, sf::Vector2f>  GameEntity::Collision(sf::RenderWindow &w, GameEn
 	std::vector<sf::Vector2f> axisListShape2;
 	sf::Vector2f smallest;
 	axisListShape1 = GetAxis();
-	axisListShape2 = shape2->GetAxis();
+	shape2->GetAxis(axisListShape1);
 	sf::Vector2f projectionV1, projectionV2;
 	float min, max, tempS1, tempS2;
 
@@ -104,37 +104,16 @@ std::pair<bool, sf::Vector2f>  GameEntity::Collision(sf::RenderWindow &w, GameEn
 				// then set this one as the smallest
 				overLap = result.second;
 				smallest = axis;
+
+				/*sf::Vector2f d = posCentre - shape2->posCentre;
+				if (vectorDotProduct(d, smallest) < 0)
+					smallest = -smallest;*/
 			}
 		}
 		else {
 			return std::make_pair(false, sf::Vector2f());
 		}
 	}//end for
-
-	// //iterates through axisListShape2
-	//for (std::vector<sf::Vector2<float>>::iterator itr = axisListShape1.begin(); itr != axisListShape1.end(); itr++) {
-
-	//	sf::Vector2f axis = *itr;
-
-	//	projectionV1 = this->ProjectOnToAxis(axis);
-	//	projectionV2 = shape2->ProjectOnToAxis(axis);
-
-	//	std::pair<bool, float> result = checkOverlap(projectionV1, projectionV1);
-
-
-	//	if (result.first) {
-	//		// check for minimum
-	//		if (result.second < overLap) {
-	//			// then set this one as the smallest
-	//			overLap = result.second;
-	//			smallest = axis;
-	//		}
-	//	}
-	//	else {
-	//		return std::make_pair(false, sf::Vector2f());
-	//	}
-	//}//end for
-
 
 	/* MTV is the Minimum Translation Vector.
 	 we multiply the smallest colliding axis (normalized) by the overlap to get
@@ -147,9 +126,11 @@ std::pair<bool, sf::Vector2f>  GameEntity::Collision(sf::RenderWindow &w, GameEn
 		(vectorDotProduct(shape2->GetDirection(), smallest) < 0))
 		return std::make_pair(true, sf::Vector2f(0, 0));
 
+	//normalise smallest
+	smallest = vectorNormalize(smallest);
 	sf::Vector2f mtv = sf::Vector2f(smallest * (float)overLap);
 
-	return std::make_pair(true, smallest);	//YES COLLISION
+	return std::make_pair(true, mtv);	//YES COLLISION
 
 }//end Collision
 
@@ -158,7 +139,6 @@ std::pair<bool, double> GameEntity::checkOverlap(const sf::Vector2f &A, const sf
 
 	if (A.x >= B.x && A.x <= B.y)
 		return std::make_pair(true, B.y - A.x);
-
 	else if (A.y >= B.x && A.y <= B.y)
 		return std::make_pair(true, A.y - B.x);
 	else
@@ -221,6 +201,21 @@ std::vector<sf::Vector2<float>> GameEntity::GetAxis() {
 		normalsList.push_back(normal);
 	}
 	return normalsList;
+}
+
+void GameEntity::GetAxis(std::vector<sf::Vector2f> normalsList) {
+	sf::Vector2f normal;
+	for (int PointOne = 0, PointTwo = 1; PointTwo < this->points.size(); PointOne++, PointTwo++) {
+
+		sf::Vector2f pOne = this->points[PointOne];
+		sf::Vector2f pTwo = this->points[PointTwo];
+
+		sf::Vector2f temp = pOne - pTwo;
+
+		normal.x = -temp.y;
+		normal.y = temp.x;
+		normalsList.push_back(normal);
+	}
 }
 
 sf::Vector2f GameEntity::vectorNormalize(const sf::Vector2f &V) {

@@ -26,7 +26,7 @@ void InputManager::UpdatePressedKeys(sf::Event e) {
 	{
 		switch (e.key.code)
 		{
-		case sf::Keyboard::A:
+		case sf::Keyboard::Left:
 			std::cout << "Left" << std::endl;
 			keysPressed.push_back("Left");
 			break;

@@ -20,7 +20,7 @@ void Player::SetPos(sf::RenderWindow &w) {
 }
 
 #define FIND_KEY(key) std::find( begin, end, key ) != end //find a key in a vector	(tidies Update method)
-void Player::Update(sf::Vector2f g) {
+void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 	speed = 0;
 
 	std::vector<sf::String> const& keys = InputManager::instance()->getKeys();
@@ -42,7 +42,9 @@ void Player::Update(sf::Vector2f g) {
 		std::cout << "Jump" << std::endl;
 	}
 
-	posCentre += (direction * speed) + g;
+	//posCentre += (direction * speed) + g + collisionForce;
+	sf::Vector2f force = g + collisionForce;
+	posCentre += force;
 	rotation.rotate(rotateSpeed);
 
 	for (int i = 0; i < shape.getPointCount(); i++) {
