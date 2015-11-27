@@ -26,7 +26,7 @@ void InputManager::UpdatePressedKeys(sf::Event e) {
 	{
 		switch (e.key.code)
 		{
-		case sf::Keyboard::Left:
+		case sf::Keyboard::A:
 			std::cout << "Left" << std::endl;
 			keysPressed.push_back("Left");
 			break;
@@ -36,12 +36,6 @@ void InputManager::UpdatePressedKeys(sf::Event e) {
 			break;
 		case sf::Keyboard::Up:
 			keysPressed.push_back("Up");
-			break;
-		case sf::Keyboard::PageUp:
-			keysPressed.push_back("PageUp");
-			break;
-		case sf::Keyboard::PageDown:
-			keysPressed.push_back("PageDown");
 			break;
 		default:
 			break;

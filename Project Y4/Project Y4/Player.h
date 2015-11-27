@@ -10,12 +10,12 @@ class Player : public GameEntity {
 	sf::ConvexShape square;
 	float speed;
 	float acceleration;
-	enum shapeType { Circle, Square } type;
+
 
 public:
 	Player(float size, float sides, sf::Vector2f pos);
 	void Draw(sf::RenderWindow &w);
-	void SetPos(sf::Vector2f pos);
+	void SetPos(sf::RenderWindow &w);
 	void Update(sf::Vector2f g);
 	sf::Vector2f Vec2Multiply(sf::Vector2f v1, sf::Vector2f v2);
 

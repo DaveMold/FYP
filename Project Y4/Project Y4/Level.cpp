@@ -2,7 +2,7 @@
 #include "InputManager.h"
 
 Level::Level(sf::RenderWindow &w) {
-	player = new Player(25,4, sf::Vector2f(400,100));
+	player = new Player(25,4, sf::Vector2f(370,100));
 	platforms.push_back(new Platform(50, 4, sf::Vector2f(150,300)));
 	/*platforms.push_back(new Platform(50, 4, sf::Vector2f(225, 300)));
 	platforms.push_back(new Platform(50, 4, sf::Vector2f(300, 300)));

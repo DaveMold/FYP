@@ -36,7 +36,7 @@ int main()
 	sf::Vector2f gravity = sf::Vector2f(0, 0.0981);// 0.0981);
 	InputManager* inputMgr = InputManager::instance();
 
-	// Start game lopo
+	// Start game loop
 	while (window.isOpen()) {
 		// Process events
 		sf::Event Event;

@@ -6,30 +6,17 @@ Player::Player(float size, float sides, sf::Vector2f pos)
 	shape.setOutlineColor(sf::Color::Blue);
 	shape.setFillColor(sf::Color::Black);
 	speed = 0;
-	acceleration = 0.03;
-	direction.x = 1;
-	direction.y = 0;
-	circle.setRadius(size);
-	circle.setOutlineThickness(4);
-	circle.setOutlineColor(sf::Color::Blue);
-	circle.setFillColor(sf::Color::Black);
-	type = shapeType::Square;
+	acceleration = 0.01;
+	direction.x = (rand() % 10 - 5) / 60.0;
+	direction.y = (rand() % 10 - 5) / 60.0;
 }
 
 void Player::Draw(sf::RenderWindow &w) {
-	switch (type)
-	{
-	case Player::Circle:
-		w.draw(circle);
-		break;
-	default:
-		w.draw(shape);
-		break;
-	}
+	w.draw(shape);
 }
 
-void Player::SetPos(sf::Vector2f pos) {
-	posCentre = pos;
+void Player::SetPos(sf::RenderWindow &w) {
+
 }
 
 #define FIND_KEY(key) std::find( begin, end, key ) != end //find a key in a vector	(tidies Update method)
@@ -53,17 +40,6 @@ void Player::Update(sf::Vector2f g) {
 	if (FIND_KEY("Up"))
 	{
 		std::cout << "Jump" << std::endl;
-		SetPos(sf::Vector2f(400, 100));
-	}
-	if (FIND_KEY("PageUp"))
-	{
-		std::cout << "shapeType::Square" << std::endl;
-		type = shapeType::Square;
-	}
-	if (FIND_KEY("PageDown"))
-	{
-		std::cout << "shapeType::Circle" << std::endl;
-		type = shapeType::Circle;
 	}
 
 	posCentre += (direction * speed) + g;
@@ -75,16 +51,7 @@ void Player::Update(sf::Vector2f g) {
 	for (int i = 0; i < shape.getPointCount(); i++) {
 		shape.setPoint(i, points[i]);
 	}
-	
-	switch (type)
-	{
-	case Player::Circle:
-		circle.setPosition(posCentre);
-		break;
-	default:
-		shape.setPosition(posCentre);
-		break;
-	}
+	shape.setPosition(posCentre);
 }
 
 sf::Vector2f Player::Vec2Multiply(sf::Vector2f v1, sf::Vector2f v2) {

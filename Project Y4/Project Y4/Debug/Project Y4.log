@@ -1,21 +1,47 @@
-﻿Build started 11/6/2015 1:21:35 PM.
-     1>Project "F:\Projects\Project Y4\Project Y4\Project Y4.vcxproj" on node 2 (Build target(s)).
+﻿Build started 27/11/2015 11:27:30.
+     1>Project "C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Project Y4\Project Y4.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Player.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp GameEntity.cpp InputManager.cpp Level.cpp Platform.cpp Player.cpp
          Player.cpp
-     1>f:\projects\project y4\project y4\player.cpp(9): warning C4305: '=': truncation from 'double' to 'float'
-     1>f:\projects\project y4\project y4\player.cpp(72): warning C4018: '<': signed/unsigned mismatch
-     1>f:\projects\project y4\project y4\player.cpp(75): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\player.cpp(9): warning C4305: '=': truncation from 'double' to 'float'
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\player.cpp(10): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\player.cpp(11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\player.cpp(48): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\player.cpp(51): warning C4018: '<': signed/unsigned mismatch
+         Platform.cpp
+         Level.cpp
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\level.cpp(30): warning C4305: '=': truncation from 'double' to 'float'
+         InputManager.cpp
+         GameEntity.cpp
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.cpp(5): warning C4244: 'argument': conversion from 'float' to 'size_t', possible loss of data
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.cpp(9): warning C4305: '=': truncation from 'double' to 'float'
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.cpp(12): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.cpp(31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.cpp(59): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.cpp(66): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.cpp(69): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.cpp(87): warning C4101: 'max': unreferenced local variable
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.cpp(87): warning C4101: 'tempS1': unreferenced local variable
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.cpp(87): warning C4101: 'min': unreferenced local variable
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.cpp(87): warning C4101: 'tempS2': unreferenced local variable
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.cpp(185): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.cpp(210): warning C4018: '<': signed/unsigned mismatch
+     1>c:\program files (x86)\microsoft visual studio 14.0\vc\include\utility(158): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+         c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.cpp(99): note: see reference to function template instantiation 'std::pair<bool,float>::pair<bool,double,void>(std::pair<bool,double> &&) noexcept' being compiled
+         c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.cpp(99): note: see reference to function template instantiation 'std::pair<bool,float>::pair<bool,double,void>(std::pair<bool,double> &&) noexcept' being compiled
+         Game.cpp
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\game.cpp(36): warning C4305: 'argument': truncation from 'double' to 'float'
+         Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\Projects\Project Y4\Debug\Project Y4.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.1\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"F:\Projects\Project Y4\Debug\Project Y4.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\Projects\Project Y4\Debug\Project Y4.lib" /MACHINE:X86 Debug\Game.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Debug\Project Y4.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.3.2\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Debug\Project Y4.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Debug\Project Y4.lib" /MACHINE:X86 Debug\Game.obj
          Debug\GameEntity.obj
          Debug\InputManager.obj
          Debug\Level.obj
          Debug\Platform.obj
          Debug\Player.obj
-         Project Y4.vcxproj -> F:\Projects\Project Y4\Debug\Project Y4.exe
-     1>Done Building Project "F:\Projects\Project Y4\Project Y4\Project Y4.vcxproj" (Build target(s)).
+         Project Y4.vcxproj -> C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Debug\Project Y4.exe
+     1>Done Building Project "C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Project Y4\Project Y4.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.72
+Time Elapsed 00:00:06.85
