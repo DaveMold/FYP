@@ -6,10 +6,11 @@ Player::Player(float size, float sides, sf::Vector2f pos)
 	shape.setOutlineColor(sf::Color::Blue);
 	shape.setFillColor(sf::Color::Black);
 	speed = 0;
-	acceleration = 0.01;
-	direction.x = (rand() % 10 - 5) / 60.0;
-	direction.y = (rand() % 10 - 5) / 60.0;
+	acceleration = 0.015;
+	direction = sf::Vector2f(2, 0);
+	jumpForce = sf::Vector2f(0, 0);
 }
+
 
 void Player::Draw(sf::RenderWindow &w) {
 	w.draw(shape);
@@ -20,6 +21,7 @@ void Player::SetPos(sf::RenderWindow &w) {
 }
 
 #define FIND_KEY(key) std::find( begin, end, key ) != end //find a key in a vector	(tidies Update method)
+#define REMOVE_KEY(key) std::remove( key ) //find a key in a vector	(tidies Update method)
 void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 	speed = 0;
 
@@ -33,18 +35,35 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 	{
 		speed -= acceleration;
 	}
-	else if(FIND_KEY("Right")) 
+	if(FIND_KEY("Right")) 
 	{
 		speed += acceleration;
 	}
+
 	if (FIND_KEY("Up"))
 	{
-		std::cout << "Jump" << std::endl;
+		jumpForce = sf::Vector2f(0, -0.1502f);
+		REMOVE_KEY("Up");
+	}
+	else
+	{
+		jumpForce = sf::Vector2f(0, 0);
+	}
+
+
+	/*if(!FIND_KEY("Up"))
+	{
+		jumpForce = sf::Vector2f(0, 0);
+	}*/
+
+	if (FIND_KEY("Home"))
+	{
+		posCentre = sf::Vector2f(100, 100);
 	}
 
 	//posCentre += (direction * speed) + g + collisionForce;
-	sf::Vector2f force = g + collisionForce;
-	posCentre += force;
+	sf::Vector2f force = g + collisionForce + jumpForce;
+	posCentre += force + (direction * speed);
 	rotation.rotate(rotateSpeed);
 
 	for (int i = 0; i < shape.getPointCount(); i++) {

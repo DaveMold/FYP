@@ -22,6 +22,7 @@ protected:
 	float radius;
 public:
 	GameEntity(float size, float sides, sf::Vector2f pos);
+	GameEntity(float Width, float Height, float sides, sf::Vector2f pos);
 	void Draw(sf::RenderWindow &w);
 	void SetPos(sf::RenderWindow &w);
 	void Update();

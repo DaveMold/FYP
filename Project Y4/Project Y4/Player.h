@@ -10,7 +10,7 @@ class Player : public GameEntity {
 	sf::ConvexShape square;
 	float speed;
 	float acceleration;
-
+	sf::Vector2f jumpForce;
 
 public:
 	Player(float size, float sides, sf::Vector2f pos);
