@@ -105,8 +105,18 @@ void GameEntity::Update() {
 }
 
 void GameEntity::SetColor(sf::Color color) {
-	if(shape.getOutlineColor() != color)
+	if (shape.getOutlineColor() != color)
 		shape.setOutlineColor(color);
+	else
+		shape.setOutlineColor(sf::Color::White);
+}
+
+sf::Vector2f GameEntity::GetPos() {
+	return posCentre;
+}
+
+float GameEntity::GetRadius() {
+	return radius;
 }
 
 std::pair<bool, sf::Vector2f>  GameEntity::Collision(sf::RenderWindow &w, GameEntity* shape2) {
@@ -119,6 +129,11 @@ std::pair<bool, sf::Vector2f>  GameEntity::Collision(sf::RenderWindow &w, GameEn
 	sf::Vector2f projectionV1, projectionV2;
 	float min, max, tempS1, tempS2;
 
+
+	if (this->shape.getPosition().x > shape2->shape.getPosition().x + 5)
+		axisListShape1.reserve(axisListShape1.size());
+	if (this->shape.getPosition().x > shape2->shape.getPosition().x + 5)
+		axisListShape1.reserve(axisListShape1.size());
 
 	//Project shapes onto axis
 	//iterates through axisListShape1

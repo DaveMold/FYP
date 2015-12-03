@@ -1,5 +1,5 @@
-#ifndef _GameEntity_
-#define _GameEntity_
+#ifndef _GameEntity_H
+#define _GameEntity_H
 
 //includes
 #include <SFML/Graphics.hpp>
@@ -17,7 +17,6 @@ protected:
 	sf::Transform rotation;
 	sf::Vector2f posCentre;
 	std::vector<sf::Vector2f> points;
-
 	float rotateSpeed;
 	float radius;
 public:
@@ -27,6 +26,8 @@ public:
 	void SetPos(sf::RenderWindow &w);
 	void Update();
 	void SetColor(sf::Color color);
+	sf::Vector2f GetPos();
+	float GetRadius();
 
 	//SAT methods
 	virtual std::pair<bool, sf::Vector2f> Collision(sf::RenderWindow &w, GameEntity* shape2);

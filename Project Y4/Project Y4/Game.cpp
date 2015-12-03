@@ -29,6 +29,8 @@
 int main()
 {
 	// Create the main window
+	enum States { GAME, MENU, GAMEOVER };
+	States GameState = GAME;
 	sf::RenderWindow window(sf::VideoMode(800, 600, 32), "Project Y4");
 	sf::Clock clock = sf::Clock();
 	sf::Time elapsedTime;
@@ -56,12 +58,36 @@ int main()
 		}//end while
 
 		//Update
-		level.Update(gravity, window);
 		inputMgr->UpdatePressedKeys(Event);
+
+		switch (GameState)
+		{
+		case GAME:
+			level.Update(gravity, window);
+			break;
+		case GAMEOVER:
+			std::cout << "State : GAMEOVER." << std::endl;
+			break;
+		case MENU:
+			std::cout << "State : MENU." << std::endl;
+			break;
+		}
+		
 		//prepare frame
 		window.clear();
 
-		level.Draw(window);
+		switch (GameState)
+		{
+		case GAME:
+			level.Draw(window);
+			break;
+		case GAMEOVER:
+			std::cout << "State : GAMEOVER." << std::endl;
+			break;
+		case MENU:
+			std::cout << "State : MENU." << std::endl;
+			break;
+		}
 
 		// Finally, display rendered frame on screen
 		window.display();

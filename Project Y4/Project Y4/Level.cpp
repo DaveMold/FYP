@@ -3,6 +3,7 @@
 
 Level::Level(sf::RenderWindow &w) {
 	player = new Player(25,4, sf::Vector2f(370,100));
+	swapPoints.push_back(new SwapPoint(25, sf::Vector2f(550, 170)));
 	platforms.push_back(new Platform(454, 54, 4, sf::Vector2f(125,300)));
 	platforms.push_back(new Platform(354, 54, 4, sf::Vector2f(450, 200)));
 	/*platforms.push_back(new Platform(54, 4, sf::Vector2f(300, 300)));
@@ -30,10 +31,13 @@ void Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
 		{
 			(*itr)->SetColor(sf::Color::Blue);
 		}
+		for (auto itr = swapPoints.begin(); itr != swapPoints.end(); itr++)
+		{
+			(*itr)->SetColor(sf::Color::Green);
+		}
 	}
 
-	
-	
+
 	for (auto itr = platforms.begin(); itr != platforms.end(); itr++)
 	{
 		(*itr)->Update();
@@ -47,10 +51,19 @@ void Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
 			player->Update(g, sf::Vector2f(0,0));
 		}
 	}
+	for (auto itr = swapPoints.begin(); itr != swapPoints.end(); itr++)
+	{
+		if ((*itr)->collision(player->GetPos(), player->GetRadius()))
+			player->ChangeActiveShape();
+	}
 }
 
 void Level::Draw(sf::RenderWindow &w) {
 	for (auto itr = platforms.begin(); itr != platforms.end(); itr++)
+	{
+		(*itr)->Draw(w);
+	}
+	for (auto itr = swapPoints.begin(); itr != swapPoints.end(); itr++)
 	{
 		(*itr)->Draw(w);
 	}
