@@ -9,7 +9,6 @@
 
 class Menu {
 private:
-	bool showSettings, gameOn, Exit;
 	enum ColorPresets { PRESETONE, PRESETTWO };
 	ColorPresets preset;
 	std::vector<sf::Texture> textures;
@@ -18,6 +17,7 @@ private:
 	sf::Texture arrowHeadTexture; //Used to point to the option the player has highlighted.
 	sf::Sprite arrowHeadSprite;
 public:
+	bool showSettings, gameOn, Exit;
 	Menu(std::pair<float, float> windowDesmentions);
 	~Menu();
 	void Update();

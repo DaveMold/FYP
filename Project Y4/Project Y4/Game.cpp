@@ -31,7 +31,7 @@ int main()
 {
 	// Create the main window
 	enum States { GAME, MENU, GAMEOVER };
-	States GameState = GAME;
+	States GameState = MENU;
 	std::pair<float,float> windowDimentions;
 	windowDimentions.first = 800;
 	windowDimentions.second = 600;
@@ -66,6 +66,14 @@ int main()
 
 		//Update
 		inputMgr->UpdatePressedKeys(Event);
+		if (menu.Exit)
+		{
+			level.~Level();
+			menu.~Menu();
+			window.close();
+		}
+		if (menu.gameOn)
+			GameState = GAME;
 
 		switch (GameState)
 		{
@@ -76,6 +84,7 @@ int main()
 			std::cout << "State : GAMEOVER." << std::endl;
 			break;
 		case MENU:
+			menu.Update();
 			std::cout << "State : MENU." << std::endl;
 			break;
 		}

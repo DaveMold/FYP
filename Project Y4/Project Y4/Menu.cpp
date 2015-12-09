@@ -3,19 +3,27 @@
 
 Menu::Menu(std::pair<float, float> windowDesmentions): showSettings(false), preset(PRESETONE), gameOn(false), Exit(false) {
 	textures.reserve(9);
-	textures[0].loadFromFile("\Assets\Menu\Yes.png");
-	textures[1].loadFromFile("\Assets\Menu\No.png");
-	textures[2].loadFromFile("\Assets\Menu\Start.png");
-	textures[3].loadFromFile("\Assets\Menu\Settings.png");
-	textures[4].loadFromFile("\Assets\Menu\Exit.png");
-	textures[5].loadFromFile("\Assets\Menu\Colors.png");
-	textures[6].loadFromFile("\Assets\Menu\Back.png");
-	textures[7].loadFromFile("\Assets\Menu\Preset1.png");
-	textures[8].loadFromFile("\Assets\Menu\Preset2.png");
+	for (int i = 0; i < textures.capacity(); i++)
+	{
+		textures.push_back(sf::Texture());
+	}
+	textures[0].loadFromFile("Assets/Menu/Yes.png");
+	textures[1].loadFromFile("Assets/Menu/No.png");
+	textures[2].loadFromFile("Assets/Menu/Start.png");
+	textures[3].loadFromFile("Assets/Menu/Settings.png");
+	textures[4].loadFromFile("Assets/Menu/Quit.png");
+	textures[5].loadFromFile("Assets/Menu/Colors.png");
+	textures[6].loadFromFile("Assets/Menu/Back.png");
+	textures[7].loadFromFile("Assets/Menu/Preset1.png");
+	textures[8].loadFromFile("Assets/Menu/Preset2.png");
 
 	//sprites.reserve(8);
 	for (int i = 0; i < textures.size(); i++)
 	{
+		std::pair<sf::Sprite, bool> temp;
+		temp.first = sf::Sprite();
+		temp.second = false;
+		sprites.push_back(temp);
 		sprites[i].first.setTexture(textures[i]);
 		if (i != 2)
 			sprites[i].second = false;
@@ -23,15 +31,15 @@ Menu::Menu(std::pair<float, float> windowDesmentions): showSettings(false), pres
 			sprites[i].second = true;
 	}
 
-	arrowHeadTexture.loadFromFile("\Assets\Menu\ArrowHead.png");
+	arrowHeadTexture.loadFromFile("Assets/Menu/ArrowHead.png");
 	arrowHeadSprite.setTexture(arrowHeadTexture);
 
 	//main menu
-	sprites[2].first.setPosition(windowDesmentions.first/4, windowDesmentions.second / 2.0f);
-	sprites[3].first.setPosition(windowDesmentions.first/4, sprites[2].first.getPosition().y + 50);
-	sprites[4].first.setPosition(windowDesmentions.first/4, sprites[3].first.getPosition().y + 50);
+	sprites[2].first.setPosition(windowDesmentions.first/6, (windowDesmentions.second / 4.0f));
+	sprites[3].first.setPosition(windowDesmentions.first/6, sprites[2].first.getPosition().y + 50);
+	sprites[4].first.setPosition(windowDesmentions.first/6, sprites[3].first.getPosition().y + 50);
 	//settings menu
-	sprites[5].first.setPosition((windowDesmentions.first / 4.0f) * 3.0f, windowDesmentions.second / 2.0f);
+	sprites[5].first.setPosition((windowDesmentions.first / 4.0f) * 2.0f, windowDesmentions.second / 2.0f);
 	sprites[7].first.setPosition(sprites[5].first.getPosition().x + sprites[6].first.getGlobalBounds().width, windowDesmentions.second / 2.0f);
 	sprites[8].first.setPosition(sprites[5].first.getPosition().x + sprites[6].first.getGlobalBounds().width, windowDesmentions.second / 2.0f);
 	sprites[6].first.setPosition(sprites[5].first.getPosition().x, windowDesmentions.second / 2.0f);
@@ -81,7 +89,7 @@ void Menu::Update() {
 			}
 		}
 	}
-	if (FIND_KEY("Enter"))
+	if (FIND_KEY("Right"))
 	{
 		for (int i = 0; i < sprites.size(); i++)
 		{
@@ -126,7 +134,7 @@ void Menu::Draw(sf::RenderWindow &w) {
 
 	w.draw(arrowHeadSprite);
 
-	for (int i = 2; i < sprites.size(); i++)
+	for (int i = 2; i < 5; i++)
 	{
 		w.draw(sprites[i].first);
 	}
