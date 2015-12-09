@@ -23,6 +23,9 @@ Player::Player(float size, float sides, sf::Vector2f pos)
 	shapeCircle.setFillColor(sf::Color::Black);
 }
 
+Player::~Player() {
+
+}
 
 void Player::Draw(sf::RenderWindow &w) {
 	

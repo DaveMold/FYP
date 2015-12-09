@@ -12,6 +12,7 @@ private:
 	std::vector<Platform*> platforms;
 public:
 	Level(sf::RenderWindow &w);
+	~Level();
 	void Update(sf::Vector2f g, sf::RenderWindow &w);
 	void Draw(sf::RenderWindow &w);
 

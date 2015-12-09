@@ -25,13 +25,18 @@
 //Entities include
 #include "Level.h"
 #include "InputManager.h"
+#include "Menu.h"
 
 int main()
 {
 	// Create the main window
 	enum States { GAME, MENU, GAMEOVER };
 	States GameState = GAME;
-	sf::RenderWindow window(sf::VideoMode(800, 600, 32), "Project Y4");
+	std::pair<float,float> windowDimentions;
+	windowDimentions.first = 800;
+	windowDimentions.second = 600;
+	sf::RenderWindow window(sf::VideoMode(windowDimentions.first, windowDimentions.second, 32), "Project Y4");
+	Menu menu(windowDimentions);
 	sf::Clock clock = sf::Clock();
 	sf::Time elapsedTime;
 	Level level = Level(window);
@@ -50,6 +55,8 @@ int main()
 			switch (Event.type) {
 				// Close window : exit
 			case sf::Event::Closed:
+				level.~Level();
+				menu.~Menu();
 				window.close();
 				break;
 			default:
@@ -85,6 +92,7 @@ int main()
 			std::cout << "State : GAMEOVER." << std::endl;
 			break;
 		case MENU:
+			menu.Draw(window);
 			std::cout << "State : MENU." << std::endl;
 			break;
 		}

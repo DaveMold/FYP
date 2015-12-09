@@ -15,6 +15,7 @@ class Player : public GameEntity {
 	float radius;//stores the radius of the circle shape.
 public:
 	Player(float size, float sides, sf::Vector2f pos);
+	~Player();
 	void Draw(sf::RenderWindow &w);
 	void SetPos(sf::RenderWindow &w);
 	void Update(sf::Vector2f g, sf::Vector2f collisionForce);

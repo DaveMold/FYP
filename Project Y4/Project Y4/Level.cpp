@@ -14,6 +14,18 @@ Level::Level(sf::RenderWindow &w) {
 	platforms.push_back(new Platform(50, 3, sf::Vector2f(375, 225)));*/
 }
 
+Level::~Level() {
+	player->~Player();
+	for (int i = 0; i < swapPoints.size(); i++)
+	{
+		swapPoints[i]->~SwapPoint();
+	}
+	for (int i = 0; i < platforms.size(); i++)
+	{
+		platforms[i]->~Platform();
+	}
+}
+
 #define FIND_KEY(key) std::find( begin, end, key ) != end //find a key in a vector	(tidies Update method)
 void Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
 
