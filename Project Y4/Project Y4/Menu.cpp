@@ -42,7 +42,7 @@ Menu::Menu(std::pair<float, float> windowDesmentions): showSettings(false), pres
 	sprites[5].first.setPosition((windowDesmentions.first / 4.0f) * 2.0f, windowDesmentions.second / 2.0f);
 	sprites[7].first.setPosition(sprites[5].first.getPosition().x + sprites[6].first.getGlobalBounds().width, windowDesmentions.second / 2.0f);
 	sprites[8].first.setPosition(sprites[5].first.getPosition().x + sprites[6].first.getGlobalBounds().width, windowDesmentions.second / 2.0f);
-	sprites[6].first.setPosition(sprites[5].first.getPosition().x, windowDesmentions.second / 2.0f);
+	sprites[6].first.setPosition(sprites[5].first.getPosition().x, windowDesmentions.second / 2.0f + 50);
 }
 
 Menu::~Menu(){
@@ -50,46 +50,51 @@ Menu::~Menu(){
 }
 
 #define FIND_KEY(key) std::find( begin, end, key ) != end //find a key in a vector	(tidies Update method)
+#define FIND_KEY_LAST_UPDATE(key) std::find( begin_LU, end_LU, key ) != end_LU //find a key in a vector	(tidies Update method)
 void Menu::Update() {
-	std::vector<sf::String> const& keys = InputManager::instance()->getKeys();
+
+	/*std::vector<sf::String> const& keys = InputManager::instance()->getKeys();
+	std::vector<sf::String> const& keys_LU = InputManager::instance()->getKeysLastUpdate();
 
 	auto begin = keys.begin();
 	auto end = keys.end();
+	auto begin_LU = keys_LU.begin();
+	auto end_LU = keys_LU.end();*/
 
-	if (FIND_KEY("Up"))
+	if (InputManager::instance()->Released("Up"))
 	{
-		for (int i = 0; i < sprites.size(); i++)
-		{
-			if (sprites[i].second)
+			for (int i = 0; i < sprites.size(); i++)
 			{
-				sprites[i].second = false;
-				if (i < 2)
+				if (sprites[i].second)
 				{
-					if (i = 0)
-						sprites[1].second = true;
-					else
-						sprites[0].second = true;
+					sprites[i].second = false;
+					if (i < 2)
+					{
+						if (i = 0)
+							sprites[1].second = true;
+						else
+							sprites[0].second = true;
+					}
+					else if (i > 1 && i < 5)
+					{
+						if (i == 2)
+							sprites[4].second = true;
+						if (i == 3)
+							sprites[2].second = true;
+						if (i == 4)
+							sprites[3].second = true;
+					}
+					else if (i == 5 || i == 6)
+					{
+						if (i == 5)
+							sprites[6].second = true;
+						if (i == 6)
+							sprites[5].second = true;
+					}
 				}
-				else if (i > 1 && i < 5)
-				{
-					if (i == 2)
-						sprites[4].second = true;
-					if (i == 3)
-						sprites[2].second = true;
-					if (i == 4)
-						sprites[3].second = true;
-				}
-				else if (i == 5 || i == 6)
-				{
-					if (i == 5)
-						sprites[6].second = true;
-					if (i == 6)
-						sprites[5].second = true;
-				}
-			}
-		}
-	}
-	if (FIND_KEY("Right"))
+			}//end for
+	}//end if FIND_KEY
+	if (InputManager::instance()->Released("Right"))
 	{
 		for (int i = 0; i < sprites.size(); i++)
 		{
@@ -112,7 +117,7 @@ void Menu::Update() {
 				{
 					if (preset == PRESETONE)
 						preset = PRESETTWO;
-					if (preset == PRESETTWO)
+					else if (preset == PRESETTWO)
 						preset = PRESETONE;
 				}
 				else if (i == 6)

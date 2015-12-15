@@ -6,6 +6,7 @@ Level::Level(sf::RenderWindow &w) {
 	swapPoints.push_back(new SwapPoint(25, sf::Vector2f(550, 170)));
 	platforms.push_back(new Platform(454, 54, 4, sf::Vector2f(125,300)));
 	platforms.push_back(new Platform(354, 54, 4, sf::Vector2f(450, 200)));
+	endGameGoal = new EndGameGoal(25, sf::Vector2f(675, 170), "CIRCLE");
 	/*platforms.push_back(new Platform(54, 4, sf::Vector2f(300, 300)));
 	platforms.push_back(new Platform(54, 4, sf::Vector2f(375, 300)));
 	platforms.push_back(new Platform(54, 4, sf::Vector2f(450, 300)));
@@ -16,6 +17,7 @@ Level::Level(sf::RenderWindow &w) {
 
 Level::~Level() {
 	player->~Player();
+	endGameGoal->~EndGameGoal();
 	for (int i = 0; i < swapPoints.size(); i++)
 	{
 		swapPoints[i]->~SwapPoint();
@@ -27,15 +29,15 @@ Level::~Level() {
 }
 
 #define FIND_KEY(key) std::find( begin, end, key ) != end //find a key in a vector	(tidies Update method)
-void Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
-
+bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
+	std::cout << "State : Update." << std::endl;
 	std::vector<sf::String> const& keys = InputManager::instance()->getKeys();
 
 	auto begin = keys.begin();
 	auto end = keys.end();
 
 	//look for the C Key in vector of keys pressed
-	if (FIND_KEY("End"))
+	if (InputManager::instance()->Pressed("End"))
 	{
 		//change color of all objects
 		player->SetColor(sf::Color::Red);
@@ -68,6 +70,9 @@ void Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
 		if ((*itr)->collision(player->GetPos(), player->GetRadius()))
 			player->ChangeActiveShape();
 	}
+	if (endGameGoal->collision(player->GetPos(), player->GetRadius(), player->getShape()))
+		return true;
+	return false;
 }
 
 void Level::Draw(sf::RenderWindow &w) {
@@ -80,4 +85,5 @@ void Level::Draw(sf::RenderWindow &w) {
 		(*itr)->Draw(w);
 	}
 	player->Draw(w);
+	endGameGoal->Draw(w);
 }

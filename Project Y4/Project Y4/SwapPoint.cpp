@@ -32,10 +32,10 @@ SwapPoint::SwapPoint(float size, sf::Vector2f pos) :shapeSquare(numSides), colli
 
 
 	shapeSquare.setOutlineThickness(-4);
-	shapeSquare.setOutlineColor(sf::Color::Yellow);
+	shapeSquare.setOutlineColor(sf::Color::Red);
 	shapeSquare.setFillColor(sf::Color::Black);
 	shapeCircle.setOutlineThickness(-4);
-	shapeCircle.setOutlineColor(sf::Color::Yellow);
+	shapeCircle.setOutlineColor(sf::Color::Red);
 	shapeCircle.setFillColor(sf::Color::Black);
 }
 

@@ -78,7 +78,8 @@ int main()
 		switch (GameState)
 		{
 		case GAME:
-			level.Update(gravity, window);
+			if (level.Update(gravity, window))
+				std::cout << "Game Over" << std::endl;
 			break;
 		case GAMEOVER:
 			std::cout << "State : GAMEOVER." << std::endl;

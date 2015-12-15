@@ -58,7 +58,7 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 	auto end = keys.end();
 
 	//look for the Left Arrow Key in vector of keys pressed
-	if (FIND_KEY("Left"))
+	if (InputManager::instance()->Held("Left"))
 	{
 		speed -= acceleration;
 		//direction.x = direction.x * (-1);
@@ -73,8 +73,7 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 
 	if (FIND_KEY("Up"))
 	{
-		jumpForce = sf::Vector2f(0, -0.1502f);
-		REMOVE_KEY("Up");
+		jumpForce = sf::Vector2f(0, -0.2502f);
 	}
 	else
 	{
@@ -135,6 +134,18 @@ void Player::ChangeActiveShape() {
 		break;
 	default:
 		std::cout << "Player :: change Active Shape Default." << std::endl;
+		break;
+	}
+}
+
+sf::String Player::getShape() {
+	switch (activeShape)
+	{
+	case SQUARE:
+		return "SQUARE";
+		break;
+	case CIRCLE:
+		return "CIRCLE";
 		break;
 	}
 }
