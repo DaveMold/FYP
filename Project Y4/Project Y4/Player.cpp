@@ -47,15 +47,8 @@ void Player::SetPos(sf::RenderWindow &w) {
 
 }
 
-#define FIND_KEY(key) std::find( begin, end, key ) != end //find a key in a vector	(tidies Update method)
-#define REMOVE_KEY(key) std::remove( key ) //find a key in a vector	(tidies Update method)
 void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 	speed = 0;
-
-	std::vector<sf::String> const& keys = InputManager::instance()->getKeys();
-
-	auto begin = keys.begin();
-	auto end = keys.end();
 
 	//look for the Left Arrow Key in vector of keys pressed
 	if (InputManager::instance()->Held("Left"))
@@ -64,29 +57,37 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 		//direction.x = direction.x * (-1);
 		//direction.y = direction.y * (-1);
 	}
-	if(FIND_KEY("Right")) 
+	if(InputManager::instance()->Held("Right"))
 	{
 		speed += acceleration;
 		//direction.x = direction.x * (1);
 		//direction.y = direction.y * (1);
 	}
 
-	if (FIND_KEY("Up"))
+	if (InputManager::instance()->Pressed("Up"))
 	{
-		jumpForce = sf::Vector2f(0, -0.2502f);
+		switch (activeShape)
+		{
+		case CIRCLE:
+			jumpForce = sf::Vector2f(0, -0.2502f);
+			break;
+		case SQUARE:
+			jumpForce = sf::Vector2f(0, -0.2702f);
+		}
 	}
 	else
 	{
-		jumpForce = sf::Vector2f(0, 0);
+		if (jumpForce.y != 0.0f)
+		{
+			jumpForce = sf::Vector2f(0,jumpForce.y + 0.0001f);
+		}
+		if (jumpForce.y > 0.0f)
+		{
+			jumpForce.y == 0.0f;
+		}
 	}
 
-
-	/*if(!FIND_KEY("Up"))
-	{
-		jumpForce = sf::Vector2f(0, 0);
-	}*/
-
-	if (FIND_KEY("Home"))
+	if (InputManager::instance()->Pressed("Home"))
 	{
 		posCentre = sf::Vector2f(100, 100);
 	}

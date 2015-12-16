@@ -17,7 +17,7 @@ private:
 	sf::Texture arrowHeadTexture; //Used to point to the option the player has highlighted.
 	sf::Sprite arrowHeadSprite;
 public:
-	bool showSettings, gameOn, Exit;
+	bool showSettings, gameOn, Exit, showExitConfermation;
 	Menu(std::pair<float, float> windowDesmentions);
 	~Menu();
 	void Update();

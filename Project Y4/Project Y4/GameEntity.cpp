@@ -130,10 +130,16 @@ std::pair<bool, sf::Vector2f>  GameEntity::Collision(sf::RenderWindow &w, GameEn
 	float min, max, tempS1, tempS2;
 
 
-	if (this->shape.getPosition().x > shape2->shape.getPosition().x + 5)
-		axisListShape1.reserve(axisListShape1.size());
-	if (this->shape.getPosition().x > shape2->shape.getPosition().x + 5)
-		axisListShape1.reserve(axisListShape1.size());
+	/*if (this->shape.getPosition().x > shape2->shape.getPosition().x + 5)
+	{
+		axisListShape1 = GetAxis();
+		shape2->GetAxis(axisListShape1);
+	}
+	else if (this->shape.getPosition().x > shape2->shape.getPosition().x + 5)
+	{
+		GetAxis(axisListShape1);
+		shape2->GetAxis(axisListShape1);
+	}*/
 
 	//Project shapes onto axis
 	//iterates through axisListShape1

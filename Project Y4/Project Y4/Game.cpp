@@ -68,8 +68,6 @@ int main()
 		inputMgr->UpdatePressedKeys(Event);
 		if (menu.Exit)
 		{
-			level.~Level();
-			menu.~Menu();
 			window.close();
 		}
 		if (menu.gameOn)
@@ -79,7 +77,12 @@ int main()
 		{
 		case GAME:
 			if (level.Update(gravity, window))
-				std::cout << "Game Over" << std::endl;
+			{
+				menu.gameOn = false;
+				GameState = MENU;
+				break;
+			}
+				//std::cout << "Game Over" << std::endl;
 			break;
 		case GAMEOVER:
 			std::cout << "State : GAMEOVER." << std::endl;

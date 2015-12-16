@@ -87,6 +87,10 @@ void InputManager::UpdatePressedKeys(sf::Event e) {
 		{
 			keysPressed.push_back("Up");
 		}
+		if (e.key.code == sf::Keyboard::Down)
+		{
+			keysPressed.push_back("Down");
+		}
 		if (e.key.code == sf::Keyboard::End)
 		{
 			keysPressed.push_back("End");

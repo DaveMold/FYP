@@ -94,19 +94,11 @@ bool EndGameGoal::collision(sf::Vector2f pos, float size, sf::String playerShape
 		temp = CIRCLE;
 	if (temp == activeShape)
 	{
-		if (sqrt(pow(posCentre.x - pos.x, 2) + pow(posCentre.y - pos.y, 2)) >
-			radius/2 + size)
+		if (sqrt(pow(posCentre.x - pos.x, 2) + pow(posCentre.y - pos.y, 2)) <
+			radius/2 + size/2)
 		{
 			return true;
 		}
-		else
-		{
-			return false;
-		}
 	}
-	else
-	{
-		return false;
-	}
-
+	return false;
 }

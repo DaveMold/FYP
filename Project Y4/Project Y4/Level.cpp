@@ -2,14 +2,14 @@
 #include "InputManager.h"
 
 Level::Level(sf::RenderWindow &w) {
-	player = new Player(25,4, sf::Vector2f(370,100));
-	swapPoints.push_back(new SwapPoint(25, sf::Vector2f(550, 170)));
-	platforms.push_back(new Platform(454, 54, 4, sf::Vector2f(125,300)));
-	platforms.push_back(new Platform(354, 54, 4, sf::Vector2f(450, 200)));
-	endGameGoal = new EndGameGoal(25, sf::Vector2f(675, 170), "CIRCLE");
-	/*platforms.push_back(new Platform(54, 4, sf::Vector2f(300, 300)));
-	platforms.push_back(new Platform(54, 4, sf::Vector2f(375, 300)));
-	platforms.push_back(new Platform(54, 4, sf::Vector2f(450, 300)));
+	player = new Player(25,4, sf::Vector2f(200,100));
+	//swapPoints.push_back(new SwapPoint(25, sf::Vector2f(550, 170)));
+	platforms.push_back(new Platform(354, 54, 4, sf::Vector2f(125,400)));
+	platforms.push_back(new Platform(254, 54, 4, sf::Vector2f(400, 175)));
+	endGameGoal = new EndGameGoal(15, sf::Vector2f(550, 160), "SQUARE");
+	platforms.push_back(new Platform(108, 54, 4, sf::Vector2f(350, 280)));
+	platforms.push_back(new Platform(108, 54, 4, sf::Vector2f(225, 320)));
+	/*platforms.push_back(new Platform(54, 4, sf::Vector2f(450, 300)));
 	platforms.push_back(new Platform(54, 4, sf::Vector2f(525, 300)));
 	platforms.push_back(new Platform(54, 4, sf::Vector2f(600, 300)));
 	platforms.push_back(new Platform(50, 3, sf::Vector2f(375, 225)));*/
@@ -28,13 +28,8 @@ Level::~Level() {
 	}
 }
 
-#define FIND_KEY(key) std::find( begin, end, key ) != end //find a key in a vector	(tidies Update method)
 bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
-	std::cout << "State : Update." << std::endl;
-	std::vector<sf::String> const& keys = InputManager::instance()->getKeys();
-
-	auto begin = keys.begin();
-	auto end = keys.end();
+	//std::cout << "State : **********************" << std::endl;
 
 	//look for the C Key in vector of keys pressed
 	if (InputManager::instance()->Pressed("End"))

@@ -1,7 +1,7 @@
 #include "Menu.h"
 #include "InputManager.h"
 
-Menu::Menu(std::pair<float, float> windowDesmentions): showSettings(false), preset(PRESETONE), gameOn(false), Exit(false) {
+Menu::Menu(std::pair<float, float> windowDesmentions): showSettings(false), preset(PRESETONE), gameOn(false), Exit(false), showExitConfermation(false){
 	textures.reserve(9);
 	for (int i = 0; i < textures.capacity(); i++)
 	{
@@ -43,6 +43,9 @@ Menu::Menu(std::pair<float, float> windowDesmentions): showSettings(false), pres
 	sprites[7].first.setPosition(sprites[5].first.getPosition().x + sprites[6].first.getGlobalBounds().width, windowDesmentions.second / 2.0f);
 	sprites[8].first.setPosition(sprites[5].first.getPosition().x + sprites[6].first.getGlobalBounds().width, windowDesmentions.second / 2.0f);
 	sprites[6].first.setPosition(sprites[5].first.getPosition().x, windowDesmentions.second / 2.0f + 50);
+	//exit confermation
+	sprites[0].first.setPosition(sprites[4].first.getPosition().x - sprites[4].first.getLocalBounds().width / 2, sprites[4].first.getPosition().y + 50);
+	sprites[1].first.setPosition(sprites[0].first.getPosition().x, sprites[0].first.getPosition().y + 50);
 }
 
 Menu::~Menu(){
@@ -70,58 +73,165 @@ void Menu::Update() {
 					sprites[i].second = false;
 					if (i < 2)
 					{
-						if (i = 0)
+						if (i == 0)
+						{
 							sprites[1].second = true;
+							break;
+						}
 						else
+						{
 							sprites[0].second = true;
+							break;
+						}
 					}
 					else if (i > 1 && i < 5)
 					{
 						if (i == 2)
+						{
 							sprites[4].second = true;
-						if (i == 3)
+							break;
+						}
+						else if (i == 3)
+						{
 							sprites[2].second = true;
-						if (i == 4)
+							break;
+						}
+						else if (i == 4)
+						{
 							sprites[3].second = true;
+							break;
+						}
 					}
 					else if (i == 5 || i == 6)
 					{
 						if (i == 5)
+						{
 							sprites[6].second = true;
-						if (i == 6)
+							break;
+						}
+						else if (i == 6)
+						{
 							sprites[5].second = true;
+							break;
+						}
 					}
 				}
 			}//end for
 	}//end if FIND_KEY
+
+	if (InputManager::instance()->Released("Down"))
+	{
+		for (int i = 0; i < sprites.size(); i++)
+		{
+			if (sprites[i].second)
+			{
+				sprites[i].second = false;
+				if (i < 2)
+				{
+					if (i == 0)
+					{
+						sprites[1].second = true;
+						break;
+					}
+					else
+					{
+						sprites[0].second = true;
+						break;
+					}
+				}
+				else if (i > 1 && i < 5)
+				{
+					if (i == 2)
+					{
+						sprites[3].second = true;
+						break;
+					}
+					else if (i == 3)
+					{
+						sprites[4].second = true;
+						break;
+					}
+					else if (i == 4)
+					{
+						sprites[2].second = true;
+						break;
+					}
+				}
+				else if (i == 5 || i == 6)
+				{
+					if (i == 5)
+					{
+						sprites[6].second = true;
+						break;
+					}
+					else if (i == 6)
+					{
+						sprites[5].second = true;
+						break;
+					}
+				}
+			}
+		}//end for
+	}//end if FIND_KEY
+
 	if (InputManager::instance()->Released("Right"))
 	{
 		for (int i = 0; i < sprites.size(); i++)
 		{
 			if (sprites[i].second)
 			{
-				if (i == 2)
+				if (i == 0)
+				{
+					Exit = true;
+					break;
+				}
+				else if (i == 1)
+				{
+					showExitConfermation = false;
+					sprites[i].second = false;
+					sprites[2].second = true;
+					break;
+				}
+				else if (i == 2)
+				{
 					gameOn = true;
+					break;
+				}
 				else if (i == 3)
 				{
 					showSettings = true;
 					sprites[i].second = false;
 					sprites[5].second = true;
+					break;
 				}
 				else if (i == 4)
 				{
-					Exit = true;
-					//sprites[0].second = true;
+					//Exit = true;
+					showExitConfermation = true;
+					sprites[0].second = true;
+					sprites[4].second = false;
+					break;
 				}
 				else if (i == 5)
 				{
 					if (preset == PRESETONE)
+					{
 						preset = PRESETTWO;
+						break;
+					}
 					else if (preset == PRESETTWO)
+					{
 						preset = PRESETONE;
+						break;
+					}
 				}
 				else if (i == 6)
+				{
+					showSettings = false;
+					sprites[i].second = false;
 					sprites[2].second = true;
+					break;
+				}
 			}
 		}
 	}
@@ -144,6 +254,12 @@ void Menu::Draw(sf::RenderWindow &w) {
 		w.draw(sprites[i].first);
 	}
 
+	if (showExitConfermation)
+	{
+		w.draw(sprites[0].first);
+		w.draw(sprites[1].first);
+	}
+
 	if (showSettings)
 	{
 		w.draw(sprites[5].first);
@@ -158,6 +274,4 @@ void Menu::Draw(sf::RenderWindow &w) {
 			break;
 		}
 	}
-
-
 }
