@@ -43,8 +43,8 @@ void Player::Draw(sf::RenderWindow &w) {
 	}
 }
 
-void Player::SetPos(sf::RenderWindow &w) {
-
+void Player::SetPos(float x, float y) {
+	posCentre = sf::Vector2f(x, y);
 }
 
 void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
@@ -77,13 +77,13 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 	}
 	else
 	{
-		if (jumpForce.y != 0.0f)
-		{
-			jumpForce = sf::Vector2f(0,jumpForce.y + 0.0001f);
-		}
 		if (jumpForce.y > 0.0f)
 		{
-			jumpForce.y == 0.0f;
+			jumpForce.y = 0.0f;
+		}
+		if (jumpForce.y < 0.0f)
+		{
+			jumpForce = sf::Vector2f(0, jumpForce.y + 0.0001f);
 		}
 	}
 

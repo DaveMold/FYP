@@ -2,13 +2,13 @@
 #include "InputManager.h"
 
 Level::Level(sf::RenderWindow &w) {
-	player = new Player(25,4, sf::Vector2f(200,100));
-	//swapPoints.push_back(new SwapPoint(25, sf::Vector2f(550, 170)));
+	player = new Player(25,4, sf::Vector2f(180,100));
+	swapPoints.push_back(new SwapPoint(25, sf::Vector2f(600, 250)));
 	platforms.push_back(new Platform(354, 54, 4, sf::Vector2f(125,400)));
-	platforms.push_back(new Platform(254, 54, 4, sf::Vector2f(400, 175)));
-	endGameGoal = new EndGameGoal(15, sf::Vector2f(550, 160), "SQUARE");
-	platforms.push_back(new Platform(108, 54, 4, sf::Vector2f(350, 280)));
-	platforms.push_back(new Platform(108, 54, 4, sf::Vector2f(225, 320)));
+	platforms.push_back(new Platform(254, 54, 4, sf::Vector2f(400, 300)));
+	endGameGoal = new EndGameGoal(15, sf::Vector2f(550, 160), "CIRCLE");
+	//platforms.push_back(new Platform(108, 54, 4, sf::Vector2f(325, 240)));
+	//platforms.push_back(new Platform(108, 54, 4, sf::Vector2f(200, 320)));
 	/*platforms.push_back(new Platform(54, 4, sf::Vector2f(450, 300)));
 	platforms.push_back(new Platform(54, 4, sf::Vector2f(525, 300)));
 	platforms.push_back(new Platform(54, 4, sf::Vector2f(600, 300)));
@@ -29,8 +29,6 @@ Level::~Level() {
 }
 
 bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
-	//std::cout << "State : **********************" << std::endl;
-
 	//look for the C Key in vector of keys pressed
 	if (InputManager::instance()->Pressed("End"))
 	{
@@ -66,7 +64,10 @@ bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
 			player->ChangeActiveShape();
 	}
 	if (endGameGoal->collision(player->GetPos(), player->GetRadius(), player->getShape()))
+	{
+		player->SetPos(180, 100);
 		return true;
+	}
 	return false;
 }
 

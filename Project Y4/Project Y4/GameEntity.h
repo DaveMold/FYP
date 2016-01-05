@@ -34,8 +34,9 @@ public:
 	sf::Vector2f ProjectOnToAxis(sf::Vector2f axis) const;
 	std::pair<bool, double> checkOverlap(const sf::Vector2f &A, const sf::Vector2f &B);
 	sf::Vector2f GetDirection();
-	std::vector<sf::Vector2<float>> GetAxis();
+	std::vector<sf::Vector2f> GetAxis();
 	void GetAxis(std::vector<sf::Vector2f> normalsList);
+	std::vector<sf::Vector2f> ReverseVector(std::vector<sf::Vector2f> v);
 
 	//vector methods
 	float vectorDotProduct(const sf::Vector2f &A, const sf::Vector2f &B) const;

@@ -124,26 +124,29 @@ std::pair<bool, sf::Vector2f>  GameEntity::Collision(sf::RenderWindow &w, GameEn
 	std::vector<sf::Vector2f> axisListShape1;
 	std::vector<sf::Vector2f> axisListShape2;
 	sf::Vector2f smallest;
-	axisListShape1 = GetAxis();
-	shape2->GetAxis(axisListShape1);
+	//axisListShape1 = GetAxis();
+	//shape2->GetAxis(axisListShape1);
 	sf::Vector2f projectionV1, projectionV2;
 	float min, max, tempS1, tempS2;
 
 
-	/*if (this->shape.getPosition().x > shape2->shape.getPosition().x + 5)
+	if (shape2->shape.getPosition().x + shape2->width/2.0f > this->shape.getPosition().x)
 	{
+		//Left
 		axisListShape1 = GetAxis();
 		shape2->GetAxis(axisListShape1);
 	}
-	else if (this->shape.getPosition().x > shape2->shape.getPosition().x + 5)
+	else
 	{
-		GetAxis(axisListShape1);
+		//right
+		axisListShape1 = GetAxis();
 		shape2->GetAxis(axisListShape1);
-	}*/
+		axisListShape1 = ReverseVector(axisListShape1);
+	}
 
 	//Project shapes onto axis
 	//iterates through axisListShape1
-	for (std::vector<sf::Vector2<float>>::iterator itr = axisListShape1.begin(); itr != axisListShape1.end(); itr++) {
+	for (std::vector<sf::Vector2f>::iterator itr = axisListShape1.begin(); itr != axisListShape1.end(); itr++) {
 
 		sf::Vector2f axis = *itr;
 
@@ -159,9 +162,9 @@ std::pair<bool, sf::Vector2f>  GameEntity::Collision(sf::RenderWindow &w, GameEn
 				overLap = result.second;
 				smallest = axis;
 
-				/*sf::Vector2f d = posCentre - shape2->posCentre;
+				sf::Vector2f d = posCentre - shape2->posCentre;
 				if (vectorDotProduct(d, smallest) < 0)
-					smallest = -smallest;*/
+					smallest = -smallest;
 			}
 		}
 		else {
@@ -238,7 +241,7 @@ sf::Vector2f GameEntity::GetDirection() {
 	return direction;
 }
 
-std::vector<sf::Vector2<float>> GameEntity::GetAxis() {
+std::vector<sf::Vector2f> GameEntity::GetAxis() {
 	std::vector<sf::Vector2f> normalsList;
 	sf::Vector2f normal;
 	for (int PointOne = 0, PointTwo = 1; PointTwo < this->points.size(); PointOne++, PointTwo++) {
@@ -276,4 +279,12 @@ sf::Vector2f GameEntity::vectorNormalize(const sf::Vector2f &V) {
 	float magnitude = sqrt((V.x * V.x) + (V.y * V.y));
 
 	return V / magnitude;
+}
+
+std::vector<sf::Vector2f> GameEntity::ReverseVector(std::vector<sf::Vector2f> v) {
+	std::vector<sf::Vector2f> vector;
+	for (std::vector<sf::Vector2f>::reverse_iterator rev_itr = v.rbegin(); rev_itr != v.rend(); rev_itr++) {
+		vector.push_back(*rev_itr);
+	}
+	return vector;
 }
