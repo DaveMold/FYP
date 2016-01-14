@@ -4,7 +4,7 @@
 Player::Player(float size, float sides, sf::Vector2f pos)
 	:GameEntity(size,sides,pos){
 
-	activeShape = SQUARE;
+	activeShape = CIRCLE;
 
 	speed = 0;
 	acceleration = 0.015;
@@ -47,6 +47,28 @@ void Player::SetPos(float x, float y) {
 	posCentre = sf::Vector2f(x, y);
 }
 
+void Player::ApplyJumpPlatformForce() {
+	switch (activeShape)
+	{
+	case SQUARE:
+		jumpForce = sf::Vector2f(0, -0.3f);
+		break;
+	case CIRCLE:
+		if (InputManager::instance()->Released("Left") || InputManager::instance()->Held("Left"))
+		{
+			jumpForce = sf::Vector2f(-0.1f, -0.2702f);
+		}
+		else
+		{
+			jumpForce = sf::Vector2f(0.1f, -0.2702f);
+		}
+		break;
+	default:
+		std::cout << "Player :: ApplyJumpPlatform Defualt." << std::endl;
+		break;
+	}
+}
+
 void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 	speed = 0;
 
@@ -64,27 +86,44 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 		//direction.y = direction.y * (1);
 	}
 
-	if (InputManager::instance()->Pressed("Up"))
+	/*If the player is in contact with another object there will be a collsision force,
+	so if the collsionion force is greater than 0, it must be colliding with somthing.*/
+	float collisionForceMagnatude = sqrt(pow(collisionForce.x, 2) + pow(collisionForce.y, 2));
+	if (InputManager::instance()->Pressed("Up") && collisionForceMagnatude != 0)
 	{
 		switch (activeShape)
 		{
 		case CIRCLE:
-			jumpForce = sf::Vector2f(0, -0.2502f);
+			jumpForce = sf::Vector2f(jumpForce.x, -0.2502f);
 			break;
 		case SQUARE:
-			jumpForce = sf::Vector2f(0, -0.2702f);
+			jumpForce = sf::Vector2f(jumpForce.x, -0.2702f);
 		}
 	}
 	else
 	{
+		//y-axis reset
 		if (jumpForce.y > 0.0f)
 		{
 			jumpForce.y = 0.0f;
 		}
 		if (jumpForce.y < 0.0f)
 		{
-			jumpForce = sf::Vector2f(0, jumpForce.y + 0.0001f);
+			jumpForce = sf::Vector2f(jumpForce.x, jumpForce.y + 0.0001f);
 		}
+		//x-axis reset
+		if (jumpForce.x > 0.0f)
+		{
+			jumpForce = sf::Vector2f(jumpForce.x - 0.0001f, jumpForce.y);
+		}
+		if (jumpForce.x < 0.0f)
+		{
+			jumpForce = sf::Vector2f(jumpForce.x + 0.0001f, jumpForce.y);
+		}
+		/*if(
+		{
+			jumpForce = sf::Vector2f(0, 0);
+		}*/
 	}
 
 	if (InputManager::instance()->Pressed("Home"))

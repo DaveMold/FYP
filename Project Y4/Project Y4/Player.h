@@ -18,6 +18,7 @@ public:
 	~Player();
 	void Draw(sf::RenderWindow &w);
 	void SetPos(float x, float y);
+	void ApplyJumpPlatformForce();
 	void Update(sf::Vector2f g, sf::Vector2f collisionForce);
 	sf::Vector2f Vec2Multiply(sf::Vector2f v1, sf::Vector2f v2);
 	void ChangeActiveShape();

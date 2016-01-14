@@ -3,6 +3,7 @@
 
 #include "Player.h"
 #include "Platform.h"
+#include "JumpPlatform.h"
 #include "SwapPoint.h"
 #include "EndGameGoal.h"
 
@@ -12,6 +13,7 @@ private:
 	enum Shape { CIRCLE, SQUARE };
 	std::vector<SwapPoint*> swapPoints;
 	std::vector<Platform*> platforms;
+	std::vector<JumpPlatform*> jumpPlatforms;
 	EndGameGoal* endGameGoal;
 public:
 	Level(sf::RenderWindow &w);

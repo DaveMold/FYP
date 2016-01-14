@@ -29,7 +29,15 @@
 
 int main()
 {
+	std::cout << "Menu Controls \n Up/Down : Arrow Keys Up/Down. \n Sellect : Right Arrow Key" << std::endl;
+	std::cout << "Game Controls \n Jump : Up Arrow Key. \n Movement : Right/Left Arrow Keys." << std::endl;
+	std::cout << "GameOver Controls \n Back To Menu : Home Key." << std::endl;
 	// Create the main window
+	sf::Texture GameOverTexture;
+	sf::Sprite GameOverSprite;
+	GameOverTexture.loadFromFile("Assets/Menu/GameOverScene.png");
+	GameOverSprite.setTexture(GameOverTexture);
+	GameOverSprite.setPosition(sf::Vector2f(0, 0));
 	enum States { GAME, MENU, GAMEOVER };
 	States GameState = MENU;
 	std::pair<float,float> windowDimentions;
@@ -39,7 +47,8 @@ int main()
 	Menu menu(windowDimentions);
 	sf::Clock clock = sf::Clock();
 	sf::Time elapsedTime;
-	Level level = Level(window);
+	std::vector<Level*> levels;
+	levels.push_back(new Level(window));
 	sf::Vector2f gravity = sf::Vector2f(0, 0.0981);// 0.0981);
 	InputManager* inputMgr = InputManager::instance();
 
@@ -55,7 +64,9 @@ int main()
 			switch (Event.type) {
 				// Close window : exit
 			case sf::Event::Closed:
-				level.~Level();
+				for (std::vector<Level*>::iterator itr = levels.begin(); itr != levels.end(); itr++) {
+					(*itr)->~Level();
+				}
 				menu.~Menu();
 				window.close();
 				break;
@@ -76,20 +87,24 @@ int main()
 		switch (GameState)
 		{
 		case GAME:
-			if (level.Update(gravity, window))
-			{
-				menu.gameOn = false;
-				GameState = MENU;
-				break;
+			for (std::vector<Level*>::iterator itr = levels.begin(); itr != levels.end(); itr++) {
+				if ((*itr)->Update(gravity, window))
+				{
+					menu.gameOn = false;
+					GameState = GAMEOVER;
+					break;
+				}
 			}
 				//std::cout << "Game Over" << std::endl;
 			break;
 		case GAMEOVER:
-			std::cout << "State : GAMEOVER." << std::endl;
+			if (inputMgr->Pressed("Home"))
+				GameState = MENU;
+			//std::cout << "State : GAMEOVER." << std::endl;
 			break;
 		case MENU:
 			menu.Update();
-			std::cout << "State : MENU." << std::endl;
+			//std::cout << "State : MENU." << std::endl;
 			break;
 		}
 		
@@ -99,14 +114,17 @@ int main()
 		switch (GameState)
 		{
 		case GAME:
-			level.Draw(window);
+			for (std::vector<Level*>::iterator itr = levels.begin(); itr != levels.end(); itr++) {
+				(*itr)->Draw(window);
+			}
 			break;
 		case GAMEOVER:
-			std::cout << "State : GAMEOVER." << std::endl;
+			window.draw(GameOverSprite);
+			//std::cout << "State : GAMEOVER." << std::endl;
 			break;
 		case MENU:
 			menu.Draw(window);
-			std::cout << "State : MENU." << std::endl;
+			//std::cout << "State : MENU." << std::endl;
 			break;
 		}
 
