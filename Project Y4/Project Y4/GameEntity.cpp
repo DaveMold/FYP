@@ -51,6 +51,38 @@ GameEntity::GameEntity(float size, float sides, sf::Vector2f pos):shape(sides) {
 	shape.setFillColor(sf::Color::Black);
 }
 
+GameEntity::GameEntity(float Width, float Height, float sides, sf::Vector2f pos) :shape(sides) {
+	rotateSpeed = 0;
+	numSides = sides;
+	DegreToRad = 3.14 / 180;
+	rotateSpeed = 0;
+	posCentre = pos;
+	points.reserve(numSides + 1);
+	width = Width;
+	height = Height;
+
+	//set points for a retangle or square.
+	/*points.push_back(sf::Vector2f(posCentre.x - (Width / 2), posCentre.y - (Height / 2)));
+	points.push_back(sf::Vector2f(posCentre.x + (Width / 2), posCentre.y - (Height / 2)));
+	points.push_back(sf::Vector2f(posCentre.x - (Width / 2), posCentre.y + (Height / 2)));
+	points.push_back(sf::Vector2f(posCentre.x + (Width / 2), posCentre.y + (Height / 2)));*/
+
+	points.push_back(sf::Vector2f(0, 0));
+	points.push_back(sf::Vector2f(width,0));
+	points.push_back(sf::Vector2f(width, height));
+	points.push_back(sf::Vector2f(0,height));
+
+	for (int i = 0; i < numSides; i++) {
+		shape.setPoint(i, points[i]);
+	}
+
+	/*direction.x = (rand() % 10 - 5) / 60.0;
+	direction.y = (rand() % 10 - 5) / 60.0;*/
+	shape.setOutlineThickness(-4);
+	shape.setOutlineColor(sf::Color::Green);
+	shape.setFillColor(sf::Color::Black);
+}
+
 void GameEntity::Draw(sf::RenderWindow &w) {
 	w.draw(shape);
 }
@@ -73,7 +105,18 @@ void GameEntity::Update() {
 }
 
 void GameEntity::SetColor(sf::Color color) {
-	shape.setOutlineColor(color);
+	if (shape.getOutlineColor() != color)
+		shape.setOutlineColor(color);
+	else
+		shape.setOutlineColor(sf::Color::White);
+}
+
+sf::Vector2f GameEntity::GetPos() {
+	return posCentre;
+}
+
+float GameEntity::GetRadius() {
+	return radius;
 }
 
 std::pair<bool, sf::Vector2f>  GameEntity::Collision(sf::RenderWindow &w, GameEntity* shape2) {
@@ -86,6 +129,17 @@ std::pair<bool, sf::Vector2f>  GameEntity::Collision(sf::RenderWindow &w, GameEn
 	sf::Vector2f projectionV1, projectionV2;
 	float min, max, tempS1, tempS2;
 
+
+	/*if (this->shape.getPosition().x > shape2->shape.getPosition().x)
+	{
+		axisListShape1 = GetAxis();
+		shape2->GetAxis(axisListShape1);
+	}
+	else if (this->shape.getPosition().x > shape2->shape.getPosition().x + 5)
+	{
+		GetAxis(axisListShape1);
+		shape2->GetAxis(axisListShape1);
+	}*/
 
 	//Project shapes onto axis
 	//iterates through axisListShape1

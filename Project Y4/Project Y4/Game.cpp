@@ -25,15 +25,22 @@
 //Entities include
 #include "Level.h"
 #include "InputManager.h"
+#include "Menu.h"
 
 int main()
 {
 	// Create the main window
-	sf::RenderWindow window(sf::VideoMode(800, 600, 32), "Project Y4");
+	enum States { GAME, MENU, GAMEOVER };
+	States GameState = MENU;
+	std::pair<float,float> windowDimentions;
+	windowDimentions.first = 800;
+	windowDimentions.second = 600;
+	sf::RenderWindow window(sf::VideoMode(windowDimentions.first, windowDimentions.second, 32), "Project Y4");
+	Menu menu(windowDimentions);
 	sf::Clock clock = sf::Clock();
 	sf::Time elapsedTime;
 	Level level = Level(window);
-	sf::Vector2f gravity = sf::Vector2f(0, 0.00981);// 0.0981);
+	sf::Vector2f gravity = sf::Vector2f(0, 0.0981);// 0.0981);
 	InputManager* inputMgr = InputManager::instance();
 
 	// Start game loop
@@ -48,6 +55,8 @@ int main()
 			switch (Event.type) {
 				// Close window : exit
 			case sf::Event::Closed:
+				level.~Level();
+				menu.~Menu();
 				window.close();
 				break;
 			default:
@@ -56,12 +65,50 @@ int main()
 		}//end while
 
 		//Update
-		level.Update(gravity, window);
 		inputMgr->UpdatePressedKeys(Event);
+		if (menu.Exit)
+		{
+			window.close();
+		}
+		if (menu.gameOn)
+			GameState = GAME;
+
+		switch (GameState)
+		{
+		case GAME:
+			if (level.Update(gravity, window))
+			{
+				menu.gameOn = false;
+				GameState = MENU;
+				break;
+			}
+				//std::cout << "Game Over" << std::endl;
+			break;
+		case GAMEOVER:
+			std::cout << "State : GAMEOVER." << std::endl;
+			break;
+		case MENU:
+			menu.Update();
+			std::cout << "State : MENU." << std::endl;
+			break;
+		}
+		
 		//prepare frame
 		window.clear();
 
-		level.Draw(window);
+		switch (GameState)
+		{
+		case GAME:
+			level.Draw(window);
+			break;
+		case GAMEOVER:
+			std::cout << "State : GAMEOVER." << std::endl;
+			break;
+		case MENU:
+			menu.Draw(window);
+			std::cout << "State : MENU." << std::endl;
+			break;
+		}
 
 		// Finally, display rendered frame on screen
 		window.display();
