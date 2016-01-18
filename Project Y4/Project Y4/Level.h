@@ -18,6 +18,5 @@ public:
 	~Level();
 	bool Update(sf::Vector2f g, sf::RenderWindow &w);
 	void Draw(sf::RenderWindow &w);
-
 };
 #endif

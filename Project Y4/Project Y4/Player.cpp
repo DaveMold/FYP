@@ -25,10 +25,8 @@ Player::Player(float size, float sides, sf::Vector2f pos)
 
 Player::~Player() {
 
-}
 
 void Player::Draw(sf::RenderWindow &w) {
-	
 	switch (activeShape)
 	{
 	case SQUARE:

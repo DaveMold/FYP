@@ -22,6 +22,14 @@
 *.a
 *.lib
 
+# Visual C++ cache files
+ipch/
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.cachefile
+
 # Executables
 *.exe
 *.out
