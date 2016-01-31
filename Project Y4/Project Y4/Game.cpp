@@ -51,6 +51,7 @@ int main()
 	levels.push_back(new Level(window));
 	sf::Vector2f gravity = sf::Vector2f(0, 0.0981);// 0.0981);
 	InputManager* inputMgr = InputManager::instance();
+	levels[0]->LoadLevel("LevelOneMap");
 
 	// Start game loop
 	while (window.isOpen()) {

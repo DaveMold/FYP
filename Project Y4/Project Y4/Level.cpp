@@ -1,7 +1,7 @@
 #include "Level.h"
 #include "InputManager.h"
 
-Level::Level(sf::RenderWindow &w) {
+Level::Level(sf::RenderWindow &w): tileSize(25){
 	player = new Player(25,4, sf::Vector2f(180,100));
 	swapPoints.push_back(new SwapPoint(25, sf::Vector2f(600, 350)));
 	platforms.push_back(new Platform(454, 54, 4, sf::Vector2f(125,400)));
@@ -14,6 +14,44 @@ Level::Level(sf::RenderWindow &w) {
 	platforms.push_back(new Platform(54, 4, sf::Vector2f(525, 300)));
 	platforms.push_back(new Platform(54, 4, sf::Vector2f(600, 300)));
 	platforms.push_back(new Platform(50, 3, sf::Vector2f(375, 225)));*/
+}
+
+void Level::LoadLevel(std::string fn) {
+	//LevelMap file
+	std::ifstream mapFile("Assets/Levels/" + fn + ".swg");
+	std::vector<char> MapVals;//stores the maps values from file.
+
+	if (mapFile.is_open())
+	{
+		while (!mapFile.eof())
+		{
+			//walk through file and grab each tile
+			std::string str, value;
+			std::getline(mapFile, str);
+			std::stringstream stream(str);
+
+			while (std::getline(stream, value, ' '))
+			{
+				if (value.length() > 0)
+				{
+					MapVals.push_back(value[0]);
+				}
+			}
+			if (!MapVals.empty())
+			{
+				//update the map width
+				width = MapVals.size() > width ? MapVals.size() : width;
+
+				//Push back tiles
+				m_map.push_back(MapVals);
+				MapVals.clear();
+
+
+			}
+			//once we've finished loading, update the height
+			height = m_map.size();
+		}
+	}
 }
 
 Level::~Level() {
