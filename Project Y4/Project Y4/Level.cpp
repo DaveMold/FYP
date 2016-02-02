@@ -6,6 +6,14 @@ Level::Level(sf::RenderWindow &w): tileSize(25){
 	swapPoints.push_back(new SwapPoint(25, sf::Vector2f(600, 350)));
 	platforms.push_back(new Platform(454, 54, 4, sf::Vector2f(125,400)));
 	platforms.push_back(new Platform(254, 54, 4, sf::Vector2f(400, 175)));
+
+	platforms.push_back(new Platform(25, 25, 4, sf::Vector2f(305, 450)));
+	platforms.push_back(new Platform(25, 25, 4, sf::Vector2f(250, 85)));
+	platforms.push_back(new Platform(25, 25, 4, sf::Vector2f(10, 10)));
+	platforms.push_back(new Platform(25, 25, 4, sf::Vector2f(20, 0)));
+	platforms.push_back(new Platform(25, 25, 4, sf::Vector2f(60, 680)));
+	platforms.push_back(new Platform(25, 25, 4, sf::Vector2f(305, 200)));
+
 	jumpPlatforms.push_back(new JumpPlatform(54, 24.5, 4, sf::Vector2f(315, 335)));
 	endGameGoal = new EndGameGoal(15, sf::Vector2f(550, 160), "SQUARE");
 	//platforms.push_back(new Platform(108, 54, 4, sf::Vector2f(325, 240)));
