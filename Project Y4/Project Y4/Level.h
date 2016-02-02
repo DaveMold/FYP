@@ -21,10 +21,13 @@ private:
 	std::vector<Platform*> platforms;
 	std::vector<JumpPlatform*> jumpPlatforms;
 	EndGameGoal* endGameGoal;
+	char platChar, playerChar, endLChar, swapChar;
+	
 public:
 	Level(sf::RenderWindow &w);
 	~Level();
 	void LoadLevel(std::string fn);
+	void MapToLevel();
 	bool Update(sf::Vector2f g, sf::RenderWindow &w);
 	void Draw(sf::RenderWindow &w);
 
