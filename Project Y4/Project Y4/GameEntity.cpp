@@ -119,6 +119,10 @@ float GameEntity::GetRadius() {
 	return radius;
 }
 
+sf::ConvexShape GameEntity::getShape() {
+	return shape;
+}
+
 std::pair<bool, sf::Vector2f>  GameEntity::Collision(sf::RenderWindow &w, GameEntity* shape2) {
 	float overLap = FLT_MAX;
 	std::vector<sf::Vector2f> axisListShape1;

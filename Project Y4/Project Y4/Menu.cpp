@@ -1,7 +1,7 @@
 #include "Menu.h"
 #include "InputManager.h"
 
-Menu::Menu(std::pair<float, float> windowDesmentions): showSettings(false), preset(PRESETONE), gameOn(false), Exit(false), showExitConfermation(false), ShowLevelsSelect(false){
+Menu::Menu(std::pair<float, float> windowDesmentions) : currentLevel(0), showSettings(false), preset(PRESETONE), gameOn(false), Exit(false), showExitConfermation(false), ShowLevelsSelect(false) {
 	textures.reserve(12);
 	for (int i = 0; i < textures.capacity(); i++)
 	{
@@ -284,6 +284,7 @@ void Menu::Update() {
 				}
 				else if (i == 10)
 				{
+					currentLevel = 0;
 					ShowLevelsSelect = false;
 					sprites[i].second = false;
 					sprites[9].second = true;
@@ -291,6 +292,7 @@ void Menu::Update() {
 				}
 				else if (i == 11)
 				{
+					currentLevel = 1;
 					ShowLevelsSelect = false;
 					sprites[i].second = false;
 					sprites[9].second = true;

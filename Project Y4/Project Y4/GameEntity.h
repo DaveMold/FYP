@@ -28,6 +28,7 @@ public:
 	void SetColor(sf::Color color);
 	sf::Vector2f GetPos();
 	float GetRadius();
+	sf::ConvexShape getShape();
 
 	//SAT methods
 	virtual std::pair<bool, sf::Vector2f> Collision(sf::RenderWindow &w, GameEntity* shape2);

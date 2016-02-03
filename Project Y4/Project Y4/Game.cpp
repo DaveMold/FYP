@@ -47,11 +47,19 @@ int main()
 	Menu menu(windowDimentions);
 	sf::Clock clock = sf::Clock();
 	sf::Time elapsedTime;
-	std::vector<Level*> levels;
-	levels.push_back(new Level(window));
+	//Gravity
 	sf::Vector2f gravity = sf::Vector2f(0, 0.0981);// 0.0981);
+	//InputManager
 	InputManager* inputMgr = InputManager::instance();
-	levels[0]->LoadLevel("LevelOneMap");
+	//Levels
+	int levelCount = 2;
+	int currentLevel = 0;
+	std::vector<Level*> levels;
+	for (int i = 0; i < levelCount; i++)
+	{
+		levels.push_back(new Level(window));
+	}
+	
 
 	// Start game loop
 	while (window.isOpen()) {
@@ -83,18 +91,21 @@ int main()
 			window.close();
 		}
 		if (menu.gameOn)
+		{
+			currentLevel = menu.currentLevel;
+			levels[currentLevel]->LoadLevel(currentLevel);
+			levels[currentLevel]->MapToLevel();
 			GameState = GAME;
+		}
 
 		switch (GameState)
 		{
 		case GAME:
-			for (std::vector<Level*>::iterator itr = levels.begin(); itr != levels.end(); itr++) {
-				if ((*itr)->Update(gravity, window))
-				{
-					menu.gameOn = false;
-					GameState = GAMEOVER;
-					break;
-				}
+			if (levels[currentLevel]->Update(gravity, window))
+			{
+				menu.gameOn = false;
+				GameState = GAMEOVER;
+				break;
 			}
 				//std::cout << "Game Over" << std::endl;
 			break;
@@ -111,13 +122,12 @@ int main()
 		
 		//prepare frame
 		window.clear();
-
+		
 		switch (GameState)
 		{
 		case GAME:
-			for (std::vector<Level*>::iterator itr = levels.begin(); itr != levels.end(); itr++) {
-				(*itr)->Draw(window);
-			}
+
+			levels[currentLevel]->Draw(window);
 			break;
 		case GAMEOVER:
 			window.draw(GameOverSprite);
