@@ -68,6 +68,7 @@ void Player::SetPos(float x, float y) {
 }
 
 void Player::ApplyJumpPlatformForce() {
+	AudioManager::instance()->PlayTrack("JumpPannel");
 	switch (activeShape)
 	{
 	case SQUARE:
@@ -119,6 +120,7 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 	float collisionForceMagnatude = sqrt(pow(collisionForce.x, 2) + pow(collisionForce.y, 2));
 	if (InputManager::instance()->Pressed("Up") && collisionForceMagnatude != 0)
 	{
+		AudioManager::instance()->PlayTrack("Jump");
 		switch (activeShape)
 		{
 		case CIRCLE:

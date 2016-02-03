@@ -1,5 +1,5 @@
 #include "Menu.h"
-#include "InputManager.h"
+
 
 Menu::Menu(std::pair<float, float> windowDesmentions) : currentLevel(0), showSettings(false), preset(PRESETONE), gameOn(false), Exit(false), showExitConfermation(false), ShowLevelsSelect(false) {
 	textures.reserve(12);
@@ -73,6 +73,7 @@ void Menu::Update() {
 
 	if (InputManager::instance()->Released("Up"))
 	{
+		AudioManager::instance()->PlayTrack("menuBoop");
 			for (int i = 0; i < sprites.size(); i++)
 			{
 				if (sprites[i].second)
@@ -146,6 +147,7 @@ void Menu::Update() {
 
 	if (InputManager::instance()->Released("Down"))
 	{
+		AudioManager::instance()->PlayTrack("menuBoop");
 		for (int i = 0; i < sprites.size(); i++)
 		{
 			if (sprites[i].second)
@@ -219,6 +221,7 @@ void Menu::Update() {
 
 	if (InputManager::instance()->Released("Right"))
 	{
+		AudioManager::instance()->PlayTrack("Select");
 		for (int i = 0; i < sprites.size(); i++)
 		{
 			if (sprites[i].second)

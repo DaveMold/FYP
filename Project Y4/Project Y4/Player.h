@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "GameEntity.h"
+#include "AudioManager.h"
 
 
 class Player : public GameEntity {

@@ -6,6 +6,7 @@
 #include "JumpPlatform.h"
 #include "SwapPoint.h"
 #include "EndGameGoal.h"
+#include "AudioManager.h"
 #include <string>
 #include <iostream>
 #include <fstream>

@@ -51,6 +51,9 @@ int main()
 	sf::Vector2f gravity = sf::Vector2f(0, 0.0981);// 0.0981);
 	//InputManager
 	InputManager* inputMgr = InputManager::instance();
+	//AudioManager
+	AudioManager* audioMgr = AudioManager::instance();
+	audioMgr->loadAudio();
 	//Levels
 	int levelCount = 3;
 	int currentLevel = 0;
@@ -134,10 +137,12 @@ int main()
 			levels[currentLevel]->Draw(window);
 			break;
 		case GAMEOVER:
+			window.setView(levels[currentLevel]->getFollowCamView());
 			window.draw(GameOverSprite);
 			//std::cout << "State : GAMEOVER." << std::endl;
 			break;
 		case MENU:
+			window.setView(levels[currentLevel]->getFollowCamView());
 			menu.Draw(window);
 			//std::cout << "State : MENU." << std::endl;
 			break;

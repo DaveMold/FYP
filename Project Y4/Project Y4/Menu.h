@@ -6,6 +6,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
 #include <iostream>
+#include "InputManager.h"
+#include "AudioManager.h"
 
 class Menu {
 private:

@@ -190,6 +190,7 @@ bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
 	//endGameGoal
 	if (endGameGoal->collision(player))
 	{
+		AudioManager::instance()->PlayTrack("EndLevel");
 		return true;
 	}
 	return false;
@@ -202,6 +203,7 @@ void Level::SwapPointUpdate() {
 	{
 		if ((*itr)->collision(player))
 		{
+			AudioManager::instance()->PlayTrack("SwapPoint");
 			remove = true;
 			removeItr = itr;
 			player->ChangeActiveShape();
