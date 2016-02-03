@@ -137,12 +137,12 @@ int main()
 			levels[currentLevel]->Draw(window);
 			break;
 		case GAMEOVER:
-			window.setView(levels[currentLevel]->getFollowCamView());
+			window.setView(window.getDefaultView());
 			window.draw(GameOverSprite);
 			//std::cout << "State : GAMEOVER." << std::endl;
 			break;
 		case MENU:
-			window.setView(levels[currentLevel]->getFollowCamView());
+			window.setView(window.getDefaultView());
 			menu.Draw(window);
 			//std::cout << "State : MENU." << std::endl;
 			break;
