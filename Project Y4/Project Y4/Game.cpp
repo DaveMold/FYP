@@ -52,7 +52,7 @@ int main()
 	//InputManager
 	InputManager* inputMgr = InputManager::instance();
 	//Levels
-	int levelCount = 2;
+	int levelCount = 3;
 	int currentLevel = 0;
 	std::vector<Level*> levels;
 	for (int i = 0; i < levelCount; i++)
@@ -90,13 +90,7 @@ int main()
 		{
 			window.close();
 		}
-		if (menu.gameOn)
-		{
-			currentLevel = menu.currentLevel;
-			levels[currentLevel]->LoadLevel(currentLevel);
-			levels[currentLevel]->MapToLevel();
-			GameState = GAME;
-		}
+		
 
 		switch (GameState)
 		{
@@ -111,10 +105,20 @@ int main()
 			break;
 		case GAMEOVER:
 			if (inputMgr->Pressed("Home"))
+			{
 				GameState = MENU;
+				menu.gameOn = false;
+			}
 			//std::cout << "State : GAMEOVER." << std::endl;
 			break;
 		case MENU:
+			if (menu.gameOn)
+			{
+				currentLevel = menu.currentLevel;
+				levels[currentLevel]->LoadLevel(currentLevel);
+				levels[currentLevel]->MapToLevel();
+				GameState = GAME;
+			}
 			menu.Update();
 			//std::cout << "State : MENU." << std::endl;
 			break;
@@ -126,7 +130,7 @@ int main()
 		switch (GameState)
 		{
 		case GAME:
-
+			window.setView(levels[currentLevel]->getFollowCamView());
 			levels[currentLevel]->Draw(window);
 			break;
 		case GAMEOVER:

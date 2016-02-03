@@ -21,7 +21,7 @@ private:
 	std::vector<Platform*> platforms;
 	std::vector<JumpPlatform*> jumpPlatforms;
 	EndGameGoal* endGameGoal;
-	char platChar, playerChar, endLChar, swapChar;
+	char platChar, playerChar, endLChar, swapChar, jumpPlatChar;
 	
 public:
 	Level(sf::RenderWindow &w);
@@ -29,6 +29,8 @@ public:
 	void LoadLevel(int fn);
 	void MapToLevel();
 	bool Update(sf::Vector2f g, sf::RenderWindow &w);
+	void SwapPointUpdate();
+	sf::View getFollowCamView();
 	void Draw(sf::RenderWindow &w);
 
 };

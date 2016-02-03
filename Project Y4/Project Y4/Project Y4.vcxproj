@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="EndGameGoal.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameEntity.cpp" />
@@ -135,6 +136,7 @@
     <ClCompile Include="SwapPoint.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="EndGameGoal.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="InputManager.h" />

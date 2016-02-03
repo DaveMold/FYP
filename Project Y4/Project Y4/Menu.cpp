@@ -292,7 +292,7 @@ void Menu::Update() {
 				}
 				else if (i == 11)
 				{
-					currentLevel = 1;
+					currentLevel = 2;
 					ShowLevelsSelect = false;
 					sprites[i].second = false;
 					sprites[9].second = true;

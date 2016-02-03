@@ -1,7 +1,7 @@
 #include "Level.h"
 #include "InputManager.h"
 
-Level::Level(sf::RenderWindow &w): tileSize(25), platChar('1'), playerChar('2'), swapChar('3'), endLChar('4'){
+Level::Level(sf::RenderWindow &w): tileSize(25), platChar('1'), playerChar('2'), swapChar('3'), endLChar('4'), jumpPlatChar('5'){
 	//player = new Player(25,4, sf::Vector2f(180,100));
 
 	//swapPoints.push_back(new SwapPoint(25, sf::Vector2f(600, 350)));
@@ -88,18 +88,25 @@ void Level::MapToLevel() {
 				}
 
 				platforms.push_back(new Platform(tileSize * lenght, tileSize, 4, sf::Vector2f((x * tileSize)-(tileSize * lenght), y* tileSize)));
-				lenght = 0;
+				lenght = 1;
+			}
+			if (temp == jumpPlatChar)
+			{
+				while (x + 1 < m_map.at(y).size() && temp == m_map.at(y).at(x + 1))
+				{
+					lenght++;
+					x++;
+				}
+
+				jumpPlatforms.push_back(new JumpPlatform(tileSize * lenght, tileSize, 4, sf::Vector2f((x * tileSize) - (tileSize * lenght), y* tileSize)));
+				lenght = 1;
 			}
 			if (temp == playerChar)
 			{
-
-
 				player = new Player(tileSize, 4, sf::Vector2f(x+1 * tileSize, y+1* tileSize));
 			}
 			if (temp == swapChar)
 			{
-
-
 				swapPoints.push_back(new SwapPoint(tileSize, sf::Vector2f(x * tileSize, y* tileSize)));
 			}
 			if (temp == endLChar)
@@ -179,23 +186,36 @@ bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
 		}
 	}
 	//swapPoints
-	for (auto itr = swapPoints.begin(); itr != swapPoints.end(); itr++)
-	{
-		if ((*itr)->collision(player->GetPos(), player->GetRadius()))
-			player->ChangeActiveShape();
-	}
+	SwapPointUpdate();
 	//endGameGoal
-	if (endGameGoal->collision(player->GetPos(), player->GetRadius(), player->getShape()))
+	if (endGameGoal->collision(player))
 	{
-		player->SetPos(180, 100);
 		return true;
 	}
 	return false;
 }
 
-void Level::Draw(sf::RenderWindow &w) {
+void Level::SwapPointUpdate() {
+	std::vector<SwapPoint*>::iterator removeItr;
+	bool remove = false;
+	for (auto itr = swapPoints.begin(); itr != swapPoints.end(); itr++)
+	{
+		if ((*itr)->collision(player))
+		{
+			remove = true;
+			removeItr = itr;
+			player->ChangeActiveShape();
+		}
+	}
+	if(remove)
+		swapPoints.erase(removeItr);
+}
 
-	w.setView(player->getView());
+sf::View Level::getFollowCamView() {
+	return player->getView();
+}
+
+void Level::Draw(sf::RenderWindow &w) {
 
 	for (auto itr = platforms.begin(); itr != platforms.end(); itr++)
 	{

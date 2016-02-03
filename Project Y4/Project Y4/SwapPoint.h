@@ -6,6 +6,7 @@
 #include <SFML/OpenGL.hpp>
 #include <vector>
 #include <iostream>
+#include "Player.h"
 
 class SwapPoint {
 private:
@@ -19,7 +20,6 @@ private:
 	float numSides;
 	float width, height;
 	std::vector<sf::Vector2f> points;
-	bool collided;//If the player has collided with the swapPoint and is still overlaping with it.
 public:
 	SwapPoint(float size, sf::Vector2f pos);
 	~SwapPoint();
@@ -27,6 +27,7 @@ public:
 	void Draw(sf::RenderWindow &w);
 	void SetPos(sf::RenderWindow &w);
 	void SetColor(sf::Color color);
-	bool collision(sf::Vector2f pos, float size);
+	void setCollision(bool val);
+	bool collision(Player* p);
 };
 #endif

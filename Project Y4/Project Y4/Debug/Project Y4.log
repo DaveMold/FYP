@@ -1,20 +1,11 @@
-﻿Build started 2/2/2016 8:44:12 PM.
-     1>Project "C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Project Y4\Project Y4.vcxproj" on node 2 (Build target(s)).
+﻿Build started 03/02/2016 17:11:26.
+     1>Project "C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Project Y4\Project Y4.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Level.cpp
-         Level.cpp
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(59): warning C4018: '>': signed/unsigned mismatch
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(78): warning C4018: '<': signed/unsigned mismatch
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(84): warning C4018: '<': signed/unsigned mismatch
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(90): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(97): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(103): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(107): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(116): warning C4018: '<': signed/unsigned mismatch
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(120): warning C4018: '<': signed/unsigned mismatch
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(124): warning C4018: '<': signed/unsigned mismatch
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt AudioManager.cpp
+         AudioManager.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Debug\Project Y41.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.3.2\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Debug\Project Y41.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Debug\Project Y41.lib" /MACHINE:X86 Debug\EndGameGoal.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Debug\Project Y41.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.3.2\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Debug\Project Y41.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Debug\Project Y41.lib" /MACHINE:X86 Debug\AudioManager.obj
+         Debug\EndGameGoal.obj
          Debug\Game.obj
          Debug\GameEntity.obj
          Debug\InputManager.obj
@@ -24,9 +15,9 @@
          Debug\Platform.obj
          Debug\Player.obj
          Debug\SwapPoint.obj
-         Project Y4.vcxproj -> C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Debug\Project Y41.exe
-     1>Done Building Project "C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Project Y4\Project Y4.vcxproj" (Build target(s)).
+         Project Y4.vcxproj -> C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Debug\Project Y41.exe
+     1>Done Building Project "C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Project Y4\Project Y4.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:03.00
+Time Elapsed 00:00:01.96

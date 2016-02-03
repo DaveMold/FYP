@@ -28,8 +28,10 @@ public:
 	sf::Vector2f Vec2Multiply(sf::Vector2f v1, sf::Vector2f v2);
 	void ChangeActiveShape();
 	sf::String getShape();
+	sf::ConvexShape getSquareShape();
+	sf::CircleShape getCircleShape();
 	sf::CircleShape getBoundingShape();
-	bool SquareCircle(sf::ConvexShape* square);
+	bool SquareCircle(sf::Shape* s);
 	float clamp(float value, const float min, const float max);
 };
 #endif

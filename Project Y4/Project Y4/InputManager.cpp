@@ -95,6 +95,10 @@ void InputManager::UpdatePressedKeys(sf::Event e) {
 		{
 			keysPressed.push_back("End");
 		}
+		if (e.key.code == sf::Keyboard::Delete)
+		{
+			keysPressed.push_back("Delete");
+		}
 		if (e.key.code == sf::Keyboard::Home)
 		{
 			keysPressed.push_back("Home");

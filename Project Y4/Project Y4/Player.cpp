@@ -2,14 +2,14 @@
 #include "InputManager.h"
 
 Player::Player(float size, float sides, sf::Vector2f pos)
-	:GameEntity(size,sides,pos), debug(true), boundingOffSet(6){
+	:GameEntity(size,sides,pos), debug(false), boundingOffSet(6){
 
 	//Follow Camra Set-up
 	followPlayer.setCenter(400, 300);
 	followPlayer.setSize(800, 600);
 	followPlayer.setViewport(sf::FloatRect(0, 0, 1, 1));
 
-	activeShape = SQUARE;
+	activeShape = CIRCLE;
 
 	speed = 0;
 	acceleration = 0.018;
@@ -106,6 +106,14 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 		//direction.y = direction.y * (1);
 	}
 
+	if (InputManager::instance()->Pressed("Delete"))
+	{
+		if (debug)
+			debug = false;
+		else
+			debug = true;
+	}
+
 	/*If the player is in contact with another object there will be a collsision force,
 	so if the collsionion force is greater than 0, it must be colliding with somthing.*/
 	float collisionForceMagnatude = sqrt(pow(collisionForce.x, 2) + pow(collisionForce.y, 2));
@@ -155,6 +163,7 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 	sf::Vector2f force = g + collisionForce + jumpForce;
 	posCentre += force + (direction * speed);
 	rotation.rotate(rotateSpeed);
+	followPlayer.setCenter(posCentre.x, followPlayer.getCenter().y);
 	boundingCircle.setPosition(posCentre.x - radius*boundingOffSet, posCentre.y - radius*boundingOffSet);
 
 	switch (activeShape)
@@ -212,31 +221,31 @@ sf::String Player::getShape() {
 	}
 }
 
+sf::ConvexShape Player::getSquareShape() {
+	return shape;
+}
+
+sf::CircleShape Player::getCircleShape() {
+	return shapeCircle;
+}
+
 sf::CircleShape Player::getBoundingShape() {
 	return boundingCircle;
 }
 
-bool Player::SquareCircle(sf::ConvexShape* square) {
-	//bool colide = false;
-	float rectLength = square->getLocalBounds().width;
-	float rectHeight = square->getLocalBounds().height;
-	float circleRadius = boundingCircle.getRadius();
-
-	// Find the closest point to the circle within the rectangle
-	float closestX = clamp(boundingCircle.getPosition().x, square->getPosition().x, square->getPosition().x + rectLength);
-	float closestY = clamp(boundingCircle.getPosition().y, square->getPosition().y, square->getPosition().y + rectHeight);
-
-	// Calculate the distance between the circle's center and this closest point
-	float distanceX = boundingCircle.getPosition().x - closestX;
-	float distanceY = boundingCircle.getPosition().y - closestY;
-
-	//is the distance less than the radius
-	if (circleRadius >= sqrtf(powf((distanceX), 2) + powf(distanceY, 2))) {
-		return true;
-	}
-	else
+bool Player::SquareCircle(sf::Shape* s) {
+	switch (activeShape)
 	{
+	case SQUARE:
+		return shape.getGlobalBounds().intersects(s->getGlobalBounds());
+		break;
+	case CIRCLE:
+		return shapeCircle.getGlobalBounds().intersects(s->getGlobalBounds());
+		break;
+	default:
+		std::cout << "Player :: change Active Shape Default." << std::endl;
 		return false;
+		break;
 	}
 }
 
