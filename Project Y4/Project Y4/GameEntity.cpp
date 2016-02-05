@@ -209,7 +209,7 @@ std::pair<bool, double> GameEntity::checkOverlap(const sf::Vector2f &A, const sf
 sf::Vector2f GameEntity::ProjectOnToAxis(sf::Vector2f axis) const {
 	//normalize the axis
 	float magnitude = sqrt((axis.x * axis.x) + (axis.y * axis.y));
-	axis.x = axis.x / magnitude;
+	//axis.x = axis.x / magnitude;
 	axis /= magnitude;
 
 	sf::Vector2f temp;

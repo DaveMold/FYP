@@ -13,6 +13,7 @@ class Player : public GameEntity {
 	sf::CircleShape shapeCircle, boundingCircle;
 	float speed;
 	float acceleration;
+	sf::Vector2f resetPos;//Used to store the start posistion on this level.
 	sf::Vector2f jumpForce;
 	enum Shape { CIRCLE, SQUARE };
 	Shape activeShape;// will use enum Shape to check which shape is active.

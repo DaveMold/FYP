@@ -103,15 +103,15 @@ void Level::MapToLevel() {
 			}
 			if (temp == playerChar)
 			{
-				player = new Player(tileSize, 4, sf::Vector2f(x+1 * tileSize, y+1* tileSize));
+				player = new Player(tileSize, 4, sf::Vector2f(x * tileSize, y * tileSize));
 			}
 			if (temp == swapChar)
 			{
-				swapPoints.push_back(new SwapPoint(tileSize, sf::Vector2f(x * tileSize, y* tileSize)));
+				swapPoints.push_back(new SwapPoint(tileSize, sf::Vector2f(x * tileSize, y * tileSize)));
 			}
 			if (temp == endLChar)
 			{
-				endGameGoal = new EndGameGoal(15, sf::Vector2f(x * tileSize, y* tileSize), "SQUARE");
+				endGameGoal = new EndGameGoal(15, sf::Vector2f(x * tileSize, y * tileSize), "SQUARE");
 			}
 		}
 	}

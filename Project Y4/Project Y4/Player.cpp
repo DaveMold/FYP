@@ -4,12 +4,15 @@
 Player::Player(float size, float sides, sf::Vector2f pos)
 	:GameEntity(size,sides,pos), debug(false), boundingOffSet(6){
 
+	//Reset Posision.
+	resetPos = pos;
+
 	//Follow Camra Set-up
 	followPlayer.setCenter(400, 300);
 	followPlayer.setSize(800, 600);
 	followPlayer.setViewport(sf::FloatRect(0, 0, 1, 1));
 
-	activeShape = CIRCLE;
+	activeShape = SQUARE;
 
 	speed = 0;
 	acceleration = 0.018;
@@ -29,6 +32,7 @@ Player::Player(float size, float sides, sf::Vector2f pos)
 
 	shape.setOutlineColor(sf::Color::Blue);
 	shape.setFillColor(sf::Color::Black);
+	shape.setPosition(pos.x - radius, pos.y - radius);
 
 	shapeCircle.setOutlineThickness(-4);
 	shapeCircle.setOutlineColor(sf::Color::Blue);
@@ -158,7 +162,7 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 
 	if (InputManager::instance()->Pressed("Home"))
 	{
-		posCentre = sf::Vector2f(100, 100);
+		posCentre = resetPos;
 	}
 
 	//posCentre += (direction * speed) + g + collisionForce;
