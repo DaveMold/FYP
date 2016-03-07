@@ -86,19 +86,37 @@ void EndGameGoal::ChangeActiveShape() {
 	}
 }
 
-bool EndGameGoal::collision(sf::Vector2f pos, float size, sf::String playerShape) {
-	Shape temp;
-	if (playerShape == "SQUARE")
-		temp = SQUARE;
-	else
-		temp = CIRCLE;
-	if (temp == activeShape)
+bool EndGameGoal::collision(Player* p) {
+	if (p->getShape() == "SQUARE")
 	{
-		if (sqrt(pow(posCentre.x - pos.x, 2) + pow(posCentre.y - pos.y, 2)) <
-			radius/2 + size/2)
+		switch (activeShape)
 		{
-			return true;
+		case SQUARE:
+			return shapeSquare.getGlobalBounds().intersects(p->getSquareShape().getGlobalBounds());
+			break;
+		case CIRCLE:
+			return shapeCircle.getGlobalBounds().intersects(p->getSquareShape().getGlobalBounds());
+			break;
+		default:
+			std::cout << "Player :: change Active Shape Default." << std::endl;
+			return false;
+			break;
 		}
 	}
-	return false;
+	else
+	{
+		switch (activeShape)
+		{
+		case SQUARE:
+			return shapeSquare.getGlobalBounds().intersects(p->getCircleShape().getGlobalBounds());
+			break;
+		case CIRCLE:
+			return shapeCircle.getGlobalBounds().intersects(p->getCircleShape().getGlobalBounds());
+			break;
+		default:
+			std::cout << "Player :: change Active Shape Default." << std::endl;
+			return false;
+			break;
+		}
+	}
 }

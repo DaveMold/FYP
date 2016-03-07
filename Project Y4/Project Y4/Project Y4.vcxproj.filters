@@ -39,12 +39,15 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="EndGameGoal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-=======
->>>>>>> 7ced820a8b6a0b558de5f0047146c33499d8d98f
+    <ClCompile Include="JumpPlatform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
@@ -68,11 +71,14 @@
     <ClInclude Include="Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="EndGameGoal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-=======
->>>>>>> 7ced820a8b6a0b558de5f0047146c33499d8d98f
+    <ClInclude Include="JumpPlatform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

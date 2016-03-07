@@ -91,13 +91,73 @@ void InputManager::UpdatePressedKeys(sf::Event e) {
 		{
 			keysPressed.push_back("Down");
 		}
+		if (e.key.code == sf::Keyboard::Down)
+		{
+			keysPressed.push_back("Down");
+		}
 		if (e.key.code == sf::Keyboard::End)
 		{
 			keysPressed.push_back("End");
+		}
+		if (e.key.code == sf::Keyboard::Delete)
+		{
+			keysPressed.push_back("Delete");
 		}
 		if (e.key.code == sf::Keyboard::Home)
 		{
 			keysPressed.push_back("Home");
 		}
-	}	
+		/*if (e.key.code == sf::Keyboard::G)
+		{
+			std::cout << "Gravity On/Off" << std::endl;
+			keysPressed.push_back("G");
+		}*/
+	}
+	/*if (e.type == sf::Event::EventType::KeyReleased)
+	{
+		if (e.key.code == sf::Keyboard::Up)
+		{
+			for (auto itr = keysPressed.begin(); itr != keysPressed.end(); itr++) {
+				if ((*itr) == "Up")
+				{
+					keysPressed.erase(itr);
+					keysPressedLastUpdate.erase(itr);
+				}
+			}
+		}
+		if (e.key.code == sf::Keyboard::Right)
+		{
+			for (auto itr = keysPressed.begin(); itr != keysPressed.end(); itr++) {
+				if ((*itr) == "Right")
+				{
+					keysPressed.erase(itr);
+					keysPressedLastUpdate.erase(itr);
+				}
+			}
+		}
+		if (e.key.code == sf::Keyboard::Left)
+		{
+			for (auto itr = keysPressed.begin(); itr != keysPressed.end(); itr++) {
+				if ((*itr) == "Left")
+				{
+					keysPressed.erase(itr);
+					keysPressedLastUpdate.erase(itr);
+				}
+			}
+		}
+	}*/
+	/*else if (sf::Event::TextEntered == sf::Event::EventType::KeyPressed)
+	{
+		std::cout << e.key.code << std::endl;
+		switch (e.key.code)
+		{
+		case sf::Keyboard::G:
+			std::cout << "Gravity On/Off" << std::endl;
+			keysPressed.push_back("G");
+			break;
+		default:
+			break;
+		}
+	}*/
+
 }

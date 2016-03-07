@@ -1,8 +1,8 @@
 #include "Menu.h"
-#include "InputManager.h"
 
-Menu::Menu(std::pair<float, float> windowDesmentions): showSettings(false), preset(PRESETONE), gameOn(false), Exit(false), showExitConfermation(false){
-	textures.reserve(9);
+
+Menu::Menu(std::pair<float, float> windowDesmentions) : currentLevel(0), showSettings(false), preset(PRESETONE), gameOn(false), Exit(false), showExitConfermation(false), ShowLevelsSelect(false) {
+	textures.reserve(12);
 	for (int i = 0; i < textures.capacity(); i++)
 	{
 		textures.push_back(sf::Texture());
@@ -16,6 +16,10 @@ Menu::Menu(std::pair<float, float> windowDesmentions): showSettings(false), pres
 	textures[6].loadFromFile("Assets/Menu/Back.png");
 	textures[7].loadFromFile("Assets/Menu/Preset1.png");
 	textures[8].loadFromFile("Assets/Menu/Preset2.png");
+	textures[9].loadFromFile("Assets/Menu/Levels.png");
+	textures[10].loadFromFile("Assets/Menu/LevelOne.png");
+	textures[11].loadFromFile("Assets/Menu/LevelTwo.png");
+
 
 	//sprites.reserve(8);
 	for (int i = 0; i < textures.size(); i++)
@@ -35,9 +39,10 @@ Menu::Menu(std::pair<float, float> windowDesmentions): showSettings(false), pres
 	arrowHeadSprite.setTexture(arrowHeadTexture);
 
 	//main menu
-	sprites[2].first.setPosition(windowDesmentions.first/6, (windowDesmentions.second / 4.0f));
-	sprites[3].first.setPosition(windowDesmentions.first/6, sprites[2].first.getPosition().y + 50);
-	sprites[4].first.setPosition(windowDesmentions.first/6, sprites[3].first.getPosition().y + 50);
+	/*Start*/sprites[2].first.setPosition(windowDesmentions.first/6, (windowDesmentions.second / 4.0f));
+	/*Settings*/sprites[3].first.setPosition(windowDesmentions.first/6, sprites[2].first.getPosition().y + 50);
+	/*Levels*/sprites[9].first.setPosition(windowDesmentions.first / 6, sprites[3].first.getPosition().y + 50);
+	/*Exit*/sprites[4].first.setPosition(windowDesmentions.first/6, sprites[9].first.getPosition().y + 50);
 	//settings menu
 	sprites[5].first.setPosition((windowDesmentions.first / 4.0f) * 2.0f, windowDesmentions.second / 2.0f);
 	sprites[7].first.setPosition(sprites[5].first.getPosition().x + sprites[6].first.getGlobalBounds().width, windowDesmentions.second / 2.0f);
@@ -46,6 +51,9 @@ Menu::Menu(std::pair<float, float> windowDesmentions): showSettings(false), pres
 	//exit confermation
 	sprites[0].first.setPosition(sprites[4].first.getPosition().x - sprites[4].first.getLocalBounds().width / 2, sprites[4].first.getPosition().y + 50);
 	sprites[1].first.setPosition(sprites[0].first.getPosition().x, sprites[0].first.getPosition().y + 50);
+	//show level select
+	sprites[10].first.setPosition(sprites[9].first.getPosition().x + 250, sprites[9].first.getPosition().y);
+	sprites[11].first.setPosition(sprites[10].first.getPosition().x, sprites[10].first.getPosition().y + 50);
 }
 
 Menu::~Menu(){
@@ -66,6 +74,7 @@ void Menu::Update() {
 
 	if (InputManager::instance()->Released("Up"))
 	{
+		AudioManager::instance()->PlayTrack("menuBoop");
 			for (int i = 0; i < sprites.size(); i++)
 			{
 				if (sprites[i].second)
@@ -84,7 +93,7 @@ void Menu::Update() {
 							break;
 						}
 					}
-					else if (i > 1 && i < 5)
+					else if (i > 1 && i < 5 || i == 9)
 					{
 						if (i == 2)
 						{
@@ -96,9 +105,14 @@ void Menu::Update() {
 							sprites[2].second = true;
 							break;
 						}
-						else if (i == 4)
+						else if (i == 9)
 						{
 							sprites[3].second = true;
+							break;
+						}
+						else if (i == 4)
+						{
+							sprites[9].second = true;
 							break;
 						}
 					}
@@ -115,12 +129,26 @@ void Menu::Update() {
 							break;
 						}
 					}
+					else if (i == 10 || i == 11)
+					{
+						if (i == 10)
+						{
+							sprites[11].second = true;
+							break;
+						}
+						else if (i == 11)
+						{
+							sprites[10].second = true;
+							break;
+						}
+					}
 				}
 			}//end for
 	}//end if FIND_KEY
 
 	if (InputManager::instance()->Released("Down"))
 	{
+		AudioManager::instance()->PlayTrack("menuBoop");
 		for (int i = 0; i < sprites.size(); i++)
 		{
 			if (sprites[i].second)
@@ -139,7 +167,7 @@ void Menu::Update() {
 						break;
 					}
 				}
-				else if (i > 1 && i < 5)
+				else if (i > 1 && i < 5 || i == 9)
 				{
 					if (i == 2)
 					{
@@ -147,6 +175,11 @@ void Menu::Update() {
 						break;
 					}
 					else if (i == 3)
+					{
+						sprites[9].second = true;
+						break;
+					}
+					else if (i == 9)
 					{
 						sprites[4].second = true;
 						break;
@@ -170,12 +203,26 @@ void Menu::Update() {
 						break;
 					}
 				}
+				else if (i == 10 || i == 11)
+				{
+					if (i == 10)
+					{
+						sprites[11].second = true;
+						break;
+					}
+					else if (i == 11)
+					{
+						sprites[10].second = true;
+						break;
+					}
+				}
 			}
 		}//end for
 	}//end if FIND_KEY
 
 	if (InputManager::instance()->Released("Right"))
 	{
+		AudioManager::instance()->PlayTrack("Select");
 		for (int i = 0; i < sprites.size(); i++)
 		{
 			if (sprites[i].second)
@@ -202,6 +249,13 @@ void Menu::Update() {
 					showSettings = true;
 					sprites[i].second = false;
 					sprites[5].second = true;
+					break;
+				}
+				else if (i == 9)
+				{
+					ShowLevelsSelect = true;
+					sprites[10].second = true;
+					sprites[i].second = false;
 					break;
 				}
 				else if (i == 4)
@@ -232,6 +286,22 @@ void Menu::Update() {
 					sprites[2].second = true;
 					break;
 				}
+				else if (i == 10)
+				{
+					currentLevel = 0;
+					ShowLevelsSelect = false;
+					sprites[i].second = false;
+					sprites[9].second = true;
+					break;
+				}
+				else if (i == 11)
+				{
+					currentLevel = 1;
+					ShowLevelsSelect = false;
+					sprites[i].second = false;
+					sprites[9].second = true;
+					break;
+				}
 			}
 		}
 	}
@@ -252,12 +322,19 @@ void Menu::Draw(sf::RenderWindow &w) {
 	for (int i = 2; i < 5; i++)
 	{
 		w.draw(sprites[i].first);
+		w.draw(sprites[9].first);
 	}
 
 	if (showExitConfermation)
 	{
 		w.draw(sprites[0].first);
 		w.draw(sprites[1].first);
+	}
+
+	if (ShowLevelsSelect)
+	{
+		w.draw(sprites[10].first);
+		w.draw(sprites[11].first);
 	}
 
 	if (showSettings)

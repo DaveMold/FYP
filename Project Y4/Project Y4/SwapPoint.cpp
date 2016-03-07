@@ -1,7 +1,7 @@
 #include "SwapPoint.h"
 
-SwapPoint::SwapPoint(float size, sf::Vector2f pos) :shapeSquare(numSides), collided(false) {
-	activeShape = CIRCLE;
+SwapPoint::SwapPoint(float size, sf::Vector2f pos) :shapeSquare(numSides) {
+	activeShape = SQUARE;
 	shapeCircle.setRadius(size);
 	posCentre = pos;
 	radius = size;
@@ -68,6 +68,7 @@ void SwapPoint::SetColor(sf::Color color) {
 		shapeCircle.setOutlineColor(color);
 }
 
+
 void SwapPoint::ChangeActiveShape() {
 	switch (activeShape)
 	{
@@ -83,22 +84,69 @@ void SwapPoint::ChangeActiveShape() {
 	}
 }
 
-bool SwapPoint::collision(sf::Vector2f pos, float size) {
-	if (sqrt(pow(posCentre.x - pos.x, 2) + pow(posCentre.y - pos.y, 2)) >
-		radius + size && collided)
+bool SwapPoint::collision(Player* p) {
+	if (p->getShape() == "SQUARE")
 	{
-		collided = false;
-		ChangeActiveShape();
-		return true;
-	}
-	else if (sqrt(pow(posCentre.x - pos.x, 2) + pow(posCentre.y - pos.y, 2)) <
-		radius + size && collided == false)
-	{
-		collided = true;
-		return false;
+		switch (activeShape)
+		{
+		case SQUARE:
+			if (shapeSquare.getGlobalBounds().intersects(p->getSquareShape().getGlobalBounds()))
+			{
+				ChangeActiveShape();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			break;
+		case CIRCLE:
+			if (shapeCircle.getGlobalBounds().intersects(p->getSquareShape().getGlobalBounds()))
+			{
+				ChangeActiveShape();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			break;
+		default:
+			std::cout << "Player :: change Active Shape Default." << std::endl;
+			return false;
+			break;
+		}
 	}
 	else
 	{
-		return false;
+		switch (activeShape)
+		{
+		case SQUARE:
+			if (shapeSquare.getGlobalBounds().intersects(p->getCircleShape().getGlobalBounds()))
+			{
+				ChangeActiveShape();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			break;
+		case CIRCLE:
+			if (shapeCircle.getGlobalBounds().intersects(p->getCircleShape().getGlobalBounds()))
+			{
+				ChangeActiveShape();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			break;
+		default:
+			std::cout << "Player :: change Active Shape Default." << std::endl;
+			return false;
+			break;
+		}
 	}
 }
