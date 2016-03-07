@@ -43,8 +43,8 @@ Player::~Player() {
 
 }
 
+
 void Player::Draw(sf::RenderWindow &w) {
-	
 	switch (activeShape)
 	{
 	case SQUARE:
@@ -105,6 +105,7 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 		//direction.y = direction.y * (-1);
 	}
 	if(InputManager::instance()->Held("Right"))
+
 	{
 		speed += acceleration;
 		//direction.x = direction.x * (1);
@@ -117,6 +118,18 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 			debug = false;
 		else
 			debug = true;
+	}
+
+	if (InputManager::instance()->Pressed("Up"))
+	{
+		switch (activeShape)
+		{
+		case CIRCLE:
+			jumpForce = sf::Vector2f(0, -0.2502f);
+			break;
+		case SQUARE:
+			jumpForce = sf::Vector2f(0, -0.2702f);
+		}
 	}
 
 	/*If the player is in contact with another object there will be a collsision force,

@@ -33,6 +33,5 @@ public:
 	void SwapPointUpdate();
 	sf::View getFollowCamView();
 	void Draw(sf::RenderWindow &w);
-
 };
 #endif

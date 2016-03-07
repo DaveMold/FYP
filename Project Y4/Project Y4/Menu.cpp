@@ -20,6 +20,7 @@ Menu::Menu(std::pair<float, float> windowDesmentions) : currentLevel(0), showSet
 	textures[10].loadFromFile("Assets/Menu/LevelOne.png");
 	textures[11].loadFromFile("Assets/Menu/LevelTwo.png");
 
+
 	//sprites.reserve(8);
 	for (int i = 0; i < textures.size(); i++)
 	{

@@ -89,11 +89,11 @@ int main()
 
 		//Update
 		inputMgr->UpdatePressedKeys(Event);
+
 		if (menu.Exit)
 		{
 			window.close();
 		}
-		
 
 		switch (GameState)
 		{
@@ -102,6 +102,7 @@ int main()
 			{
 				menu.gameOn = false;
 				GameState = GAMEOVER;
+
 				break;
 			}
 				//std::cout << "Game Over" << std::endl;

@@ -1,7 +1,9 @@
 #include "Level.h"
 #include "InputManager.h"
 
-Level::Level(sf::RenderWindow &w): tileSize(25), platChar('1'), playerChar('2'), swapChar('3'), endLChar('4'), jumpPlatChar('5'){
+Level::Level(sf::RenderWindow &w)
+	: tileSize(25), platChar('1'), playerChar('2'), swapChar('3'), endLChar('4'), jumpPlatChar('5')
+{
 	//player = new Player(25,4, sf::Vector2f(180,100));
 
 	//swapPoints.push_back(new SwapPoint(25, sf::Vector2f(600, 350)));
@@ -25,10 +27,12 @@ Level::Level(sf::RenderWindow &w): tileSize(25), platChar('1'), playerChar('2'),
 	//platforms.push_back(new Platform(108, 54, 4, sf::Vector2f(325, 240)));
 	//platforms.push_back(new Platform(108, 54, 4, sf::Vector2f(200, 320)));
 	/*platforms.push_back(new Platform(54, 4, sf::Vector2f(450, 300)));
+
 	platforms.push_back(new Platform(54, 4, sf::Vector2f(525, 300)));
 	platforms.push_back(new Platform(54, 4, sf::Vector2f(600, 300)));
 	platforms.push_back(new Platform(50, 3, sf::Vector2f(375, 225)));*/
 }
+
 
 void Level::LoadLevel(int fn) {
 	int temp = 1 + fn;
