@@ -1,0 +1,25 @@
+﻿Build started 14/12/2015 12:14:44.
+     1>Project "C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Project Y4\Project Y4.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt Game.cpp GameEntity.cpp InputManager.cpp Level.cpp Menu.cpp Platform.cpp Player.cpp SwapPoint.cpp
+         SwapPoint.cpp
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\swappoint.h(5): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+         Player.cpp
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.h(5): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+         Platform.cpp
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.h(5): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+         Menu.cpp
+         Level.cpp
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.h(5): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+         InputManager.cpp
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\inputmanager.h(8): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+         GameEntity.cpp
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\gameentity.cpp(1): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+         Game.cpp
+     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\game.cpp(19): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+         Generating Code...
+     1>Done Building Project "C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Project Y4\Project Y4.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:01.57
