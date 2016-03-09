@@ -1,8 +1,8 @@
 #include "Player.h"
 #include "InputManager.h"
 
-Player::Player(float size, float sides, sf::Vector2f pos)
-	:GameEntity(size,sides,pos), debug(false), boundingOffSet(6){
+Player::Player(float size, float sides, sf::Vector2f pos, Shape s)
+	:GameEntity(size,sides,pos), debug(false), boundingOffSet(6), activeShape(s){
 
 	//Reset Posision.
 	resetPos = pos;
@@ -11,8 +11,6 @@ Player::Player(float size, float sides, sf::Vector2f pos)
 	followPlayer.setCenter(400, 300);
 	followPlayer.setSize(800, 600);
 	followPlayer.setViewport(sf::FloatRect(0, 0, 1, 1));
-
-	activeShape = SQUARE;
 
 	speed = 0;
 	acceleration = 0.018;
@@ -228,16 +226,8 @@ void Player::ChangeActiveShape() {
 	}
 }
 
-sf::String Player::getShape() {
-	switch (activeShape)
-	{
-	case SQUARE:
-		return "SQUARE";
-		break;
-	case CIRCLE:
-		return "CIRCLE";
-		break;
-	}
+Player::Shape Player::getShape() {
+	return activeShape;
 }
 
 sf::ConvexShape Player::getSquareShape() {

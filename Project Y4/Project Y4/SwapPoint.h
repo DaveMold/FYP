@@ -23,7 +23,8 @@ private:
 public:
 	SwapPoint(float size, sf::Vector2f pos);
 	~SwapPoint();
-	void ChangeActiveShape();
+	void ChangeActiveShape(Player::Shape s);
+	Shape getShape();
 	void Draw(sf::RenderWindow &w);
 	void SetPos(sf::RenderWindow &w);
 	void SetColor(sf::Color color);

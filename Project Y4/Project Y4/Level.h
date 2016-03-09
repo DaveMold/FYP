@@ -14,15 +14,15 @@
 
 class Level {
 private:
-	Player* player;
-	std::vector<std::vector<char>> m_map;
-	int tileSize, width, height;
+	Player* player_;
+	std::vector<std::vector<char>> map_;
+	int tileSize_, width_, height_;
 	enum Shape { CIRCLE, SQUARE };
-	std::vector<SwapPoint*> swapPoints;
-	std::vector<Platform*> platforms;
-	std::vector<JumpPlatform*> jumpPlatforms;
-	EndGameGoal* endGameGoal;
-	char platChar, playerChar, endLChar, swapChar, jumpPlatChar;
+	std::vector<SwapPoint*> swapPoints_;
+	std::vector<Platform*> platforms_;
+	std::vector<JumpPlatform*> jumpPlatforms_;
+	EndGameGoal* endGameGoal_;
+	char platChar_, playerC_Char_, playerS_Char_, endLC_Char_, endLS_Char_, swapChar_, jumpPlatChar_;
 	
 public:
 	Level(sf::RenderWindow &w);
@@ -30,7 +30,7 @@ public:
 	void LoadLevel(int fn);
 	void MapToLevel();
 	bool Update(sf::Vector2f g, sf::RenderWindow &w);
-	void SwapPointUpdate();
+	void SwapPointUpdate(Player::Shape s);
 	sf::View getFollowCamView();
 	void Draw(sf::RenderWindow &w);
 };
