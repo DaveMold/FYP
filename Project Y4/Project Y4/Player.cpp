@@ -237,6 +237,9 @@ sf::String Player::getShape() {
 	case CIRCLE:
 		return "CIRCLE";
 		break;
+	default:
+		return "SQUARE";
+		break;
 	}
 }
 

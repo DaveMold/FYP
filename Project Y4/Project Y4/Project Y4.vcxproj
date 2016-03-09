@@ -133,6 +133,7 @@
     <ClCompile Include="JumpPlatform.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuElement.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SwapPoint.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="JumpPlatform.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuElement.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SwapPoint.h" />

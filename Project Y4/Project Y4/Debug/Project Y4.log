@@ -1,30 +1,70 @@
-﻿Build started 07/03/2016 10:34:31.
-     1>Project "C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Project Y4\Project Y4.vcxproj" on node 2 (Build target(s)).
+﻿Build started 3/7/2016 5:58:59 PM.
+     1>Project "C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Project Y4\Project Y4.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt EndGameGoal.cpp InputManager.cpp
-         InputManager.cpp
-         EndGameGoal.cpp
-     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\endgamegoal.cpp(3): warning C4244: 'argument': conversion from 'float' to 'size_t', possible loss of data
-     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\endgamegoal.cpp(12): warning C4305: '=': truncation from 'double' to 'float'
-     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\endgamegoal.cpp(15): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\endgamegoal.cpp(22): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-     1>c:\users\lab422\documents\final year project\fyp\project y4\project y4\endgamegoal.cpp(64): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-         Generating Code...
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Debug\Project Y41.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.3.2\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Debug\Project Y41.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Debug\Project Y41.lib" /MACHINE:X86 Debug\AudioManager.obj
-         Debug\EndGameGoal.obj
-         Debug\Game.obj
-         Debug\GameEntity.obj
-         Debug\InputManager.obj
-         Debug\JumpPlatform.obj
-         Debug\Level.obj
-         Debug\Menu.obj
-         Debug\Platform.obj
-         Debug\Player.obj
-         Debug\SwapPoint.obj
-         Project Y4.vcxproj -> C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Debug\Project Y41.exe
-     1>Done Building Project "C:\Users\lab422\Documents\Final Year Project\FYP\Project Y4\Project Y4\Project Y4.vcxproj" (Build target(s)).
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Menu.cpp
+         Menu.cpp
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\menu.cpp(184): warning C4018: '<': signed/unsigned mismatch
+     1>c:\program files (x86)\microsoft visual studio 14.0\vc\include\type_traits(1501): error C2440: 'return': cannot convert from 'void' to 'void *'
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\type_traits(1501): note: Expressions of type void cannot be converted to other types
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\functional(210): note: see reference to function template instantiation '_Rx std::_Invoke_ret<_Rx,_Callable&>(std::_Forced<_Rx,false>,_Callable &)' being compiled
+                 with
+                 [
+                     _Rx=void *,
+                     _Callable=_Decayed
+                 ]
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\functional(208): note: while compiling class template member function 'void std::_Func_impl<_Decayed,_Alloc,_Ret>::_Do_call(void)'
+                 with
+                 [
+                     _Alloc=std::allocator<int>,
+                     _Ret=void *
+                 ]
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\functional(136): note: see reference to class template instantiation 'std::_Func_impl<_Decayed,_Alloc,_Ret>' being compiled
+                 with
+                 [
+                     _Alloc=std::allocator<int>,
+                     _Ret=void *
+                 ]
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\functional(339): note: see reference to class template instantiation 'std::_Is_large<_Myimpl>' being compiled
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\functional(318): note: see reference to function template instantiation 'void std::_Func_class<_Ret>::_Reset_alloc<_Ty,std::allocator<int>>(_Fx &&,const _Alloc &)' being compiled
+                 with
+                 [
+                     _Ret=void *,
+                     _Ty=std::_Binder<std::_Unforced,void (__thiscall Menu::* )(void),Menu &>,
+                     _Fx=std::_Binder<std::_Unforced,void (__thiscall Menu::* )(void),Menu &>,
+                     _Alloc=std::allocator<int>
+                 ]
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\functional(318): note: see reference to function template instantiation 'void std::_Func_class<_Ret>::_Reset_alloc<_Ty,std::allocator<int>>(_Fx &&,const _Alloc &)' being compiled
+                 with
+                 [
+                     _Ret=void *,
+                     _Ty=std::_Binder<std::_Unforced,void (__thiscall Menu::* )(void),Menu &>,
+                     _Fx=std::_Binder<std::_Unforced,void (__thiscall Menu::* )(void),Menu &>,
+                     _Alloc=std::allocator<int>
+                 ]
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\functional(484): note: see reference to function template instantiation 'void std::_Func_class<_Ret>::_Reset<std::_Binder<std::_Unforced,void (__thiscall Menu::* )(void),Menu &>>(_Fx &&)' being compiled
+                 with
+                 [
+                     _Ret=void *,
+                     _Fx=std::_Binder<std::_Unforced,void (__thiscall Menu::* )(void),Menu &>
+                 ]
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\functional(484): note: see reference to function template instantiation 'void std::_Func_class<_Ret>::_Reset<std::_Binder<std::_Unforced,void (__thiscall Menu::* )(void),Menu &>>(_Fx &&)' being compiled
+                 with
+                 [
+                     _Ret=void *,
+                     _Fx=std::_Binder<std::_Unforced,void (__thiscall Menu::* )(void),Menu &>
+                 ]
+         c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\menu.cpp(14): note: see reference to function template instantiation 'std::function<void *(void)>::function<std::_Binder<std::_Unforced,void (__thiscall Menu::* )(void),Menu &>>(_Fx)' being compiled
+                 with
+                 [
+                     _Fx=std::_Binder<std::_Unforced,void (__thiscall Menu::* )(void),Menu &>
+                 ]
+         c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\menu.cpp(14): note: see reference to function template instantiation 'std::function<void *(void)>::function<std::_Binder<std::_Unforced,void (__thiscall Menu::* )(void),Menu &>>(_Fx)' being compiled
+                 with
+                 [
+                     _Fx=std::_Binder<std::_Unforced,void (__thiscall Menu::* )(void),Menu &>
+                 ]
+     1>Done Building Project "C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Project Y4\Project Y4.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:03.95
+Time Elapsed 00:00:01.47

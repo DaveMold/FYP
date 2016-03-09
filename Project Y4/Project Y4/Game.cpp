@@ -33,18 +33,22 @@ int main()
 	std::cout << "Game Controls \n Jump : Up Arrow Key. \n Movement : Right/Left Arrow Keys. \n Reset Pos = Home Key." << std::endl;
 	std::cout << "GameOver Controls \n Back To Menu : Home Key." << std::endl;
 	// Create the main window
+	std::pair<float, float> windowDimentions;
+	windowDimentions.first = 800;
+	windowDimentions.second = 600;
+	sf::RenderWindow window(sf::VideoMode(windowDimentions.first, windowDimentions.second, 32), "Project Y4");
+	//step up end game scene
 	sf::Texture GameOverTexture;
 	sf::Sprite GameOverSprite;
 	GameOverTexture.loadFromFile("Assets/Menu/GameOverScene.png");
 	GameOverSprite.setTexture(GameOverTexture);
 	GameOverSprite.setPosition(sf::Vector2f(0, 0));
+
 	enum States { GAME, MENU, GAMEOVER };
 	States GameState = MENU;
-	std::pair<float,float> windowDimentions;
-	windowDimentions.first = 800;
-	windowDimentions.second = 600;
-	sf::RenderWindow window(sf::VideoMode(windowDimentions.first, windowDimentions.second, 32), "Project Y4");
+	//menu create
 	Menu menu(windowDimentions);
+	//set up fixed time.
 	sf::Clock clock = sf::Clock();
 	sf::Time elapsedTime;
 	//Gravity
@@ -90,7 +94,7 @@ int main()
 		//Update
 		inputMgr->UpdatePressedKeys(Event);
 
-		if (menu.Exit)
+		if (menu.exit_)
 		{
 			window.close();
 		}
@@ -100,7 +104,7 @@ int main()
 		case GAME:
 			if (levels[currentLevel]->Update(gravity, window))
 			{
-				menu.gameOn = false;
+				menu.gameOn_ = false;
 				GameState = GAMEOVER;
 
 				break;
@@ -111,12 +115,12 @@ int main()
 			if (inputMgr->Pressed("Home"))
 			{
 				GameState = MENU;
-				menu.gameOn = false;
+				menu.gameOn_ = false;
 			}
 			//std::cout << "State : GAMEOVER." << std::endl;
 			break;
 		case MENU:
-			if (menu.gameOn)
+			if (menu.gameOn_)
 			{
 				currentLevel = menu.currentLevel;
 				levels[currentLevel]->LoadLevel(currentLevel);
