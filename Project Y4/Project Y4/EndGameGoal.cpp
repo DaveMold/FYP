@@ -15,7 +15,6 @@ EndGameGoal::EndGameGoal(float size, sf::Vector2f pos, sf::String active) :shape
 	points.reserve(numSides + 1);
 	shapeSquare.setPosition(pos);
 	shapeSquare.setPointCount(4);
-
 	float indexOfPointsInCircle;
 
 	for (int i = 0; i < numSides; i++) {
