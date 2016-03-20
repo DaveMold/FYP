@@ -1,6 +1,6 @@
 #include "MenuElement.h"
 
-MenuElement::MenuElement(sf::Vector2f pos, sf::String path, bool draw, MenuElement* next, MenuElement* previous, std::function<void *()> function)
+MenuElement::MenuElement(sf::Vector2f pos, sf::String path, bool draw, MenuElement* next, MenuElement* previous, std::function<void ()> function)
 	: draw_(draw), funct_(function) {
 	next_prev_.first = next;
 	next_prev_.second = previous;
@@ -9,7 +9,7 @@ MenuElement::MenuElement(sf::Vector2f pos, sf::String path, bool draw, MenuEleme
 	sprite_.setPosition(pos);
 }
 
-MenuElement::MenuElement(sf::Vector2f pos, sf::String path, bool draw, std::function<void *()> function)
+MenuElement::MenuElement(sf::Vector2f pos, sf::String path, bool draw, std::function<void ()> function)
 	: draw_(draw), funct_(function) {
 	texture_.loadFromFile(path);
 	sprite_.setTexture(texture_);
@@ -49,6 +49,10 @@ void MenuElement::ToggleDraw() {
 		printf("MenuElement::ToggleDraw - draw_ not valid.\n");
 		break;
 	}
+}
+
+void MenuElement::SetDraw(bool v) {
+	draw_ = v;
 }
 
 MenuElement* MenuElement::Next() {
