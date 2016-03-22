@@ -28,7 +28,6 @@ public:
 	void Draw(sf::RenderWindow &w);
 	void SetPos(sf::RenderWindow &w);
 	void SetColor(sf::Color color);
-	void setCollision(bool val);
 	bool collision(Player* p);
 };
 #endif

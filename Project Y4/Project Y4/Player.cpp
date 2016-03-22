@@ -2,7 +2,8 @@
 #include "InputManager.h"
 
 Player::Player(float size, float sides, sf::Vector2f pos, Shape s)
-	:GameEntity(size,sides,pos), debug(false), boundingOffSet(6), activeShape(s){
+	:GameEntity(size,sides,pos), debug(false), boundingOffSet(6){
+
 
 	//Reset Posision.
 	resetPos = pos;
@@ -11,6 +12,8 @@ Player::Player(float size, float sides, sf::Vector2f pos, Shape s)
 	followPlayer.setCenter(400, 300);
 	followPlayer.setSize(800, 600);
 	followPlayer.setViewport(sf::FloatRect(0, 0, 1, 1));
+
+	activeShape = s;
 
 	speed = 0;
 	acceleration = 0.018;
@@ -61,6 +64,22 @@ void Player::Draw(sf::RenderWindow &w) {
 	}
 }
 
+void Player::MoveUpdate() {
+
+	speed = 0;
+
+	//look for the Left Arrow Key in vector of keys pressed
+	if (InputManager::instance()->Held("Left"))
+	{
+		speed -= acceleration;
+	}
+	if (InputManager::instance()->Held("Right"))
+
+	{
+		speed += acceleration;
+	}
+}
+
 sf::View Player::getView() {
 	return followPlayer;
 }
@@ -92,48 +111,8 @@ void Player::ApplyJumpPlatformForce() {
 	}
 }
 
-void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
-	speed = 0;
-
-	//look for the Left Arrow Key in vector of keys pressed
-	if (InputManager::instance()->Held("Left"))
-	{
-		speed -= acceleration;
-		//direction.x = direction.x * (-1);
-		//direction.y = direction.y * (-1);
-	}
-	if(InputManager::instance()->Held("Right"))
-
-	{
-		speed += acceleration;
-		//direction.x = direction.x * (1);
-		//direction.y = direction.y * (1);
-	}
-
-	if (InputManager::instance()->Pressed("Delete"))
-	{
-		if (debug)
-			debug = false;
-		else
-			debug = true;
-	}
-
-	if (InputManager::instance()->Pressed("Up"))
-	{
-		switch (activeShape)
-		{
-		case CIRCLE:
-			jumpForce = sf::Vector2f(0, -0.2502f);
-			break;
-		case SQUARE:
-			jumpForce = sf::Vector2f(0, -0.2702f);
-		}
-	}
-
-	/*If the player is in contact with another object there will be a collsision force,
-	so if the collsionion force is greater than 0, it must be colliding with somthing.*/
-	float collisionForceMagnatude = sqrt(pow(collisionForce.x, 2) + pow(collisionForce.y, 2));
-	if (InputManager::instance()->Pressed("Up") && collisionForceMagnatude != 0)
+void Player::ApplyJump(float collisionForce) {
+	if (InputManager::instance()->Pressed("Up") && collisionForce != 0)
 	{
 		AudioManager::instance()->PlayTrack("Jump");
 		switch (activeShape)
@@ -165,18 +144,32 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 		{
 			jumpForce = sf::Vector2f(jumpForce.x + 0.0001f, jumpForce.y);
 		}
-		/*if(
-		{
-			jumpForce = sf::Vector2f(0, 0);
-		}*/
 	}
+}
 
+
+
+void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
+	if (InputManager::instance()->Pressed("Delete"))
+	{
+		if (debug)
+			debug = false;
+		else
+			debug = true;
+	}
 	if (InputManager::instance()->Pressed("Home"))
 	{
 		posCentre = resetPos;
 	}
 
-	//posCentre += (direction * speed) + g + collisionForce;
+	MoveUpdate();
+
+	/*If the player is in contact with another object there will be a collsision force,
+	so if the collsionion force is greater than 0, it must be colliding with somthing.*/
+	float collisionForceMagnatude = sqrt(pow(collisionForce.x, 2) + pow(collisionForce.y, 2));
+	ApplyJump(collisionForceMagnatude);
+
+
 	sf::Vector2f force = g + collisionForce + jumpForce;
 	posCentre += force + (direction * speed);
 	rotation.rotate(rotateSpeed);
@@ -241,6 +234,18 @@ sf::CircleShape Player::getCircleShape() {
 sf::CircleShape Player::getBoundingShape() {
 	return boundingCircle;
 }
+
+//bool Player::SquareCircle(sf::Shape* s) {
+//	switch (activeShape)
+//	{
+//	case SQUARE:
+//		return shape.getGlobalBounds().intersects(s->getGlobalBounds());
+//		break;
+//	case CIRCLE:
+//		return "CIRCLE";
+//		break;
+//	}
+//}
 
 bool Player::SquareCircle(sf::Shape* s) {
 	switch (activeShape)

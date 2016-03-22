@@ -69,6 +69,7 @@ void SwapPoint::SetColor(sf::Color color) {
 }
 
 
+
 void SwapPoint::ChangeActiveShape(Player::Shape s) {
 	switch (s)
 	{
@@ -83,6 +84,7 @@ void SwapPoint::ChangeActiveShape(Player::Shape s) {
 		break;
 	}
 }
+
 
 SwapPoint::Shape SwapPoint::getShape() {
 	return activeShape;

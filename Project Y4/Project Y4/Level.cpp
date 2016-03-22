@@ -4,7 +4,6 @@
 Level::Level(sf::RenderWindow &w)
 	: tileSize_(25), platChar_('1'), playerC_Char_('9'), playerS_Char_('8'), swapChar_('3'), endLS_Char_('6'), endLC_Char_('7'), jumpPlatChar_('5')
 {
-
 }
 
 
@@ -177,6 +176,7 @@ bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
 	return false;
 }
 
+
 void Level::SwapPointUpdate(Player::Shape s) {
 	std::vector<SwapPoint*>::iterator removeItr;
 	bool remove = false;
@@ -201,7 +201,6 @@ sf::View Level::getFollowCamView() {
 }
 
 void Level::Draw(sf::RenderWindow &w) {
-
 	for (auto itr = platforms_.begin(); itr != platforms_.end(); itr++)
 	{
 		(*itr)->Draw(w);
