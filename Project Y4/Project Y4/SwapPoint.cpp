@@ -69,8 +69,9 @@ void SwapPoint::SetColor(sf::Color color) {
 }
 
 
-void SwapPoint::ChangeActiveShape() {
-	switch (activeShape)
+
+void SwapPoint::ChangeActiveShape(Player::Shape s) {
+	switch (s)
 	{
 	case SQUARE:
 		activeShape = CIRCLE;
@@ -84,15 +85,19 @@ void SwapPoint::ChangeActiveShape() {
 	}
 }
 
+
+SwapPoint::Shape SwapPoint::getShape() {
+	return activeShape;
+}
+
 bool SwapPoint::collision(Player* p) {
-	if (p->getShape() == "SQUARE")
+	if (p->getShape() == Player::Shape::SQUARE)
 	{
 		switch (activeShape)
 		{
 		case SQUARE:
 			if (shapeSquare.getGlobalBounds().intersects(p->getSquareShape().getGlobalBounds()))
 			{
-				ChangeActiveShape();
 				return true;
 			}
 			else
@@ -103,7 +108,6 @@ bool SwapPoint::collision(Player* p) {
 		case CIRCLE:
 			if (shapeCircle.getGlobalBounds().intersects(p->getSquareShape().getGlobalBounds()))
 			{
-				ChangeActiveShape();
 				return true;
 			}
 			else
@@ -124,7 +128,6 @@ bool SwapPoint::collision(Player* p) {
 		case SQUARE:
 			if (shapeSquare.getGlobalBounds().intersects(p->getCircleShape().getGlobalBounds()))
 			{
-				ChangeActiveShape();
 				return true;
 			}
 			else
@@ -135,7 +138,6 @@ bool SwapPoint::collision(Player* p) {
 		case CIRCLE:
 			if (shapeCircle.getGlobalBounds().intersects(p->getCircleShape().getGlobalBounds()))
 			{
-				ChangeActiveShape();
 				return true;
 			}
 			else

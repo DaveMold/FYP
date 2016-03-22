@@ -4,6 +4,7 @@
 Player::Player(float size, float sides, sf::Vector2f pos, Shape s)
 	:GameEntity(size,sides,pos), debug(false), boundingOffSet(6){
 
+
 	//Reset Posision.
 	resetPos = pos;
 
@@ -43,6 +44,7 @@ Player::~Player() {
 
 }
 
+
 void Player::Draw(sf::RenderWindow &w) {
 	switch (activeShape)
 	{
@@ -63,6 +65,7 @@ void Player::Draw(sf::RenderWindow &w) {
 }
 
 void Player::MoveUpdate() {
+
 	speed = 0;
 
 	//look for the Left Arrow Key in vector of keys pressed
@@ -166,6 +169,7 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 	float collisionForceMagnatude = sqrt(pow(collisionForce.x, 2) + pow(collisionForce.y, 2));
 	ApplyJump(collisionForceMagnatude);
 
+
 	sf::Vector2f force = g + collisionForce + jumpForce;
 	posCentre += force + (direction * speed);
 	rotation.rotate(rotateSpeed);
@@ -215,16 +219,8 @@ void Player::ChangeActiveShape() {
 	}
 }
 
-sf::String Player::getShape() {
-	switch (activeShape)
-	{
-	case SQUARE:
-		return "SQUARE";
-		break;
-	case CIRCLE:
-		return "CIRCLE";
-		break;
-	}
+Player::Shape Player::getShape() {
+	return activeShape;
 }
 
 sf::ConvexShape Player::getSquareShape() {
@@ -238,6 +234,18 @@ sf::CircleShape Player::getCircleShape() {
 sf::CircleShape Player::getBoundingShape() {
 	return boundingCircle;
 }
+
+//bool Player::SquareCircle(sf::Shape* s) {
+//	switch (activeShape)
+//	{
+//	case SQUARE:
+//		return shape.getGlobalBounds().intersects(s->getGlobalBounds());
+//		break;
+//	case CIRCLE:
+//		return "CIRCLE";
+//		break;
+//	}
+//}
 
 bool Player::SquareCircle(sf::Shape* s) {
 	switch (activeShape)
