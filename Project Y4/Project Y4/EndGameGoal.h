@@ -7,6 +7,7 @@
 #include <SFML/OpenGL.hpp>
 #include <vector>
 #include <iostream>
+#include "Player.h"
 
 class EndGameGoal {
 private:
@@ -28,6 +29,6 @@ public:
 	void Draw(sf::RenderWindow &w);
 	void SetPos(sf::RenderWindow &w);
 	void SetColor(sf::Color color);
-	bool collision(sf::Vector2f pos, float size, sf::String playerShape);
+	bool collision(Player* p);
 };
 #endif

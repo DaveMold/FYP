@@ -29,7 +29,15 @@
 
 int main()
 {
+	std::cout << "Menu Controls \n Up/Down : Arrow Keys Up/Down. \n Sellect : Right Arrow Key" << std::endl;
+	std::cout << "Game Controls \n Jump : Up Arrow Key. \n Movement : Right/Left Arrow Keys. \n Reset Pos = Home Key." << std::endl;
+	std::cout << "GameOver Controls \n Back To Menu : Home Key." << std::endl;
 	// Create the main window
+	sf::Texture GameOverTexture;
+	sf::Sprite GameOverSprite;
+	GameOverTexture.loadFromFile("Assets/Menu/GameOverScene.png");
+	GameOverSprite.setTexture(GameOverTexture);
+	GameOverSprite.setPosition(sf::Vector2f(0, 0));
 	enum States { GAME, MENU, GAMEOVER };
 	States GameState = MENU;
 	std::pair<float,float> windowDimentions;
@@ -39,9 +47,22 @@ int main()
 	Menu menu(windowDimentions);
 	sf::Clock clock = sf::Clock();
 	sf::Time elapsedTime;
-	Level level = Level(window);
+	//Gravity
 	sf::Vector2f gravity = sf::Vector2f(0, 0.0981);// 0.0981);
+	//InputManager
 	InputManager* inputMgr = InputManager::instance();
+	//AudioManager
+	AudioManager* audioMgr = AudioManager::instance();
+	audioMgr->loadAudio();
+	//Levels
+	int levelCount = 3;
+	int currentLevel = 0;
+	std::vector<Level*> levels;
+	for (int i = 0; i < levelCount; i++)
+	{
+		levels.push_back(new Level(window));
+	}
+	
 
 	// Start game loop
 	while (window.isOpen()) {
@@ -50,12 +71,14 @@ int main()
 
 		while (window.pollEvent(Event)) {
 
-
+			//inputMgr->UpdatePressedKeys(Event);
 
 			switch (Event.type) {
 				// Close window : exit
 			case sf::Event::Closed:
-				level.~Level();
+				for (std::vector<Level*>::iterator itr = levels.begin(); itr != levels.end(); itr++) {
+					(*itr)->~Level();
+				}
 				menu.~Menu();
 				window.close();
 				break;
@@ -66,47 +89,63 @@ int main()
 
 		//Update
 		inputMgr->UpdatePressedKeys(Event);
+
 		if (menu.Exit)
 		{
 			window.close();
 		}
-		if (menu.gameOn)
-			GameState = GAME;
 
 		switch (GameState)
 		{
 		case GAME:
-			if (level.Update(gravity, window))
+			if (levels[currentLevel]->Update(gravity, window))
 			{
 				menu.gameOn = false;
-				GameState = MENU;
+				GameState = GAMEOVER;
+
 				break;
 			}
 				//std::cout << "Game Over" << std::endl;
 			break;
 		case GAMEOVER:
-			std::cout << "State : GAMEOVER." << std::endl;
+			if (inputMgr->Pressed("Home"))
+			{
+				GameState = MENU;
+				menu.gameOn = false;
+			}
+			//std::cout << "State : GAMEOVER." << std::endl;
 			break;
 		case MENU:
+			if (menu.gameOn)
+			{
+				currentLevel = menu.currentLevel;
+				levels[currentLevel]->LoadLevel(currentLevel);
+				levels[currentLevel]->MapToLevel();
+				GameState = GAME;
+			}
 			menu.Update();
-			std::cout << "State : MENU." << std::endl;
+			//std::cout << "State : MENU." << std::endl;
 			break;
 		}
 		
 		//prepare frame
 		window.clear();
-
+		
 		switch (GameState)
 		{
 		case GAME:
-			level.Draw(window);
+			window.setView(levels[currentLevel]->getFollowCamView());
+			levels[currentLevel]->Draw(window);
 			break;
 		case GAMEOVER:
-			std::cout << "State : GAMEOVER." << std::endl;
+			window.setView(window.getDefaultView());
+			window.draw(GameOverSprite);
+			//std::cout << "State : GAMEOVER." << std::endl;
 			break;
 		case MENU:
+			window.setView(window.getDefaultView());
 			menu.Draw(window);
-			std::cout << "State : MENU." << std::endl;
+			//std::cout << "State : MENU." << std::endl;
 			break;
 		}
 

@@ -6,6 +6,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
 #include <iostream>
+#include "InputManager.h"
+#include "AudioManager.h"
 
 class Menu {
 private:
@@ -16,8 +18,10 @@ private:
 													 the bool will be used to check witch option is selected.*/
 	sf::Texture arrowHeadTexture; //Used to point to the option the player has highlighted.
 	sf::Sprite arrowHeadSprite;
+	
 public:
-	bool showSettings, gameOn, Exit, showExitConfermation;
+	int currentLevel; //The current level selected to Play. Read by game class when gameOn == true to create the approprate level. 
+	bool showSettings, gameOn, Exit, showExitConfermation, ShowLevelsSelect;
 	Menu(std::pair<float, float> windowDesmentions);
 	~Menu();
 	void Update();
