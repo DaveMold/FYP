@@ -2,35 +2,8 @@
 #include "InputManager.h"
 
 Level::Level(sf::RenderWindow &w)
-	: tileSize(25), platChar('1'), playerChar('2'), swapChar('3'), endLChar('4'), jumpPlatChar('5')
+	: tileSize_(25), platChar_('1'), playerC_Char_('9'), playerS_Char_('8'), swapChar_('3'), endLS_Char_('6'), endLC_Char_('7'), jumpPlatChar_('5')
 {
-	//player = new Player(25,4, sf::Vector2f(180,100));
-
-	//swapPoints.push_back(new SwapPoint(25, sf::Vector2f(600, 350)));
-	//platforms.push_back(new Platform(454, 54, 4, sf::Vector2f(125,400)));
-	//platforms.push_back(new Platform(254, 54, 4, sf::Vector2f(400, 175)));
-
-	//platforms.push_back(new Platform(25, 25, 4, sf::Vector2f(305, 450)));
-	//platforms.push_back(new Platform(25, 25, 4, sf::Vector2f(250, 85)));
-	//platforms.push_back(new Platform(25, 25, 4, sf::Vector2f(10, 10)));
-	//platforms.push_back(new Platform(25, 25, 4, sf::Vector2f(20, 0)));
-	//platforms.push_back(new Platform(25, 25, 4, sf::Vector2f(60, 680)));
-	//platforms.push_back(new Platform(25, 25, 4, sf::Vector2f(305, 200)));
-
-	//jumpPlatforms.push_back(new JumpPlatform(54, 24.5, 4, sf::Vector2f(315, 335)));
-
-	//endGameGoal = new EndGameGoal(15, sf::Vector2f(550, 160), "SQUARE");
-	//swapPoints.push_back(new SwapPoint(25, sf::Vector2f(600, 350)));
-	//platforms.push_back(new Platform(454, 54, 4, sf::Vector2f(40,390)));
-	/*platforms.push_back(new Platform(254, 54, 4, sf::Vector2f(400, 175)));
-	jumpPlatforms.push_back(new JumpPlatform(54, 24.5, 4, sf::Vector2f(315, 335)));*/
-	//platforms.push_back(new Platform(108, 54, 4, sf::Vector2f(325, 240)));
-	//platforms.push_back(new Platform(108, 54, 4, sf::Vector2f(200, 320)));
-	/*platforms.push_back(new Platform(54, 4, sf::Vector2f(450, 300)));
-
-	platforms.push_back(new Platform(54, 4, sf::Vector2f(525, 300)));
-	platforms.push_back(new Platform(54, 4, sf::Vector2f(600, 300)));
-	platforms.push_back(new Platform(50, 3, sf::Vector2f(375, 225)));*/
 }
 
 
@@ -60,16 +33,16 @@ void Level::LoadLevel(int fn) {
 			if (!MapVals.empty())
 			{
 				//update the map width
-				width = MapVals.size() > width ? MapVals.size() : width;
+				width_ = MapVals.size() > width_ ? MapVals.size() : width_;
 
 				//Push back tiles
-				m_map.push_back(MapVals);
+				map_.push_back(MapVals);
 				MapVals.clear();
 
 
 			}
 			//once we've finished loading, update the height
-			height = m_map.size();
+			height_ = map_.size();
 		}
 	}
 }
@@ -78,63 +51,71 @@ void Level::MapToLevel() {
 	char temp;
 	int lenght = 1;
 
-	for (int y = 0; y < height; y++) {
-		for (int x = 0; x < m_map.at(y).size(); x++) {
+	for (int y = 0; y < height_; y++) {
+		for (int x = 0; x < map_.at(y).size(); x++) {
 
-			temp = m_map.at(y).at(x);
+			temp = map_.at(y).at(x);
 
-			if (temp == platChar)
+			if (temp == platChar_)
 			{
-				while (x+1 < m_map.at(y).size() && temp == m_map.at(y).at(x+1))
+				while (x+1 < map_.at(y).size() && temp == map_.at(y).at(x+1))
 				{
 					lenght++;
 					x++;
 				}
 
-				platforms.push_back(new Platform(tileSize * lenght, tileSize, 4, sf::Vector2f((x * tileSize)-(tileSize * lenght), y* tileSize)));
+				platforms_.push_back(new Platform(tileSize_ * lenght, tileSize_, 4, sf::Vector2f((x * tileSize_)-(tileSize_ * lenght), y* tileSize_)));
 				lenght = 1;
 			}
-			if (temp == jumpPlatChar)
+			if (temp == jumpPlatChar_)
 			{
-				while (x + 1 < m_map.at(y).size() && temp == m_map.at(y).at(x + 1))
+				while (x + 1 < map_.at(y).size() && temp == map_.at(y).at(x + 1))
 				{
 					lenght++;
 					x++;
 				}
 
-				jumpPlatforms.push_back(new JumpPlatform(tileSize * lenght, tileSize, 4, sf::Vector2f((x * tileSize) - (tileSize * lenght), y* tileSize)));
+				jumpPlatforms_.push_back(new JumpPlatform(tileSize_ * lenght, tileSize_, 4, sf::Vector2f((x * tileSize_) - (tileSize_ * lenght), y* tileSize_)));
 				lenght = 1;
 			}
-			if (temp == playerChar)
+			if (temp == playerC_Char_)
 			{
-				player = new Player(tileSize, 4, sf::Vector2f(x * tileSize, y * tileSize));
+				player_ = new Player(tileSize_, 4, sf::Vector2f(x * tileSize_, y * tileSize_), Player::CIRCLE);
 			}
-			if (temp == swapChar)
+			if (temp == playerS_Char_)
 			{
-				swapPoints.push_back(new SwapPoint(tileSize, sf::Vector2f(x * tileSize, y * tileSize)));
+				player_ = new Player(tileSize_, 4, sf::Vector2f(x * tileSize_, y * tileSize_), Player::SQUARE);
 			}
-			if (temp == endLChar)
+			if (temp == swapChar_)
 			{
-				endGameGoal = new EndGameGoal(15, sf::Vector2f(x * tileSize, y * tileSize), "SQUARE");
+				swapPoints_.push_back(new SwapPoint(tileSize_, sf::Vector2f(x * tileSize_, y * tileSize_)));
+			}
+			if (temp == endLS_Char_)
+			{
+				endGameGoal_ = new EndGameGoal(15, sf::Vector2f(x * tileSize_, y * tileSize_), "SQUARE");
+			}
+			if (temp == endLC_Char_)
+			{
+				endGameGoal_ = new EndGameGoal(15, sf::Vector2f(x * tileSize_, y * tileSize_), "CIRCLE");
 			}
 		}
 	}
 }
 
 Level::~Level() {
-	player->~Player();
-	endGameGoal->~EndGameGoal();
-	for (int i = 0; i < swapPoints.size(); i++)
+	player_->~Player();
+	endGameGoal_->~EndGameGoal();
+	for (int i = 0; i < swapPoints_.size(); i++)
 	{
-		swapPoints[i]->~SwapPoint();
+		swapPoints_[i]->~SwapPoint();
 	}
-	for (int i = 0; i < platforms.size(); i++)
+	for (int i = 0; i < platforms_.size(); i++)
 	{
-		platforms[i]->~Platform();
+		platforms_[i]->~Platform();
 	}
-	for (int i = 0; i < jumpPlatforms.size(); i++)
+	for (int i = 0; i < jumpPlatforms_.size(); i++)
 	{
-		jumpPlatforms[i]->~JumpPlatform();
+		jumpPlatforms_[i]->~JumpPlatform();
 	}
 }
 
@@ -143,56 +124,51 @@ bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
 	if (InputManager::instance()->Pressed("End"))
 	{
 		//change color of all objects
-		player->SetColor(sf::Color::Red);
-		for (auto itr = platforms.begin(); itr != platforms.end(); itr++)
+		player_->SetColor(sf::Color::Red);
+		for (auto itr = platforms_.begin(); itr != platforms_.end(); itr++)
 		{
 			(*itr)->SetColor(sf::Color::Blue);
 		}
-		for (auto itr = swapPoints.begin(); itr != swapPoints.end(); itr++)
+		for (auto itr = swapPoints_.begin(); itr != swapPoints_.end(); itr++)
 		{
 			(*itr)->SetColor(sf::Color::Green);
 		}
 	}
 
 	//Platforms
-	for (auto itr = platforms.begin(); itr != platforms.end(); itr++)
+	for (auto itr = platforms_.begin(); itr != platforms_.end(); itr++)
 	{
 		(*itr)->Update();
 
 		std::pair<float, sf::Vector2f> temp;
 		temp.first = false;
-		if (player->SquareCircle(&(*itr)->getShape()))
+		if (player_->SquareCircle(&(*itr)->getShape()))
 		{
-			temp = player->Collision(w, (*itr));
+			temp = player_->Collision(w, (*itr));
 		}
 		if (temp.first)
 		{
-			player->Update(g, temp.second);
+			player_->Update(g, temp.second);
 		}
 		else
 		{
-			player->Update(g, sf::Vector2f(0,0));
+			player_->Update(g, sf::Vector2f(0,0));
 		}
 	}
 	//JumpPlatforms
-	for (auto itr = jumpPlatforms.begin(); itr != jumpPlatforms.end(); itr++)
+	for (auto itr = jumpPlatforms_.begin(); itr != jumpPlatforms_.end(); itr++)
 	{
 		(*itr)->Update();
-		std::pair<float, sf::Vector2f> temp = player->Collision(w, (*itr));
+		std::pair<float, sf::Vector2f> temp = player_->Collision(w, (*itr));
 		if (temp.first)
 		{
-			player->ApplyJumpPlatformForce();
-			player->Update(g, temp.second);
-		}
-		else
-		{
-			player->Update(g, sf::Vector2f(0, 0));
+			player_->ApplyJumpPlatformForce();
 		}
 	}
 	//swapPoints
-	SwapPointUpdate();
+	SwapPointUpdate(player_->getShape());
 	//endGameGoal
-	if (endGameGoal->collision(player))
+	if (endGameGoal_->collision(player_))
 	{
 		AudioManager::instance()->PlayTrack("EndLevel");
 		return true;
@@ -200,41 +176,43 @@ bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
 	return false;
 }
 
-void Level::SwapPointUpdate() {
+
+void Level::SwapPointUpdate(Player::Shape s) {
 	std::vector<SwapPoint*>::iterator removeItr;
 	bool remove = false;
-	for (auto itr = swapPoints.begin(); itr != swapPoints.end(); itr++)
+	for (auto itr = swapPoints_.begin(); itr != swapPoints_.end(); itr++)
 	{
-		if ((*itr)->collision(player))
+		if (player_->getShape() == (*itr)->getShape())
+			(*itr)->ChangeActiveShape(player_->getShape());
+		if ((*itr)->collision(player_))
 		{
 			AudioManager::instance()->PlayTrack("SwapPoint");
 			remove = true;
 			removeItr = itr;
-			player->ChangeActiveShape();
+			player_->ChangeActiveShape();
 		}
 	}
 	if(remove)
-		swapPoints.erase(removeItr);
+		swapPoints_.erase(removeItr);
 }
 
 sf::View Level::getFollowCamView() {
-	return player->getView();
+	return player_->getView();
 }
 
 void Level::Draw(sf::RenderWindow &w) {
-
-	for (auto itr = platforms.begin(); itr != platforms.end(); itr++)
+	for (auto itr = platforms_.begin(); itr != platforms_.end(); itr++)
 	{
 		(*itr)->Draw(w);
 	}
-	for (auto itr = jumpPlatforms.begin(); itr != jumpPlatforms.end(); itr++)
+	for (auto itr = jumpPlatforms_.begin(); itr != jumpPlatforms_.end(); itr++)
 	{
 		(*itr)->Draw(w);
 	}
-	for (auto itr = swapPoints.begin(); itr != swapPoints.end(); itr++)
+	for (auto itr = swapPoints_.begin(); itr != swapPoints_.end(); itr++)
 	{
 		(*itr)->Draw(w);
 	}
-	player->Draw(w);
-	endGameGoal->Draw(w);
+	player_->Draw(w);
+	endGameGoal_->Draw(w);
 }

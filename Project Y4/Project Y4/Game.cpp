@@ -75,7 +75,7 @@ int main()
 
 		while (window.pollEvent(Event)) {
 
-
+			//inputMgr->UpdatePressedKeys(Event);
 
 			switch (Event.type) {
 				// Close window : exit

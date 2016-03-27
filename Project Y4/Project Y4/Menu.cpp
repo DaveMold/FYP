@@ -134,9 +134,9 @@ void Menu::ToggleLevelSelect() {
 void Menu::SetLevel(sf::String s){
 	ResetSelect();
 	if (s == "LevelOne")
-		currentLevel = 1;
+		currentLevel = 0;
 	else if (s == "LevelTwo")
-		currentLevel = 2;
+		currentLevel = 1;
 }
 
 void Menu::ToggleStartGame() {

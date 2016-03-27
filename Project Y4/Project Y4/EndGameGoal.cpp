@@ -87,7 +87,7 @@ void EndGameGoal::ChangeActiveShape() {
 }
 
 bool EndGameGoal::collision(Player* p) {
-	if (p->getShape() == "SQUARE")
+	if (p->getShape() == Player::Shape::SQUARE)
 	{
 		switch (activeShape)
 		{
