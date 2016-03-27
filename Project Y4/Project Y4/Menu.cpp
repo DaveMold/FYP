@@ -2,7 +2,7 @@
 
 
 Menu::Menu(std::pair<float, float> windowDesmentions) : currentLevel(0), showSettings_(false), preset_(PRESETONE), gameOn_(false), exit_(false), showExitConfermation_(false), ShowLevelsSelect_(false) {
-	sf::String tempPath;
+	sf::String lable;
 	sf::Vector2f tempPos;
 	float itemOffSet = 50;
 
@@ -10,21 +10,21 @@ Menu::Menu(std::pair<float, float> windowDesmentions) : currentLevel(0), showSet
 	arrowHeadSprite_.setTexture(arrowHeadTexture_);
 
 	//Main Menu
-	tempPath = "Assets/Menu/Start.png";
+	lable = "Start";
 	tempPos = sf::Vector2f(windowDesmentions.first / 6, windowDesmentions.second / 4.0f);
-	elements_.push_back(new MenuElement(tempPos, tempPath, true, std::bind(&Menu::ToggleStartGame, this)));
+	elements_.push_back(new MenuElement(tempPos, lable, true, std::bind(&Menu::ToggleStartGame, this)));
 
-	tempPath = "Assets/Menu/Settings.png";
+	lable = "Settings";
 	tempPos = sf::Vector2f(windowDesmentions.first / 6, elements_[0]->GetPos().y + itemOffSet);
-	elements_.push_back(new MenuElement(tempPos, tempPath, true, std::bind(&Menu::ToggleSettings, this)));
+	elements_.push_back(new MenuElement(tempPos, lable, true, std::bind(&Menu::ToggleSettings, this)));
 
-	tempPath = "Assets/Menu/Levels.png";
+	lable = "Levels";
 	tempPos = sf::Vector2f(windowDesmentions.first / 6, elements_[1]->GetPos().y + itemOffSet);
-	elements_.push_back(new MenuElement(tempPos, tempPath, true, std::bind(&Menu::ToggleLevelSelect, this)));
+	elements_.push_back(new MenuElement(tempPos, lable, true, std::bind(&Menu::ToggleLevelSelect, this)));
 
-	tempPath = "Assets/Menu/Quit.png";
+	lable = "Quit";
 	tempPos = sf::Vector2f(windowDesmentions.first / 6, elements_[2]->GetPos().y + itemOffSet);
-	elements_.push_back(new MenuElement(tempPos, tempPath, true, std::bind(&Menu::ToggleExitConfermation, this)));
+	elements_.push_back(new MenuElement(tempPos, lable, true, std::bind(&Menu::ToggleExitConfermation, this)));
 	
 	elements_[0]->SetNext(elements_[3]);
 	elements_[0]->SetPrev(elements_[1]);
@@ -36,46 +36,54 @@ Menu::Menu(std::pair<float, float> windowDesmentions) : currentLevel(0), showSet
 	elements_[3]->SetPrev(elements_[0]);
 
 	//Settings
-	tempPath = "Assets/Menu/Colors.png";
+	lable = "Colors";
 	tempPos = sf::Vector2f((windowDesmentions.first / 4.0f) * 2.0f, windowDesmentions.second / 2.0f);
-	elements_.push_back(new MenuElement(tempPos, tempPath, false, std::bind(&Menu::ToggleColorPreset, this)));
+	elements_.push_back(new MenuElement(tempPos, lable, false, std::bind(&Menu::ToggleColorPreset, this)));
 
-	tempPath = "Assets/Menu/Back.png";
+	lable = "Preset1";
+	tempPos = sf::Vector2f(elements_[4]->GetPos().x + (itemOffSet * 2), elements_[4]->GetPos().y);
+	elements_.push_back(new MenuElement(tempPos, lable, false, std::bind(&Menu::ToggleColorPreset, this)));
+
+	lable = "Preset2";
+	tempPos = sf::Vector2f(elements_[4]->GetPos().x + (itemOffSet * 2), elements_[4]->GetPos().y);
+	elements_.push_back(new MenuElement(tempPos, lable, false, std::bind(&Menu::ToggleColorPreset, this)));
+
+	lable = "Back";
 	tempPos = sf::Vector2f(elements_[4]->GetPos().x, elements_[4]->GetPos().y + itemOffSet);
-	elements_.push_back(new MenuElement(tempPos, tempPath, false, std::bind(&Menu::ResetSelect, this)));
+	elements_.push_back(new MenuElement(tempPos, lable, false, std::bind(&Menu::ResetSelect, this)));
 
-	elements_[4]->SetNext(elements_[5]);
-	elements_[4]->SetPrev(elements_[5]);
-	elements_[5]->SetNext(elements_[4]);
-	elements_[5]->SetPrev(elements_[4]);
+	elements_[4]->SetNext(elements_[7]);
+	elements_[4]->SetPrev(elements_[7]);
+	elements_[7]->SetNext(elements_[4]);
+	elements_[7]->SetPrev(elements_[4]);
 
 	//Level Select
-	tempPath = "Assets/Menu/LevelOne.png";
+	lable = "LevelOne";
 	tempPos = sf::Vector2f(elements_[2]->GetPos().x + itemOffSet*3, elements_[2]->GetPos().y);
-	elements_.push_back(new MenuElement(tempPos, tempPath, false, std::bind(&Menu::ToggleColorPreset, this)));//**********************************************
+	elements_.push_back(new LevelElement(tempPos, lable, false, std::bind(&Menu::SetLevel, this, lable)));
 
-	tempPath = "Assets/Menu/LevelTwo.png";
-	tempPos = sf::Vector2f(elements_[6]->GetPos().x, elements_[6]->GetPos().y + itemOffSet);  
-	elements_.push_back(new MenuElement(tempPos, tempPath, false, std::bind(&Menu::ToggleColorPreset, this)));//**********************************************
-
-	elements_[6]->SetNext(elements_[7]);
-	elements_[6]->SetPrev(elements_[7]);
-	elements_[7]->SetNext(elements_[6]);
-	elements_[7]->SetPrev(elements_[6]);
-
-	//Y/N confermation
-	tempPath = "Assets/Menu/Yes.png";
-	tempPos = sf::Vector2f(elements_[3]->GetPos().x, elements_[3]->GetPos().y + itemOffSet);
-	elements_.push_back(new MenuElement(tempPos, tempPath, false, std::bind(&Menu::ToggleExit, this)));
-
-	tempPath = "Assets/Menu/No.png";
-	tempPos = sf::Vector2f(elements_[8]->GetPos().x + itemOffSet, elements_[8]->GetPos().y + itemOffSet);
-	elements_.push_back(new MenuElement(tempPos, tempPath, false, std::bind(&Menu::ResetSelect, this)));
+	lable = "LevelTwo";
+	tempPos = sf::Vector2f(elements_[8]->GetPos().x, elements_[8]->GetPos().y + itemOffSet);  
+	elements_.push_back(new LevelElement(tempPos, lable, false, std::bind(&Menu::SetLevel, this, lable)));
 
 	elements_[8]->SetNext(elements_[9]);
 	elements_[8]->SetPrev(elements_[9]);
 	elements_[9]->SetNext(elements_[8]);
 	elements_[9]->SetPrev(elements_[8]);
+
+	//Y/N confermation
+	lable = "Yes";
+	tempPos = sf::Vector2f(elements_[3]->GetPos().x, elements_[3]->GetPos().y + itemOffSet);
+	elements_.push_back(new MenuElement(tempPos, lable, false, std::bind(&Menu::ToggleExit, this)));
+
+	lable = "No";
+	tempPos = sf::Vector2f(elements_[10]->GetPos().x, elements_[10]->GetPos().y + itemOffSet);
+	elements_.push_back(new MenuElement(tempPos, lable, false, std::bind(&Menu::ResetSelect, this)));
+
+	elements_[10]->SetNext(elements_[11]);
+	elements_[10]->SetPrev(elements_[11]);
+	elements_[11]->SetNext(elements_[10]);
+	elements_[11]->SetPrev(elements_[10]);
 
 	curretElement_ = elements_[0];
 }
@@ -108,18 +116,27 @@ void Menu::ToggleSettings() {
 	curretElement_ = elements_[4];
 	elements_[4]->ToggleDraw();
 	elements_[5]->ToggleDraw();
+	elements_[7]->ToggleDraw();
 }
 
 void Menu::ToggleExitConfermation() {
+	curretElement_ = elements_[10];
+	elements_[10]->ToggleDraw();
+	elements_[11]->ToggleDraw();
+}
+
+void Menu::ToggleLevelSelect() {
 	curretElement_ = elements_[8];
 	elements_[8]->ToggleDraw();
 	elements_[9]->ToggleDraw();
 }
 
-void Menu::ToggleLevelSelect() {
-	curretElement_ = elements_[6];
-	elements_[6]->ToggleDraw();
-	elements_[7]->ToggleDraw();
+void Menu::SetLevel(sf::String s){
+	ResetSelect();
+	if (s == "LevelOne")
+		currentLevel = 1;
+	else if (s == "LevelTwo")
+		currentLevel = 2;
 }
 
 void Menu::ToggleStartGame() {
@@ -153,13 +170,16 @@ void Menu::ToggleExit() {
 }
 
 void Menu::ToggleColorPreset() {
-	curretElement_ = elements_[0];
 	if (preset_ == PRESETONE)
 	{
+		elements_[6]->SetDraw(false);
+		elements_[5]->SetDraw(true);
 		preset_ = PRESETTWO;
 	}
 	else if (preset_ == PRESETTWO)
 	{
+		elements_[5]->SetDraw(false);
+		elements_[6]->SetDraw(true);
 		preset_ = PRESETONE;
 	}
 }

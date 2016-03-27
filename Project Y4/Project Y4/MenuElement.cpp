@@ -1,19 +1,35 @@
 #include "MenuElement.h"
 
-MenuElement::MenuElement(sf::Vector2f pos, sf::String path, bool draw, MenuElement* next, MenuElement* previous, std::function<void ()> function)
+MenuElement::MenuElement(sf::Vector2f pos, sf::String string, bool draw, MenuElement* next, MenuElement* previous, std::function<void ()> function)
 	: draw_(draw), funct_(function) {
 	next_prev_.first = next;
 	next_prev_.second = previous;
-	texture_.loadFromFile(path);
-	sprite_.setTexture(texture_);
-	sprite_.setPosition(pos);
+	font_.loadFromFile("Assets/Menu/Squared Display.ttf");
+	text_.setFont(font_);
+	text_.setPosition(pos);
+	text_.setString(string);
+	text_.setColor(sf::Color::Blue);
+	text_.setCharacterSize(32);
 }
 
-MenuElement::MenuElement(sf::Vector2f pos, sf::String path, bool draw, std::function<void ()> function)
+MenuElement::MenuElement(sf::Vector2f pos, sf::String string, bool draw, std::function<void ()> function)
 	: draw_(draw), funct_(function) {
-	texture_.loadFromFile(path);
-	sprite_.setTexture(texture_);
-	sprite_.setPosition(pos);
+	font_.loadFromFile("Assets/Menu/Squared Display.ttf");
+	text_.setFont(font_);
+	text_.setPosition(pos);
+	text_.setString(string);
+	text_.setColor(sf::Color::Blue);
+	text_.setCharacterSize(32);
+}
+
+MenuElement::MenuElement(sf::Vector2f pos, sf::String string, bool draw)
+	: draw_(draw) {
+	font_.loadFromFile("Assets/Menu/Squared Display.ttf");
+	text_.setFont(font_);
+	text_.setPosition(pos);
+	text_.setString(string);
+	text_.setColor(sf::Color::Blue);
+	text_.setCharacterSize(32);
 }
 
 MenuElement::~MenuElement() {
@@ -21,7 +37,7 @@ MenuElement::~MenuElement() {
 }
 
 sf::Vector2f MenuElement::GetPos() {
-	return sprite_.getPosition();
+	return text_.getPosition();
 }
 
 void MenuElement::Select() {
@@ -65,5 +81,6 @@ MenuElement* MenuElement::Previous() {
 
 void MenuElement::Draw(sf::RenderWindow &w) {
 	if(draw_)
-		w.draw(sprite_);
+		//w.draw(sprite_);
+	w.draw(text_);
 }

@@ -10,6 +10,7 @@
 #include "InputManager.h"
 #include "AudioManager.h"
 #include "MenuElement.h"
+#include "LevelElement.h"
 
 class Menu {
 private:
@@ -32,6 +33,7 @@ public:
 	void ToggleSettings();
 	void ToggleExitConfermation();
 	void ToggleLevelSelect();
+	void SetLevel(sf::String s);
 	void ToggleStartGame();
 	void ToggleExit();
 	void ResetSelect();

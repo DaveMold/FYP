@@ -132,6 +132,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="JumpPlatform.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelElement.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuElement.cpp" />
     <ClCompile Include="Platform.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="JumpPlatform.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="LevelElement.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuElement.h" />
     <ClInclude Include="Platform.h" />
