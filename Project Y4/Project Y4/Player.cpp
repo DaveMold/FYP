@@ -235,18 +235,6 @@ sf::CircleShape Player::getBoundingShape() {
 	return boundingCircle;
 }
 
-//bool Player::SquareCircle(sf::Shape* s) {
-//	switch (activeShape)
-//	{
-//	case SQUARE:
-//		return shape.getGlobalBounds().intersects(s->getGlobalBounds());
-//		break;
-//	case CIRCLE:
-//		return "CIRCLE";
-//		break;
-//	}
-//}
-
 bool Player::SquareCircle(sf::Shape* s) {
 	switch (activeShape)
 	{
