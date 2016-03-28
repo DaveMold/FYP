@@ -135,6 +135,7 @@
     <ClCompile Include="LevelElement.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuElement.cpp" />
+    <ClCompile Include="OnScreenLable.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SwapPoint.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="LevelElement.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuElement.h" />
+    <ClInclude Include="OnScreenLable.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SwapPoint.h" />

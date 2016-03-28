@@ -10,6 +10,7 @@ MenuElement::MenuElement(sf::Vector2f pos, sf::String string, bool draw, MenuEle
 	text_.setString(string);
 	text_.setColor(sf::Color::Blue);
 	text_.setCharacterSize(32);
+	text_.setStyle(sf::Text::Bold);
 }
 
 MenuElement::MenuElement(sf::Vector2f pos, sf::String string, bool draw, std::function<void ()> function)
@@ -20,6 +21,7 @@ MenuElement::MenuElement(sf::Vector2f pos, sf::String string, bool draw, std::fu
 	text_.setString(string);
 	text_.setColor(sf::Color::Blue);
 	text_.setCharacterSize(32);
+	text_.setStyle(sf::Text::Bold);
 }
 
 MenuElement::MenuElement(sf::Vector2f pos, sf::String string, bool draw)
@@ -30,6 +32,7 @@ MenuElement::MenuElement(sf::Vector2f pos, sf::String string, bool draw)
 	text_.setString(string);
 	text_.setColor(sf::Color::Blue);
 	text_.setCharacterSize(32);
+	text_.setStyle(sf::Text::Bold);
 }
 
 MenuElement::~MenuElement() {

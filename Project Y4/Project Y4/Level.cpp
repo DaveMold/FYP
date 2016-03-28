@@ -4,8 +4,23 @@
 Level::Level(sf::RenderWindow &w)
 	: tileSize_(25), platChar_('1'), playerC_Char_('9'), playerS_Char_('8'), swapChar_('3'), endLS_Char_('6'), endLC_Char_('7'), jumpPlatChar_('5')
 {
+	startLevelTime_ = startLevelTime_.Zero;
 }
 
+float Level::GetLevelTime() {
+	return levelTime_.asSeconds();
+}
+
+sf::Vector2f Level::GetPlayerPos() {
+	return player_->GetPos();
+}
+
+void Level::UpdateLevelTime(sf::Time totalTime) {
+	//Record Level Time
+	if (startLevelTime_ == startLevelTime_.Zero)
+		startLevelTime_ = totalTime;
+	levelTime_ = totalTime - startLevelTime_;
+}
 
 void Level::LoadLevel(int fn) {
 	int temp = 1 + fn;
@@ -119,21 +134,9 @@ Level::~Level() {
 	}
 }
 
-bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
-	//look for the C Key in vector of keys pressed
-	if (InputManager::instance()->Pressed("End"))
-	{
-		//change color of all objects
-		player_->SetColor(sf::Color::Red);
-		for (auto itr = platforms_.begin(); itr != platforms_.end(); itr++)
-		{
-			(*itr)->SetColor(sf::Color::Blue);
-		}
-		for (auto itr = swapPoints_.begin(); itr != swapPoints_.end(); itr++)
-		{
-			(*itr)->SetColor(sf::Color::Green);
-		}
-	}
+bool Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time runTime) {
+	//Record Level time.
+	UpdateLevelTime(runTime);
 
 	//Platforms
 	for (auto itr = platforms_.begin(); itr != platforms_.end(); itr++)

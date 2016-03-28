@@ -26,6 +26,7 @@
 #include "Level.h"
 #include "InputManager.h"
 #include "Menu.h"
+#include "OnScreenLable.h"
 
 int main()
 {
@@ -66,6 +67,8 @@ int main()
 	{
 		levels.push_back(new Level(window));
 	}
+
+	OnScreenLable levelTime(sf::Vector2f(windowDimentions.first - 500, 10), "Current Time : ", true );
 	
 
 	// Start game loop
@@ -102,14 +105,15 @@ int main()
 		switch (GameState)
 		{
 		case GAME:
-			if (levels[currentLevel]->Update(gravity, window))
+			if (levels[currentLevel]->Update(gravity, window, clock.getElapsedTime()))
 			{
 				menu.gameOn_ = false;
 				GameState = GAMEOVER;
-
+				levels[currentLevel]->~Level();
 				break;
 			}
-				//std::cout << "Game Over" << std::endl;
+			levelTime.SetPos(levels[currentLevel]->GetPlayerPos());
+			levelTime.SetText("Current Time : \n" + std::to_string(levels[currentLevel]->GetLevelTime()));
 			break;
 		case GAMEOVER:
 			if (inputMgr->Pressed("Home"))
@@ -140,6 +144,7 @@ int main()
 		case GAME:
 			window.setView(levels[currentLevel]->getFollowCamView());
 			levels[currentLevel]->Draw(window);
+			levelTime.Draw(window);
 			break;
 		case GAMEOVER:
 			window.setView(window.getDefaultView());
@@ -155,7 +160,7 @@ int main()
 
 		// Finally, display rendered frame on screen
 		window.display();
-		clock.restart();
+		//clock.restart();
 	} //loop back for next frame
 
 	return EXIT_SUCCESS;

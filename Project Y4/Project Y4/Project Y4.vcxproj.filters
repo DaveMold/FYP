@@ -54,6 +54,9 @@
     <ClCompile Include="LevelElement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OnScreenLable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
@@ -90,6 +93,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LevelElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OnScreenLable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

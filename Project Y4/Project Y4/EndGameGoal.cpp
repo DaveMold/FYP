@@ -95,7 +95,7 @@ bool EndGameGoal::collision(Player* p) {
 			return shapeSquare.getGlobalBounds().intersects(p->getSquareShape().getGlobalBounds());
 			break;
 		case CIRCLE:
-			return shapeCircle.getGlobalBounds().intersects(p->getSquareShape().getGlobalBounds());
+			return false;
 			break;
 		default:
 			std::cout << "Player :: change Active Shape Default." << std::endl;
@@ -108,7 +108,7 @@ bool EndGameGoal::collision(Player* p) {
 		switch (activeShape)
 		{
 		case SQUARE:
-			return shapeSquare.getGlobalBounds().intersects(p->getCircleShape().getGlobalBounds());
+			return false;
 			break;
 		case CIRCLE:
 			return shapeCircle.getGlobalBounds().intersects(p->getCircleShape().getGlobalBounds());

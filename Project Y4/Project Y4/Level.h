@@ -15,6 +15,8 @@
 class Level {
 private:
 	Player* player_;
+	sf::Time startLevelTime_; //Stores the time the Curret Level was started at.
+	sf::Time levelTime_; //Stores the time the player has been playing the current Level.
 	std::vector<std::vector<char>> map_;
 	int tileSize_, width_, height_;
 	enum Shape { CIRCLE, SQUARE };
@@ -27,9 +29,12 @@ private:
 public:
 	Level(sf::RenderWindow &w);
 	~Level();
+	float GetLevelTime();
+	sf::Vector2f GetPlayerPos();
+	void UpdateLevelTime(sf::Time totalTime);
 	void LoadLevel(int fn);
 	void MapToLevel();
-	bool Update(sf::Vector2f g, sf::RenderWindow &w);
+	bool Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time runTime);
 	void SwapPointUpdate(Player::Shape s);
 	sf::View getFollowCamView();
 	void Draw(sf::RenderWindow &w);
