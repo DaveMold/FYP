@@ -14,9 +14,6 @@
 
 class Menu {
 private:
-	enum ColorPresets { PRESETONE, PRESETTWO };
-	ColorPresets preset_;
-	
 	std::vector<MenuElement*> elements_;
 
 	MenuElement* curretElement_;
@@ -25,6 +22,8 @@ private:
 	sf::Sprite arrowHeadSprite_;
 	
 public:
+	enum ColorPresets { PRESETONE, PRESETTWO };
+	ColorPresets preset_;
 	int currentLevel; //The current level selected to Play. Read by game class when gameOn == true to create the approprate level. 
 	bool showSettings_, gameOn_, exit_, showExitConfermation_, ShowLevelsSelect_;
 	Menu(std::pair<float, float> windowDesmentions);

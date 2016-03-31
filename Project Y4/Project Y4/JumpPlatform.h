@@ -7,8 +7,8 @@ class JumpPlatform : public GameEntity {
 private:
 
 public:
-	JumpPlatform(float size, float sides, sf::Vector2f pos);
-	JumpPlatform(float Width, float Height, float sides, sf::Vector2f pos);
+	JumpPlatform(float size, float sides, sf::Vector2f pos, Menu::ColorPresets preSet);
+	JumpPlatform(float Width, float Height, float sides, sf::Vector2f pos, Menu::ColorPresets preSet);
 	~JumpPlatform();
 };
 #endif

@@ -2,7 +2,7 @@
 #include "GameEntity.h"
 
 
-GameEntity::GameEntity(float size, float sides, sf::Vector2f pos):shape(sides) {
+GameEntity::GameEntity(float size, float sides, sf::Vector2f pos, Menu::ColorPresets preSet):shape(sides) {
 	rotateSpeed = 0;
 	radius = size;
 	numSides = sides;
@@ -47,11 +47,23 @@ GameEntity::GameEntity(float size, float sides, sf::Vector2f pos):shape(sides) {
 	/*direction.x = (rand() % 10 - 5) / 60.0;
 	direction.y = (rand() % 10 - 5) / 60.0;*/
 	shape.setOutlineThickness(-4);
-	shape.setOutlineColor(sf::Color::Green);
+	//Color Preset
+	switch (preSet)
+	{
+	case Menu::ColorPresets::PRESETONE:
+		shape.setOutlineColor(sf::Color::Green);
+		break;
+	case Menu::ColorPresets::PRESETTWO:
+		shape.setOutlineColor(sf::Color::Blue);
+		break;
+	default:
+		printf("GameEntity::GameEntity() ColorPresent not correct value.");
+		break;
+	}
 	shape.setFillColor(sf::Color::Black);
 }
 
-GameEntity::GameEntity(float Width, float Height, float sides, sf::Vector2f pos) :shape(sides) {
+GameEntity::GameEntity(float Width, float Height, float sides, sf::Vector2f pos, Menu::ColorPresets preSet) :shape(sides) {
 	rotateSpeed = 0;
 	numSides = sides;
 	DegreToRad = 3.14 / 180;
@@ -79,7 +91,19 @@ GameEntity::GameEntity(float Width, float Height, float sides, sf::Vector2f pos)
 	/*direction.x = (rand() % 10 - 5) / 60.0;
 	direction.y = (rand() % 10 - 5) / 60.0;*/
 	shape.setOutlineThickness(-4);
-	shape.setOutlineColor(sf::Color::Green);
+	//Color Preset
+	switch (preSet)
+	{
+	case Menu::ColorPresets::PRESETONE:
+		shape.setOutlineColor(sf::Color::Green);
+		break;
+	case Menu::ColorPresets::PRESETTWO:
+		shape.setOutlineColor(sf::Color::Blue);
+		break;
+	default:
+		printf("GameEntity::GameEntity() ColorPresent not correct value.");
+		break;
+	}
 	shape.setFillColor(sf::Color::Black);
 }
 

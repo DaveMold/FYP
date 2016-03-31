@@ -124,7 +124,7 @@ int main()
 			{
 				currentLevel = menu.currentLevel;
 				levels[currentLevel]->LoadLevel(currentLevel);
-				levels[currentLevel]->MapToLevel();
+				levels[currentLevel]->MapToLevel(menu.preset_);
 				GameState = GAME;
 			}
 			menu.Update();

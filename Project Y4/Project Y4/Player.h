@@ -8,7 +8,7 @@ class Player : public GameEntity {
 public:
 	enum Shape { CIRCLE, SQUARE };
 
-	Player(float size, float sides, sf::Vector2f pos, Shape s, sf::Vector2f SBounds);
+	Player(float size, float sides, sf::Vector2f pos, Shape s, sf::Vector2f SBounds, Menu::ColorPresets preSet);
 	~Player();
 	void Draw(sf::RenderWindow &w);
 	bool IsOffScreen(); //Returns true if the player has exited the screen bounds.

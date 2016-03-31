@@ -8,6 +8,7 @@
 #include <vector>
 #include <iostream>
 #include "Player.h"
+#include "Menu.h"
 
 class EndGameGoal {
 private:
@@ -23,7 +24,7 @@ private:
 	std::vector<sf::Vector2f> points;
 	bool collided;//If the player has collided with the swapPoint and is still overlaping with it.
 public:
-	EndGameGoal(float size, sf::Vector2f pos, sf::String active);
+	EndGameGoal(float size, sf::Vector2f pos, sf::String active, Menu::ColorPresets preSet);
 	~EndGameGoal();
 	void ChangeActiveShape();
 	void Draw(sf::RenderWindow &w);
