@@ -80,11 +80,11 @@ void Level::MapToLevel() {
 			}
 			if (temp == playerC_Char_)
 			{
-				player_ = new Player(tileSize_, 4, sf::Vector2f(x * tileSize_, y * tileSize_), Player::CIRCLE);
+				player_ = new Player(tileSize_, 4, sf::Vector2f(x * tileSize_, y * tileSize_), Player::CIRCLE, sf::Vector2f(width_ * tileSize_, height_ * tileSize_));
 			}
 			if (temp == playerS_Char_)
 			{
-				player_ = new Player(tileSize_, 4, sf::Vector2f(x * tileSize_, y * tileSize_), Player::SQUARE);
+				player_ = new Player(tileSize_, 4, sf::Vector2f(x * tileSize_, y * tileSize_), Player::SQUARE, sf::Vector2f(width_ * tileSize_, height_ * tileSize_));
 			}
 			if (temp == swapChar_)
 			{
@@ -120,19 +120,9 @@ Level::~Level() {
 }
 
 bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
-	//look for the C Key in vector of keys pressed
-	if (InputManager::instance()->Pressed("End"))
+	if (player_->IsOffScreen())
 	{
-		//change color of all objects
-		player_->SetColor(sf::Color::Red);
-		for (auto itr = platforms_.begin(); itr != platforms_.end(); itr++)
-		{
-			(*itr)->SetColor(sf::Color::Blue);
-		}
-		for (auto itr = swapPoints_.begin(); itr != swapPoints_.end(); itr++)
-		{
-			(*itr)->SetColor(sf::Color::Green);
-		}
+		return true;
 	}
 
 	//Platforms
@@ -175,7 +165,6 @@ bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
 	}
 	return false;
 }
-
 
 void Level::SwapPointUpdate(Player::Shape s) {
 	std::vector<SwapPoint*>::iterator removeItr;

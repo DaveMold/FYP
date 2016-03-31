@@ -1,8 +1,8 @@
 #include "Player.h"
 #include "InputManager.h"
 
-Player::Player(float size, float sides, sf::Vector2f pos, Shape s)
-	:GameEntity(size,sides,pos), debug(false), boundingOffSet(6){
+Player::Player(float size, float sides, sf::Vector2f pos, Shape s, sf::Vector2f SBounds)
+	:GameEntity(size,sides,pos), debug(false), boundingOffSet(6), screenBounds_(SBounds){
 
 
 	//Reset Posision.
@@ -62,6 +62,17 @@ void Player::Draw(sf::RenderWindow &w) {
 	{
 		w.draw(boundingCircle);
 	}
+}
+
+bool Player::IsOffScreen() {
+	if (posCentre.x > -50.f && posCentre.x < screenBounds_.x)
+	{
+		if (posCentre.y > -500.f && posCentre.y < screenBounds_.y)
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 void Player::MoveUpdate() {
