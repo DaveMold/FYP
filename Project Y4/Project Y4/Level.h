@@ -7,6 +7,7 @@
 #include "SwapPoint.h"
 #include "EndGameGoal.h"
 #include "AudioManager.h"
+#include "Menu.h"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -28,7 +29,7 @@ public:
 	Level(sf::RenderWindow &w);
 	~Level();
 	void LoadLevel(int fn);
-	void MapToLevel();
+	void MapToLevel(Menu::ColorPresets preSet);
 	bool Update(sf::Vector2f g, sf::RenderWindow &w);
 	void SwapPointUpdate(Player::Shape s);
 	sf::View getFollowCamView();

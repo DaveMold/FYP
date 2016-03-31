@@ -172,14 +172,14 @@ void Menu::ToggleExit() {
 void Menu::ToggleColorPreset() {
 	if (preset_ == PRESETONE)
 	{
-		elements_[6]->SetDraw(false);
-		elements_[5]->SetDraw(true);
+		elements_[5]->SetDraw(false);
+		elements_[6]->SetDraw(true);
 		preset_ = PRESETTWO;
 	}
 	else if (preset_ == PRESETTWO)
 	{
-		elements_[5]->SetDraw(false);
-		elements_[6]->SetDraw(true);
+		elements_[5]->SetDraw(true);
+		elements_[6]->SetDraw(false);
 		preset_ = PRESETONE;
 	}
 }
