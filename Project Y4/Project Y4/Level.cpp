@@ -119,6 +119,28 @@ Level::~Level() {
 	}
 }
 
+void Level::Clear() {
+	map_.clear();
+	player_->~Player();
+	endGameGoal_->~EndGameGoal();
+	for (int i = 0; i < swapPoints_.size(); i++)
+	{
+		swapPoints_[i]->~SwapPoint();
+	}
+
+	for (int i = 0; i < platforms_.size(); i++)
+	{
+		platforms_[i]->~Platform();
+	}
+	for (int i = 0; i < jumpPlatforms_.size(); i++)
+	{
+		jumpPlatforms_[i]->~JumpPlatform();
+	}
+	swapPoints_.clear();
+	platforms_.clear();
+	jumpPlatforms_.clear();
+}
+
 bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
 	if (player_->IsOffScreen())
 	{

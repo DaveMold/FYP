@@ -114,6 +114,7 @@ int main()
 		case GAMEOVER:
 			if (inputMgr->Pressed("Home"))
 			{
+				levels[currentLevel]->Clear();
 				GameState = MENU;
 				menu.gameOn_ = false;
 			}
