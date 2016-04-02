@@ -69,11 +69,11 @@ void Player::MoveUpdate() {
 	speed = 0;
 
 	//look for the Left Arrow Key in vector of keys pressed
-	if (InputManager::instance()->Held("Left"))
+	if ((InputManager::instance()->Pressed("Left") || InputManager::instance()->Held("Left")) && !InputManager::instance()->Released("Left"))
 	{
 		speed -= acceleration;
 	}
-	if (InputManager::instance()->Held("Right"))
+	if ((InputManager::instance()->Pressed("Right") || InputManager::instance()->Held("Right")) && !InputManager::instance()->Released("Right"))
 
 	{
 		speed += acceleration;
@@ -96,7 +96,7 @@ void Player::ApplyJumpPlatformForce() {
 		jumpForce = sf::Vector2f(0, -0.3f);
 		break;
 	case CIRCLE:
-		if (InputManager::instance()->Released("Left") || InputManager::instance()->Held("Left"))
+		if (InputManager::instance()->Pressed("Left") || InputManager::instance()->Held("Left"))
 		{
 			jumpForce = sf::Vector2f(-0.1f, -0.2702f);
 		}
@@ -111,8 +111,11 @@ void Player::ApplyJumpPlatformForce() {
 	}
 }
 
-void Player::ApplyJump(float collisionForce) {
-	if (InputManager::instance()->Pressed("Up") && collisionForce != 0)
+void Player::ApplyJump(sf::Vector2f collisionForce) {
+	/*If the player is in contact with another object there will be a collsision force,
+	so if the collsionion force is greater than 0, it must be colliding with somthing.*/
+ 	float collisionForceMagnatude = sqrt(pow(collisionForce.x, 2) + pow(collisionForce.y, 2));
+	if (InputManager::instance()->Pressed("Up") && (collisionForceMagnatude != 0 && collisionForce.y < 0 && collisionForce.x != 0))
 	{
 		AudioManager::instance()->PlayTrack("Jump");
 		switch (activeShape)
@@ -124,7 +127,7 @@ void Player::ApplyJump(float collisionForce) {
 			jumpForce = sf::Vector2f(jumpForce.x, -0.2702f);
 		}
 	}
-	else
+	else//if (InputManager::instance()->Released("Up"))
 	{
 		//y-axis reset
 		if (jumpForce.y > 0.0f)
@@ -164,10 +167,8 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 
 	MoveUpdate();
 
-	/*If the player is in contact with another object there will be a collsision force,
-	so if the collsionion force is greater than 0, it must be colliding with somthing.*/
-	float collisionForceMagnatude = sqrt(pow(collisionForce.x, 2) + pow(collisionForce.y, 2));
-	ApplyJump(collisionForceMagnatude);
+	
+	ApplyJump(collisionForce);
 
 
 	sf::Vector2f force = g + collisionForce + jumpForce;

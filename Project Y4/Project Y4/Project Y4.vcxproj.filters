@@ -98,5 +98,8 @@
     <ClInclude Include="OnScreenLable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CheckPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

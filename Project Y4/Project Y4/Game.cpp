@@ -78,7 +78,7 @@ int main()
 
 		while (window.pollEvent(Event)) {
 
-			//inputMgr->UpdatePressedKeys(Event);
+			
 
 			switch (Event.type) {
 				// Close window : exit
@@ -89,13 +89,20 @@ int main()
 				menu.~Menu();
 				window.close();
 				break;
+			case sf::Event::KeyPressed:
+				inputMgr->KeyPressEvent(Event);
+				break;
+			case sf::Event::KeyReleased:
+				inputMgr->KeyReleaseEvent(Event);
+				break;
 			default:
+				//inputMgr->UpdatePressedKeys(Event);
 				break;
 			}//end switch
 		}//end while
 
 		//Update
-		inputMgr->UpdatePressedKeys(Event);
+		//inputMgr->UpdatePressedKeys(Event);
 
 		if (menu.exit_)
 		{

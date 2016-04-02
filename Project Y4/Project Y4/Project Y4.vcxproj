@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="CheckPoint.h" />
     <ClInclude Include="EndGameGoal.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="InputManager.h" />
