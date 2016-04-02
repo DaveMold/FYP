@@ -25,7 +25,6 @@ public:
 	bool Pressed(sf::String key);
 	bool Held(sf::String key);
 	bool Released(sf::String key);
-	void UpdatePressedKeys(sf::Event e);
 	void KeyPressEvent(sf::Event e);
 	void KeyReleaseEvent(sf::Event e);
 };

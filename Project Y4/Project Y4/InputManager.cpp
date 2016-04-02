@@ -76,33 +76,6 @@ bool InputManager::Released(sf::String key) {
 	return false;
 }
 
-void InputManager::UpdatePressedKeys(sf::Event e) {
-	
-	//keysPressed.clear();
-
-	
-
-
-	
-
-	
-	//keysPressed.clear();
-	/*else if (sf::Event::TextEntered == sf::Event::EventType::KeyPressed)
-	{
-		std::cout << e.key.code << std::endl;
-		switch (e.key.code)
-		{
-		case sf::Keyboard::G:
-			std::cout << "Gravity On/Off" << std::endl;
-			keysPressed.push_back("G");
-			break;
-		default:
-			break;
-		}
-	}*/
-
-}
-
 void InputManager::KeyPressEvent(sf::Event e) {
 	
 	if (e.type == sf::Event::EventType::KeyPressed)
@@ -112,8 +85,6 @@ void InputManager::KeyPressEvent(sf::Event e) {
 			if (keysPressed.end() == std::find(keysPressed.begin(), keysPressed.end(), "Left"))
 			{
 				keysPressed.push_back("Left");
-				//remove all elements with the value indexItr.
-				//keysPressedLastUpdate.erase(std::remove(keysPressedLastUpdate.begin(), keysPressedLastUpdate.end(), "Left"), keysPressedLastUpdate.end());
 			}
 		}
 		if (e.key.code == sf::Keyboard::Right)
@@ -121,8 +92,6 @@ void InputManager::KeyPressEvent(sf::Event e) {
 			if (keysPressed.end() == std::find(keysPressed.begin(), keysPressed.end(), "Right"))
 			{
 				keysPressed.push_back("Right");
-				//remove all elements with the value indexItr.
-				//keysPressedLastUpdate.erase(std::remove(keysPressedLastUpdate.begin(), keysPressedLastUpdate.end(), "Right"), keysPressedLastUpdate.end());
 			}
 		}
 		if (e.key.code == sf::Keyboard::Up)
@@ -130,8 +99,6 @@ void InputManager::KeyPressEvent(sf::Event e) {
 			if (keysPressed.end() == std::find(keysPressed.begin(), keysPressed.end(), "Up"))
 			{
 				keysPressed.push_back("Up");
-				//remove all elements with the value indexItr.
-				//keysPressedLastUpdate.erase(std::remove(keysPressedLastUpdate.begin(), keysPressedLastUpdate.end(), "Up"), keysPressedLastUpdate.end());
 			}
 		}
 		if (e.key.code == sf::Keyboard::Down)
@@ -139,8 +106,6 @@ void InputManager::KeyPressEvent(sf::Event e) {
 			if (keysPressed.end() == std::find(keysPressed.begin(), keysPressed.end(), "Down"))
 			{
 				keysPressed.push_back("Down");
-				//remove all elements with the value indexItr.
-				//keysPressedLastUpdate.erase(std::remove(keysPressedLastUpdate.begin(), keysPressedLastUpdate.end(), "Down"), keysPressedLastUpdate.end());
 			}
 		}
 		if (e.key.code == sf::Keyboard::End)
