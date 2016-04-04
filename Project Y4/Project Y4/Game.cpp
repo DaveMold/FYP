@@ -23,13 +23,49 @@
 #pragma comment(lib, "XInput9_1_0.lib")   // Library. If your compiler doesn't support this type of lib include change to the corresponding one
 
 //Entities include
+#include <iostream>
+#include <fstream>
+#include "json.h"
 #include "Level.h"
 #include "InputManager.h"
 #include "Menu.h"
 #include "OnScreenLable.h"
 
+void SaveLevelData(int id, float time) {
+	Json::Value levelDat;
+	levelDat["ID"] = id;
+	levelDat["Time"] = time;
+
+
+	Json::StyledStreamWriter writer;
+
+	std::ofstream test("Assets/Saves/Save1.sav");
+	writer.write(test, levelDat);
+}
+
+std::pair<int, float> readLevelData() {
+	std::pair<int, float> temp;
+	Json::Value root;
+	std::string line;
+	Json::Reader reader;
+
+	std::ifstream test("Assets/Saves/Save1.sav");
+
+	if (reader.parse(test, root)) {
+		temp.first = root["ID"].asInt();
+		temp.second = root["Time"].asFloat();
+	}
+	else
+	{
+		printf("Could not find save file");
+	}
+
+	return temp;
+}
+
 int main()
 {
+	std::cout << readLevelData().second <<std::endl;
 	std::cout << "Menu Controls \n Up/Down : Arrow Keys Up/Down. \n Sellect : Right Arrow Key" << std::endl;
 	std::cout << "Game Controls \n Jump : Up Arrow Key. \n Movement : Right/Left Arrow Keys. \n Reset Pos = Home Key." << std::endl;
 	std::cout << "GameOver Controls \n Back To Menu : Home Key." << std::endl;
@@ -96,13 +132,11 @@ int main()
 				inputMgr->KeyReleaseEvent(Event);
 				break;
 			default:
-				//inputMgr->UpdatePressedKeys(Event);
 				break;
 			}//end switch
 		}//end while
 
 		//Update
-		//inputMgr->UpdatePressedKeys(Event);
 
 		if (menu.exit_)
 		{
@@ -114,6 +148,7 @@ int main()
 		case GAME:
 			if (levels[currentLevel]->Update(gravity, window, clock.getElapsedTime()))
 			{
+				SaveLevelData(currentLevel, levels[currentLevel]->GetLevelTime());
 				menu.gameOn_ = false;
 				GameState = GAMEOVER;
 				levels[currentLevel]->~Level();

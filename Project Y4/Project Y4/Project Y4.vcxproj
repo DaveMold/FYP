@@ -130,6 +130,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="jsoncpp.cpp" />
     <ClCompile Include="JumpPlatform.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelElement.cpp" />
@@ -146,6 +147,8 @@
     <ClInclude Include="EndGameGoal.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="json-forwards.h" />
+    <ClInclude Include="json.h" />
     <ClInclude Include="JumpPlatform.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelElement.h" />
@@ -154,6 +157,7 @@
     <ClInclude Include="OnScreenLable.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="reader.h" />
     <ClInclude Include="SwapPoint.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

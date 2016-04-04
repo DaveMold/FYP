@@ -1,20 +1,17 @@
-﻿Build started 4/2/2016 3:12:27 AM.
+﻿Build started 4/4/2016 4:57:14 PM.
      1>Project "C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Project Y4\Project Y4.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp InputManager.cpp Level.cpp Menu.cpp Player.cpp
-         InputManager.cpp
-         Generating Code...
-         Skipping... (no relevant changes detected)
-         Player.cpp
-         Menu.cpp
-         Level.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
          Game.cpp
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\game.cpp(76): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\game.cpp(92): warning C4305: 'argument': truncation from 'double' to 'float'
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Debug\Project Y41.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.3.2\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Debug\Project Y41.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Debug\Project Y41.lib" /MACHINE:X86 Debug\AudioManager.obj
          Debug\EndGameGoal.obj
          Debug\Game.obj
          Debug\GameEntity.obj
          Debug\InputManager.obj
+         Debug\jsoncpp.obj
          Debug\JumpPlatform.obj
          Debug\Level.obj
          Debug\LevelElement.obj
@@ -29,4 +26,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.04
+Time Elapsed 00:00:02.13
