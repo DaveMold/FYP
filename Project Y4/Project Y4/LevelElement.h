@@ -15,7 +15,8 @@ public:
 	void Draw(sf::RenderWindow &w) override;
 private:
 	std::function<void(sf::String)> funct_;
-	float time_, levelID_;
+	float time_;
+	int levelID_;
 	sf::Text levelTimeText_;
 };
 #endif

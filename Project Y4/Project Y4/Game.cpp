@@ -32,40 +32,47 @@
 #include "OnScreenLable.h"
 
 void SaveLevelData(int id, float time) {
-	Json::Value levelDat;
-	levelDat["ID"] = id;
-	levelDat["Time"] = time;
-
-
+	Json::Value levelDat, Buffer;
+	//Id used to reference the level data when reading from the file.
+	//levelDat[std::to_string(id)] = time;
 	Json::StyledStreamWriter writer;
-
-	std::ofstream test("Assets/Saves/Save1.sav");
-	writer.write(test, levelDat);
-}
-
-std::pair<int, float> readLevelData() {
-	std::pair<int, float> temp;
-	Json::Value root;
-	std::string line;
 	Json::Reader reader;
-
-	std::ifstream test("Assets/Saves/Save1.sav");
-
-	if (reader.parse(test, root)) {
-		temp.first = root["ID"].asInt();
-		temp.second = root["Time"].asFloat();
-	}
-	else
+	std::ifstream streamA("Assets/Saves/Save1.sav");
+	if (!reader.parse(streamA, levelDat))
 	{
-		printf("Could not find save file");
+		std::cout << "Could not find save file" << std::endl;
+		return;
 	}
-
-	return temp;
+	levelDat["Levels"][id] = time;
+	std::ofstream streamB("Assets/Saves/Save1.sav");
+	writer.write(streamB, levelDat);
+	streamA.close();
+	streamB.close();
 }
+
+//std::pair<int, float> readLevelData() {
+//	std::pair<int, float> temp;
+//	Json::Value root;
+//	std::string line;
+//	Json::Reader reader;
+//
+//	std::ifstream buffer("Assets/Saves/Save1.sav");
+//
+//	if (reader.parse(buffer, root)) {
+//		temp.first = root["ID"].asInt();
+//		temp.second = root["Time"].asFloat();
+//	}
+//	else
+//	{
+//		printf("Could not find save file");
+//	}
+//	buffer.close();
+//	return temp;
+//}
 
 int main()
 {
-	std::cout << readLevelData().second <<std::endl;
+	//std::cout << readLevelData().second <<std::endl;
 	std::cout << "Menu Controls \n Up/Down : Arrow Keys Up/Down. \n Sellect : Right Arrow Key" << std::endl;
 	std::cout << "Game Controls \n Jump : Up Arrow Key. \n Movement : Right/Left Arrow Keys. \n Reset Pos = Home Key." << std::endl;
 	std::cout << "GameOver Controls \n Back To Menu : Home Key." << std::endl;
@@ -154,6 +161,7 @@ int main()
 				levels[currentLevel]->~Level();
 				break;
 			}
+			//Update the Posistion of the LevelTime to run with the Player.
 			levelTime.SetPos(levels[currentLevel]->GetPlayerPos());
 			levelTime.SetText("Current Time : \n" + std::to_string(levels[currentLevel]->GetLevelTime()));
 			break;

@@ -5,7 +5,7 @@ LevelElement::LevelElement(sf::Vector2f pos, int levelID, sf::String string, boo
 	funct_ = function;
 	levelID_ = levelID;
 	levelTimeText_.setFont(font_);
-	levelTimeText_.setPosition(pos.x + 80,pos.y + 5);
+	levelTimeText_.setPosition(pos.x + 100,pos.y + 5);
 	levelTimeText_.setString("Defualt");
 	levelTimeText_.setColor(sf::Color(25,125,255.f));
 	levelTimeText_.setCharacterSize(18);
@@ -20,20 +20,20 @@ void LevelElement::ReadLevelData() {
 	Json::Value root;
 	Json::Reader reader;
 
-	std::ifstream test("Assets/Saves/Save1.sav");
+	std::ifstream buffer("Assets/Saves/Save1.sav");
 
-	if (reader.parse(test, root)) {
-		for (int i = 0; i < 0; i++) {
-			if (root["ID"].asInt() == levelID_)
-			{
-				time_ = root["Time"].asFloat();
-			}
-		}
+	//buffer >> root;
+
+
+
+	if (!reader.parse(buffer, root)) {
+		std::cout << "Could not find save file" << std::endl;
+		return;
 	}
-	else
-	{
-		printf("Could not find save file");
-	}
+	Json::Value obj = root["Levels"];
+	time_ = obj[levelID_].asFloat();
+	
+	buffer.close();
 }
 
 void LevelElement::UpdateLevelTime() {
