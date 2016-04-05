@@ -60,11 +60,11 @@ Menu::Menu(std::pair<float, float> windowDesmentions) : currentLevel(0), showSet
 	//Level Select
 	lable = "LevelOne";
 	tempPos = sf::Vector2f(elements_[2]->GetPos().x + itemOffSet*3, elements_[2]->GetPos().y);
-	elements_.push_back(new LevelElement(tempPos, lable, false, std::bind(&Menu::SetLevel, this, lable)));
+	elements_.push_back(new LevelElement(tempPos, 0, lable, false, std::bind(&Menu::SetLevel, this, lable)));
 
 	lable = "LevelTwo";
 	tempPos = sf::Vector2f(elements_[8]->GetPos().x, elements_[8]->GetPos().y + itemOffSet);  
-	elements_.push_back(new LevelElement(tempPos, lable, false, std::bind(&Menu::SetLevel, this, lable)));
+	elements_.push_back(new LevelElement(tempPos, 1, lable, false, std::bind(&Menu::SetLevel, this, lable)));
 
 	elements_[8]->SetNext(elements_[9]);
 	elements_[8]->SetPrev(elements_[9]);
@@ -109,6 +109,13 @@ void Menu::Update() {
 	{
 		AudioManager::instance()->PlayTrack("Select");
 		curretElement_->Select();
+	}
+
+	for (int i = 0; i < elements_.size(); i++)
+	{
+		auto temp = dynamic_cast<LevelElement*> (elements_[i]);
+		if(temp != nullptr)
+			temp->UpdateLevelTime();
 	}
 }
 

@@ -5,8 +5,10 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
+#include <fstream>
 #include <iostream>
 #include <functional>
+#include "json.h"
 #include "InputManager.h"
 #include "AudioManager.h"
 #include "MenuElement.h"
@@ -38,6 +40,7 @@ public:
 	void ToggleExit();
 	void ResetSelect();
 	void ToggleColorPreset();
+	void SaveLevelData(int id, float time);
 	void Draw(sf::RenderWindow &w);
 };
 #endif

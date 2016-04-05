@@ -84,6 +84,5 @@ MenuElement* MenuElement::Previous() {
 
 void MenuElement::Draw(sf::RenderWindow &w) {
 	if(draw_)
-		//w.draw(sprite_);
-	w.draw(text_);
+		w.draw(text_);
 }
