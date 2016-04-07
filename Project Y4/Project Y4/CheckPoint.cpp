@@ -52,8 +52,11 @@ CheckPoint::~CheckPoint(){
 }
 
 void CheckPoint::ResetPlayer(Player* p) {
-	p->SetPos(playerPos_.x,playerPos_.y);
-	p->SetActiveShape(playerShape_);
+	if (collected_)
+	{
+		p->SetPos(playerPos_.x, playerPos_.y);
+		p->SetActiveShape(playerShape_);
+	}
 }
 
 void CheckPoint::Draw(sf::RenderWindow &w) {
