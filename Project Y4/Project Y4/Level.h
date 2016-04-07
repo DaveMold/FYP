@@ -7,6 +7,7 @@
 #include "SwapPoint.h"
 #include "EndGameGoal.h"
 #include "AudioManager.h"
+#include "CheckPoint.h"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -22,9 +23,10 @@ private:
 	enum Shape { CIRCLE, SQUARE };
 	std::vector<SwapPoint*> swapPoints_;
 	std::vector<Platform*> platforms_;
+	std::vector<CheckPoint*> checkPoints_;
 	std::vector<JumpPlatform*> jumpPlatforms_;
 	EndGameGoal* endGameGoal_;
-	char platChar_, playerC_Char_, playerS_Char_, endLC_Char_, endLS_Char_, swapChar_, jumpPlatChar_;
+	char platChar_, playerC_Char_, playerS_Char_, checkPoint_Char_, endLC_Char_, endLS_Char_, swapChar_, jumpPlatChar_;
 	
 public:
 	Level(sf::RenderWindow &w);

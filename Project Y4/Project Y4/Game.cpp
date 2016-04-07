@@ -30,6 +30,7 @@
 #include "InputManager.h"
 #include "Menu.h"
 #include "OnScreenLable.h"
+#include "CheckPoint.h"
 
 void SaveLevelData(int id, float time) {
 	Json::Value levelDat, Buffer;
@@ -49,26 +50,6 @@ void SaveLevelData(int id, float time) {
 	streamA.close();
 	streamB.close();
 }
-
-//std::pair<int, float> readLevelData() {
-//	std::pair<int, float> temp;
-//	Json::Value root;
-//	std::string line;
-//	Json::Reader reader;
-//
-//	std::ifstream buffer("Assets/Saves/Save1.sav");
-//
-//	if (reader.parse(buffer, root)) {
-//		temp.first = root["ID"].asInt();
-//		temp.second = root["Time"].asFloat();
-//	}
-//	else
-//	{
-//		printf("Could not find save file");
-//	}
-//	buffer.close();
-//	return temp;
-//}
 
 int main()
 {
@@ -112,7 +93,6 @@ int main()
 	}
 
 	OnScreenLable levelTime(sf::Vector2f(windowDimentions.first - 500, 10), "Current Time : ", true );
-	
 
 	// Start game loop
 	while (window.isOpen()) {

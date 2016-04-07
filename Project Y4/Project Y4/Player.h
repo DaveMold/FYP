@@ -26,7 +26,7 @@ public:
 	sf::CircleShape getBoundingShape();
 	bool SquareCircle(sf::Shape* s);
 	float clamp(float value, const float min, const float max);
-
+	void SetActiveShape(Shape s);
 private:
 	//debug
 	bool debug;

@@ -22,6 +22,7 @@ protected:
 public:
 	GameEntity(float size, float sides, sf::Vector2f pos);
 	GameEntity(float Width, float Height, float sides, sf::Vector2f pos);
+	~GameEntity();
 	void Draw(sf::RenderWindow &w);
 	void SetPos(sf::RenderWindow &w);
 	void Update();
@@ -31,7 +32,7 @@ public:
 	sf::ConvexShape getShape();
 
 	//SAT methods
-	virtual std::pair<bool, sf::Vector2f> Collision(sf::RenderWindow &w, GameEntity* shape2);
+	virtual std::pair<bool, sf::Vector2f> CollisionWithPlayer(sf::RenderWindow &w, GameEntity* shape2);
 	sf::Vector2f ProjectOnToAxis(sf::Vector2f axis) const;
 	std::pair<bool, double> checkOverlap(const sf::Vector2f &A, const sf::Vector2f &B);
 	sf::Vector2f GetDirection();

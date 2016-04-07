@@ -2,7 +2,7 @@
 #include "InputManager.h"
 
 Level::Level(sf::RenderWindow &w)
-	: tileSize_(25), platChar_('1'), playerC_Char_('9'), playerS_Char_('8'), swapChar_('3'), endLS_Char_('6'), endLC_Char_('7'), jumpPlatChar_('5')
+	: tileSize_(25), platChar_('1'), playerC_Char_('9'), checkPoint_Char_('2'), playerS_Char_('8'), swapChar_('3'), endLS_Char_('6'), endLC_Char_('7'), jumpPlatChar_('5')
 {
 	startLevelTime_ = startLevelTime_.Zero;
 }
@@ -93,6 +93,10 @@ void Level::MapToLevel() {
 				jumpPlatforms_.push_back(new JumpPlatform(tileSize_ * lenght, tileSize_, 4, sf::Vector2f((x * tileSize_) - (tileSize_ * lenght), y* tileSize_)));
 				lenght = 1;
 			}
+			if (temp == checkPoint_Char_)
+			{
+				checkPoints_.push_back(new CheckPoint(tileSize_, tileSize_, sf::Vector2f((x * tileSize_), y * tileSize_)));
+			}
 			if (temp == playerC_Char_)
 			{
 				player_ = new Player(tileSize_, 4, sf::Vector2f(x * tileSize_, y * tileSize_), Player::CIRCLE);
@@ -132,6 +136,10 @@ Level::~Level() {
 	{
 		jumpPlatforms_[i]->~JumpPlatform();
 	}
+	for (int i = 0; i < checkPoints_.size(); i++)
+	{
+		checkPoints_[i]->~CheckPoint();
+	}
 }
 
 bool Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time runTime) {
@@ -147,7 +155,7 @@ bool Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time runTime) {
 		temp.first = false;
 		if (player_->SquareCircle(&(*itr)->getShape()))
 		{
-			temp = player_->Collision(w, (*itr));
+			temp = player_->CollisionWithPlayer(w, (*itr));
 		}
 		if (temp.first)
 		{
@@ -162,11 +170,17 @@ bool Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time runTime) {
 	for (auto itr = jumpPlatforms_.begin(); itr != jumpPlatforms_.end(); itr++)
 	{
 		(*itr)->Update();
-		std::pair<float, sf::Vector2f> temp = player_->Collision(w, (*itr));
+		std::pair<float, sf::Vector2f> temp = player_->CollisionWithPlayer(w, (*itr));
 		if (temp.first)
 		{
 			player_->ApplyJumpPlatformForce();
 		}
+	}
+	//CheckPoints
+	for (auto itr = checkPoints_.begin(); itr != checkPoints_.end(); itr++)
+	{
+		(*itr)->Update(levelTime_.asSeconds());
+		(*itr)->collision(player_);
 	}
 	//swapPoints
 	SwapPointUpdate(player_->getShape());
@@ -213,6 +227,11 @@ void Level::Draw(sf::RenderWindow &w) {
 		(*itr)->Draw(w);
 	}
 	for (auto itr = swapPoints_.begin(); itr != swapPoints_.end(); itr++)
+	{
+		(*itr)->Draw(w);
+	}
+	//CheckPoints
+	for (auto itr = checkPoints_.begin(); itr != checkPoints_.end(); itr++)
 	{
 		(*itr)->Draw(w);
 	}

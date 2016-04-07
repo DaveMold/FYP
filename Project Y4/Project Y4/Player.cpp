@@ -41,7 +41,6 @@ Player::Player(float size, float sides, sf::Vector2f pos, Shape s)
 }
 
 Player::~Player() {
-
 }
 
 
@@ -216,6 +215,21 @@ void Player::ChangeActiveShape() {
 		break;
 	default:
 		std::cout << "Player :: change Active Shape Default." << std::endl;
+		break;
+	}
+}
+
+void Player::SetActiveShape(Shape s) {
+	switch (s)
+	{
+	case SQUARE:
+		activeShape = SQUARE;
+		break;
+	case CIRCLE:
+		activeShape = CIRCLE;
+		break;
+	default:
+		std::cout << "Player :: set Active Shape Default." << std::endl;
 		break;
 	}
 }
