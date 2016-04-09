@@ -8,6 +8,7 @@
 #include "EndGameGoal.h"
 #include "AudioManager.h"
 #include "CheckPoint.h"
+#include "Menu.h"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -34,9 +35,10 @@ public:
 	float GetLevelTime();
 	sf::Vector2f GetPlayerPos();
 	void UpdateLevelTime(sf::Time totalTime);
-	void LoadLevel(int fn);
-	void MapToLevel();
+	void MapToLevel(Menu::ColorPresets preSet);
 	bool Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time runTime);
+	//void Clear(); //Clears the current level so that when a new instance of the same level is generated they are not drawen on eachother.
+	void LoadLevel(int fn);
 	void SwapPointUpdate(Player::Shape s);
 	sf::View getFollowCamView();
 	void Draw(sf::RenderWindow &w);

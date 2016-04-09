@@ -24,6 +24,7 @@ protected:
 	sf::Vector2f playerPos_; //Stores the players posistion for when they are needed for spawning.
 	bool collected_; //Will tell if the player has collected the checkpoint.
 public:
+	bool used_; //If the player has already been reset using the checkpoint they will not be reset and will be brought to the end game screen.
 	CheckPoint(float Width, float Height, sf::Vector2f pos);
 	~CheckPoint();
 	void ResetPlayer(Player* p);

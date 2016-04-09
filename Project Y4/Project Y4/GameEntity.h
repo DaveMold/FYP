@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
 #include <vector>
+#include "Menu.h"
 
 class GameEntity {
 protected:
@@ -20,9 +21,9 @@ protected:
 	float rotateSpeed;
 	float radius;
 public:
-	GameEntity(float size, float sides, sf::Vector2f pos);
-	GameEntity(float Width, float Height, float sides, sf::Vector2f pos);
 	~GameEntity();
+	GameEntity(float size, float sides, sf::Vector2f pos, Menu::ColorPresets preSet);
+	GameEntity(float Width, float Height, float sides, sf::Vector2f pos, Menu::ColorPresets preSet);
 	void Draw(sf::RenderWindow &w);
 	void SetPos(sf::RenderWindow &w);
 	void Update();

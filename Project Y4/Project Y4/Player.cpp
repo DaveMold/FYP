@@ -1,8 +1,8 @@
 #include "Player.h"
 #include "InputManager.h"
 
-Player::Player(float size, float sides, sf::Vector2f pos, Shape s)
-	:GameEntity(size,sides,pos), debug(false), boundingOffSet(6){
+Player::Player(float size, float sides, sf::Vector2f pos, Shape s, sf::Vector2f SBounds, Menu::ColorPresets preSet)
+	:GameEntity(size,sides,pos, preSet), debug(false), boundingOffSet(6), screenBounds_(SBounds){
 
 
 	//Reset Posision.
@@ -31,13 +31,27 @@ Player::Player(float size, float sides, sf::Vector2f pos, Shape s)
 	shapeCircle.setRadius(radius);
 	shapeCircle.setPosition(pos.x - radius, pos.y - radius);
 
-	shape.setOutlineColor(sf::Color::Blue);
 	shape.setFillColor(sf::Color::Black);
 	shape.setPosition(pos.x - radius, pos.y - radius);
 
 	shapeCircle.setOutlineThickness(-4);
-	shapeCircle.setOutlineColor(sf::Color::Blue);
 	shapeCircle.setFillColor(sf::Color::Black);
+
+	//Color Preset
+	switch (preSet)
+	{
+	case Menu::ColorPresets::PRESETONE:
+		shape.setOutlineColor(sf::Color::Blue);
+		shapeCircle.setOutlineColor(sf::Color::Blue);
+		break;
+	case Menu::ColorPresets::PRESETTWO:
+		shape.setOutlineColor(sf::Color::Magenta);
+		shapeCircle.setOutlineColor(sf::Color::Magenta);
+		break;
+	default:
+		printf("SwapPoint::SwapPoint() ColorPresent not correct value.");
+		break;
+	}
 }
 
 Player::~Player() {
@@ -61,6 +75,17 @@ void Player::Draw(sf::RenderWindow &w) {
 	{
 		w.draw(boundingCircle);
 	}
+}
+
+bool Player::IsOffScreen() {
+	if (posCentre.x > -50.f && posCentre.x < screenBounds_.x)
+	{
+		if (posCentre.y > -500.f && posCentre.y < screenBounds_.y)
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 void Player::MoveUpdate() {

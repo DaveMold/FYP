@@ -1,10 +1,11 @@
 #include "EndGameGoal.h"
 
-EndGameGoal::EndGameGoal(float size, sf::Vector2f pos, sf::String active) :shapeSquare(numSides), collided(false) {
+EndGameGoal::EndGameGoal(float size, sf::Vector2f pos, sf::String active, Menu::ColorPresets preSet) :shapeSquare(numSides), collided(false) {
 	if (active == "CIRCLE")
 		activeShape = CIRCLE;
 	else
 		activeShape = SQUARE;
+
 	shapeCircle.setRadius(size);
 	posCentre = pos;
 	radius = size;
@@ -35,10 +36,23 @@ EndGameGoal::EndGameGoal(float size, sf::Vector2f pos, sf::String active) :shape
 
 
 	shapeSquare.setOutlineThickness(-4);
-	shapeSquare.setOutlineColor(sf::Color::Yellow);
-	shapeSquare.setFillColor(sf::Color::Black);
 	shapeCircle.setOutlineThickness(-4);
-	shapeCircle.setOutlineColor(sf::Color::Yellow);
+	//Color Preset
+	switch (preSet)
+	{
+	case Menu::ColorPresets::PRESETONE:
+		shapeSquare.setOutlineColor(sf::Color::Yellow);
+		shapeCircle.setOutlineColor(sf::Color::Yellow);
+		break;
+	case Menu::ColorPresets::PRESETTWO:
+		shapeSquare.setOutlineColor(sf::Color(136, 0, 137)); //Purple
+		shapeCircle.setOutlineColor(sf::Color(136, 0, 137)); //Purple
+		break;
+	default:
+		printf("EndGameGoal::EndGameGoal() ColorPresent not correct value.");
+		break;
+	}
+	shapeSquare.setFillColor(sf::Color::Black);
 	shapeCircle.setFillColor(sf::Color::Black);
 }
 

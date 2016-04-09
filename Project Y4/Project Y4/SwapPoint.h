@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include "Player.h"
+#include "Menu.h"
 
 class SwapPoint {
 private:
@@ -21,7 +22,7 @@ private:
 	float width, height;
 	std::vector<sf::Vector2f> points;
 public:
-	SwapPoint(float size, sf::Vector2f pos);
+	SwapPoint(float size, sf::Vector2f pos, Menu::ColorPresets preSet);
 	~SwapPoint();
 	void ChangeActiveShape(Player::Shape s);
 	Shape getShape();

@@ -1,6 +1,6 @@
 #include "SwapPoint.h"
 
-SwapPoint::SwapPoint(float size, sf::Vector2f pos) :shapeSquare(numSides) {
+SwapPoint::SwapPoint(float size, sf::Vector2f pos, Menu::ColorPresets preSet) :shapeSquare(numSides) {
 	activeShape = SQUARE;
 	shapeCircle.setRadius(size);
 	posCentre = pos;
@@ -31,11 +31,26 @@ SwapPoint::SwapPoint(float size, sf::Vector2f pos) :shapeSquare(numSides) {
 	}
 
 
+
+
 	shapeSquare.setOutlineThickness(-4);
-	shapeSquare.setOutlineColor(sf::Color::Red);
-	shapeSquare.setFillColor(sf::Color::Black);
 	shapeCircle.setOutlineThickness(-4);
-	shapeCircle.setOutlineColor(sf::Color::Red);
+	//Color Preset
+	switch (preSet)
+	{
+	case Menu::ColorPresets::PRESETONE:
+		shapeSquare.setOutlineColor(sf::Color::Red);
+		shapeCircle.setOutlineColor(sf::Color::Red);
+		break;
+	case Menu::ColorPresets::PRESETTWO:
+		shapeSquare.setOutlineColor(sf::Color::Yellow); 
+		shapeCircle.setOutlineColor(sf::Color::Yellow); 
+		break;
+	default:
+		printf("SwapPoint::SwapPoint() ColorPresent not correct value.");
+		break;
+	}
+	shapeSquare.setFillColor(sf::Color::Black);
 	shapeCircle.setFillColor(sf::Color::Black);
 }
 

@@ -144,10 +144,13 @@ int main()
 			//Update the Posistion of the LevelTime to run with the Player.
 			levelTime.SetPos(levels[currentLevel]->GetPlayerPos());
 			levelTime.SetText("Current Time : \n" + std::to_string(levels[currentLevel]->GetLevelTime()));
+
+
 			break;
 		case GAMEOVER:
 			if (inputMgr->Pressed("Home"))
 			{
+				levels[currentLevel]->~Level();
 				GameState = MENU;
 				menu.gameOn_ = false;
 			}
@@ -158,7 +161,7 @@ int main()
 			{
 				currentLevel = menu.currentLevel;
 				levels[currentLevel]->LoadLevel(currentLevel);
-				levels[currentLevel]->MapToLevel();
+				levels[currentLevel]->MapToLevel(menu.preset_);
 				GameState = GAME;
 			}
 			menu.Update();

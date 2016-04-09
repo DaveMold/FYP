@@ -1,6 +1,6 @@
 #include "CheckPoint.h"
 
-CheckPoint::CheckPoint(float Width, float Height, sf::Vector2f pos):shape_(14) {
+CheckPoint::CheckPoint(float Width, float Height, sf::Vector2f pos):shape_(14) , used_(false){
 	pos_ = sf::Vector2f(pos.x, pos.y - 8);
 	numSides_ = 14;
 	points_.reserve(numSides_ + 1);
@@ -54,6 +54,7 @@ CheckPoint::~CheckPoint(){
 void CheckPoint::ResetPlayer(Player* p) {
 	if (collected_)
 	{
+		used_ = true;
 		p->SetPos(playerPos_.x, playerPos_.y);
 		p->SetActiveShape(playerShape_);
 	}
