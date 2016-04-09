@@ -21,6 +21,7 @@ protected:
 	float rotateSpeed;
 	float radius;
 public:
+	~GameEntity();
 	GameEntity(float size, float sides, sf::Vector2f pos, Menu::ColorPresets preSet);
 	GameEntity(float Width, float Height, float sides, sf::Vector2f pos, Menu::ColorPresets preSet);
 	void Draw(sf::RenderWindow &w);
@@ -32,7 +33,7 @@ public:
 	sf::ConvexShape getShape();
 
 	//SAT methods
-	virtual std::pair<bool, sf::Vector2f> Collision(sf::RenderWindow &w, GameEntity* shape2);
+	virtual std::pair<bool, sf::Vector2f> CollisionWithPlayer(sf::RenderWindow &w, GameEntity* shape2);
 	sf::Vector2f ProjectOnToAxis(sf::Vector2f axis) const;
 	std::pair<bool, double> checkOverlap(const sf::Vector2f &A, const sf::Vector2f &B);
 	sf::Vector2f GetDirection();

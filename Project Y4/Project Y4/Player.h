@@ -16,7 +16,7 @@ public:
 	sf::View getView();
 	void SetPos(float x, float y);
 	void ApplyJumpPlatformForce();
-	void ApplyJump(float collisionForce); /* This will check for the jump key press as well determin if the player should be aloud jump.
+	void ApplyJump(sf::Vector2f collisionForce); /* This will check for the jump key press as well determin if the player should be aloud jump.
 	It will then apply the correct magnatude of force for the shape. */
 	void Update(sf::Vector2f g, sf::Vector2f collisionForce);
 	sf::Vector2f Vec2Multiply(sf::Vector2f v1, sf::Vector2f v2);
@@ -27,7 +27,7 @@ public:
 	sf::CircleShape getBoundingShape();
 	bool SquareCircle(sf::Shape* s);
 	float clamp(float value, const float min, const float max);
-
+	void SetActiveShape(Shape s);
 private:
 	//debug
 	bool debug;

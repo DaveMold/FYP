@@ -126,31 +126,39 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="CheckPoint.cpp" />
     <ClCompile Include="EndGameGoal.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="jsoncpp.cpp" />
     <ClCompile Include="JumpPlatform.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelElement.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuElement.cpp" />
+    <ClCompile Include="OnScreenLable.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SwapPoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="CheckPoint.h" />
     <ClInclude Include="EndGameGoal.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="json-forwards.h" />
+    <ClInclude Include="json.h" />
     <ClInclude Include="JumpPlatform.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelElement.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuElement.h" />
+    <ClInclude Include="OnScreenLable.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="reader.h" />
     <ClInclude Include="SwapPoint.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

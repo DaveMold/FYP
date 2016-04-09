@@ -2,10 +2,25 @@
 #include "InputManager.h"
 
 Level::Level(sf::RenderWindow &w)
-	: tileSize_(25), platChar_('1'), playerC_Char_('9'), playerS_Char_('8'), swapChar_('3'), endLS_Char_('6'), endLC_Char_('7'), jumpPlatChar_('5')
+	: tileSize_(25), platChar_('1'), playerC_Char_('9'), checkPoint_Char_('2'), playerS_Char_('8'), swapChar_('3'), endLS_Char_('6'), endLC_Char_('7'), jumpPlatChar_('5')
 {
+	startLevelTime_ = startLevelTime_.Zero;
 }
 
+float Level::GetLevelTime() {
+	return levelTime_.asSeconds();
+}
+
+sf::Vector2f Level::GetPlayerPos() {
+	return player_->GetPos();
+}
+
+void Level::UpdateLevelTime(sf::Time totalTime) {
+	//Record Level Time
+	if (startLevelTime_ == startLevelTime_.Zero)
+		startLevelTime_ = totalTime;
+	levelTime_ = totalTime - startLevelTime_;
+}
 
 void Level::LoadLevel(int fn) {
 	int temp = 1 + fn;
@@ -78,6 +93,10 @@ void Level::MapToLevel(Menu::ColorPresets preSet) {
 				jumpPlatforms_.push_back(new JumpPlatform(tileSize_ * lenght, tileSize_, 4, sf::Vector2f((x * tileSize_) - (tileSize_ * lenght), y* tileSize_), preSet));
 				lenght = 1;
 			}
+			if (temp == checkPoint_Char_)
+			{
+				checkPoints_.push_back(new CheckPoint(tileSize_, tileSize_, sf::Vector2f((x * tileSize_), y * tileSize_)));
+			}
 			if (temp == playerC_Char_)
 			{
 				player_ = new Player(tileSize_, 4, sf::Vector2f(x * tileSize_, y * tileSize_), Player::CIRCLE, sf::Vector2f(width_ * tileSize_, height_ * tileSize_), preSet);
@@ -117,35 +136,19 @@ Level::~Level() {
 	{
 		jumpPlatforms_[i]->~JumpPlatform();
 	}
-}
-
-void Level::Clear() {
+	for (int i = 0; i < checkPoints_.size(); i++)
+	{
+		checkPoints_[i]->~CheckPoint();
+	}
 	map_.clear();
-	player_->~Player();
-	endGameGoal_->~EndGameGoal();
-	for (int i = 0; i < swapPoints_.size(); i++)
-	{
-		swapPoints_[i]->~SwapPoint();
-	}
-
-	for (int i = 0; i < platforms_.size(); i++)
-	{
-		platforms_[i]->~Platform();
-	}
-	for (int i = 0; i < jumpPlatforms_.size(); i++)
-	{
-		jumpPlatforms_[i]->~JumpPlatform();
-	}
-	swapPoints_.clear();
-	platforms_.clear();
-	jumpPlatforms_.clear();
+//	swapPoints_.clear();
+//	platforms_.clear();
+//	jumpPlatforms_.clear();
 }
 
-bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
-	if (player_->IsOffScreen())
-	{
-		return true;
-	}
+bool Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time runTime) {
+	//Record Level time.
+	UpdateLevelTime(runTime);
 
 	//Platforms
 	for (auto itr = platforms_.begin(); itr != platforms_.end(); itr++)
@@ -156,7 +159,7 @@ bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
 		temp.first = false;
 		if (player_->SquareCircle(&(*itr)->getShape()))
 		{
-			temp = player_->Collision(w, (*itr));
+			temp = player_->CollisionWithPlayer(w, (*itr));
 		}
 		if (temp.first)
 		{
@@ -171,7 +174,7 @@ bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
 	for (auto itr = jumpPlatforms_.begin(); itr != jumpPlatforms_.end(); itr++)
 	{
 		(*itr)->Update();
-		std::pair<float, sf::Vector2f> temp = player_->Collision(w, (*itr));
+		std::pair<float, sf::Vector2f> temp = player_->CollisionWithPlayer(w, (*itr));
 		if (temp.first)
 		{
 			player_->ApplyJumpPlatformForce();
@@ -183,6 +186,25 @@ bool Level::Update(sf::Vector2f g, sf::RenderWindow &w) {
 	if (endGameGoal_->collision(player_))
 	{
 		AudioManager::instance()->PlayTrack("EndLevel");
+		return true;
+	}
+	//CheckPoints
+	for (auto itr = checkPoints_.begin(); itr != checkPoints_.end(); itr++)
+	{
+		(*itr)->Update(levelTime_.asSeconds());
+		(*itr)->collision(player_);
+	}
+	//Check player offscreen.
+	if (player_->IsOffScreen())
+	{
+		for (auto itr = checkPoints_.begin(); itr != checkPoints_.end(); itr++)
+		{
+			if (!(*itr)->used_)
+			{
+				(*itr)->ResetPlayer(player_);
+				return false;
+			}
+		}
 		return true;
 	}
 	return false;
@@ -221,6 +243,11 @@ void Level::Draw(sf::RenderWindow &w) {
 		(*itr)->Draw(w);
 	}
 	for (auto itr = swapPoints_.begin(); itr != swapPoints_.end(); itr++)
+	{
+		(*itr)->Draw(w);
+	}
+	//CheckPoints
+	for (auto itr = checkPoints_.begin(); itr != checkPoints_.end(); itr++)
 	{
 		(*itr)->Draw(w);
 	}

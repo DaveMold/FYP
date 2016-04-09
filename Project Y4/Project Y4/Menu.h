@@ -5,8 +5,10 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
+#include <fstream>
 #include <iostream>
 #include <functional>
+#include "json.h"
 #include "InputManager.h"
 #include "AudioManager.h"
 #include "MenuElement.h"

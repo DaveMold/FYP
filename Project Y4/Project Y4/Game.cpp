@@ -23,12 +23,37 @@
 #pragma comment(lib, "XInput9_1_0.lib")   // Library. If your compiler doesn't support this type of lib include change to the corresponding one
 
 //Entities include
+#include <iostream>
+#include <fstream>
+#include "json.h"
 #include "Level.h"
 #include "InputManager.h"
 #include "Menu.h"
+#include "OnScreenLable.h"
+#include "CheckPoint.h"
+
+void SaveLevelData(int id, float time) {
+	Json::Value levelDat, Buffer;
+	//Id used to reference the level data when reading from the file.
+	//levelDat[std::to_string(id)] = time;
+	Json::StyledStreamWriter writer;
+	Json::Reader reader;
+	std::ifstream streamA("Assets/Saves/Save1.sav");
+	if (!reader.parse(streamA, levelDat))
+	{
+		std::cout << "Could not find save file" << std::endl;
+		return;
+	}
+	levelDat["Levels"][id] = time;
+	std::ofstream streamB("Assets/Saves/Save1.sav");
+	writer.write(streamB, levelDat);
+	streamA.close();
+	streamB.close();
+}
 
 int main()
 {
+	//std::cout << readLevelData().second <<std::endl;
 	std::cout << "Menu Controls \n Up/Down : Arrow Keys Up/Down. \n Sellect : Right Arrow Key" << std::endl;
 	std::cout << "Game Controls \n Jump : Up Arrow Key. \n Movement : Right/Left Arrow Keys. \n Reset Pos = Home Key." << std::endl;
 	std::cout << "GameOver Controls \n Back To Menu : Home Key." << std::endl;
@@ -66,7 +91,8 @@ int main()
 	{
 		levels.push_back(new Level(window));
 	}
-	
+
+	OnScreenLable levelTime(sf::Vector2f(windowDimentions.first - 500, 10), "Current Time : ", true );
 
 	// Start game loop
 	while (window.isOpen()) {
@@ -75,7 +101,7 @@ int main()
 
 		while (window.pollEvent(Event)) {
 
-			//inputMgr->UpdatePressedKeys(Event);
+			
 
 			switch (Event.type) {
 				// Close window : exit
@@ -86,13 +112,18 @@ int main()
 				menu.~Menu();
 				window.close();
 				break;
+			case sf::Event::KeyPressed:
+				inputMgr->KeyPressEvent(Event);
+				break;
+			case sf::Event::KeyReleased:
+				inputMgr->KeyReleaseEvent(Event);
+				break;
 			default:
 				break;
 			}//end switch
 		}//end while
 
 		//Update
-		inputMgr->UpdatePressedKeys(Event);
 
 		if (menu.exit_)
 		{
@@ -102,19 +133,24 @@ int main()
 		switch (GameState)
 		{
 		case GAME:
-			if (levels[currentLevel]->Update(gravity, window))
+			if (levels[currentLevel]->Update(gravity, window, clock.getElapsedTime()))
 			{
+				SaveLevelData(currentLevel, levels[currentLevel]->GetLevelTime());
 				menu.gameOn_ = false;
 				GameState = GAMEOVER;
-
+				levels[currentLevel]->~Level();
 				break;
 			}
-				//std::cout << "Game Over" << std::endl;
+			//Update the Posistion of the LevelTime to run with the Player.
+			levelTime.SetPos(levels[currentLevel]->GetPlayerPos());
+			levelTime.SetText("Current Time : \n" + std::to_string(levels[currentLevel]->GetLevelTime()));
+
+
 			break;
 		case GAMEOVER:
 			if (inputMgr->Pressed("Home"))
 			{
-				levels[currentLevel]->Clear();
+				levels[currentLevel]->~Level();
 				GameState = MENU;
 				menu.gameOn_ = false;
 			}
@@ -141,6 +177,7 @@ int main()
 		case GAME:
 			window.setView(levels[currentLevel]->getFollowCamView());
 			levels[currentLevel]->Draw(window);
+			levelTime.Draw(window);
 			break;
 		case GAMEOVER:
 			window.setView(window.getDefaultView());
@@ -156,7 +193,7 @@ int main()
 
 		// Finally, display rendered frame on screen
 		window.display();
-		clock.restart();
+		//clock.restart();
 	} //loop back for next frame
 
 	return EXIT_SUCCESS;

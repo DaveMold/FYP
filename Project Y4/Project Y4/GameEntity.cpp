@@ -107,6 +107,8 @@ GameEntity::GameEntity(float Width, float Height, float sides, sf::Vector2f pos,
 	shape.setFillColor(sf::Color::Black);
 }
 
+GameEntity::~GameEntity() {}
+
 void GameEntity::Draw(sf::RenderWindow &w) {
 	w.draw(shape);
 }
@@ -147,7 +149,7 @@ sf::ConvexShape GameEntity::getShape() {
 	return shape;
 }
 
-std::pair<bool, sf::Vector2f>  GameEntity::Collision(sf::RenderWindow &w, GameEntity* shape2) {
+std::pair<bool, sf::Vector2f>  GameEntity::CollisionWithPlayer(sf::RenderWindow &w, GameEntity* shape2) {
 	float overLap = FLT_MAX;
 	std::vector<sf::Vector2f> axisListShape1;
 	std::vector<sf::Vector2f> axisListShape2;
