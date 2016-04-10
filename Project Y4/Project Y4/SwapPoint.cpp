@@ -2,15 +2,15 @@
 
 SwapPoint::SwapPoint(float size, sf::Vector2f pos, Menu::ColorPresets preSet) :shapeSquare(numSides) {
 	activeShape = SQUARE;
-	shapeCircle.setRadius(size);
-	posCentre = pos;
-	radius = size;
-	shapeCircle.setPosition(pos.x - radius, pos.y - radius);
+	shapeCircle.setRadius(size/2.f);
+	radius = size / 2.f;
+	posCentre = sf::Vector2f(pos.x, pos.y - radius*2.f);
+	shapeCircle.setPosition(pos.x, pos.y - radius*2.f);
 	DegreToRad = 3.14 / 180;
 	numSides = 4;
 	posCentre = pos;
 	points.reserve(numSides + 1);
-	shapeSquare.setPosition(pos);
+	shapeSquare.setPosition(pos.x, pos.y - radius*2.f);
 	shapeSquare.setPointCount(4);
 
 	float indexOfPointsInCircle;

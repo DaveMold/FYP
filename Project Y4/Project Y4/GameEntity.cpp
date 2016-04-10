@@ -79,10 +79,10 @@ GameEntity::GameEntity(float Width, float Height, float sides, sf::Vector2f pos,
 	points.push_back(sf::Vector2f(posCentre.x - (Width / 2), posCentre.y + (Height / 2)));
 	points.push_back(sf::Vector2f(posCentre.x + (Width / 2), posCentre.y + (Height / 2)));*/
 
-	points.push_back(sf::Vector2f(0, 0));
-	points.push_back(sf::Vector2f(width,0));
-	points.push_back(sf::Vector2f(width, height));
-	points.push_back(sf::Vector2f(0,height));
+	points.push_back(sf::Vector2f(-(width/2.f), (height/2.f)));
+	points.push_back(sf::Vector2f(-(width / 2.f), -(height / 2.f)));
+	points.push_back(sf::Vector2f((width / 2.f), -(height / 2.f)));
+	points.push_back(sf::Vector2f((width / 2.f), (height / 2.f)));
 
 	for (int i = 0; i < numSides; i++) {
 		shape.setPoint(i, points[i]);

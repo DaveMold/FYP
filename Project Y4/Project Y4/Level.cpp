@@ -15,6 +15,18 @@ sf::Vector2f Level::GetPlayerPos() {
 	return player_->GetPos();
 }
 
+bool Level::MapBlank() {
+	for (int y = 0; y < height_; y++) {
+		for (int x = 0; x < map_.at(y).size(); x++) {
+			if (map_.at(y).at(x) != '0')
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
 void Level::UpdateLevelTime(sf::Time totalTime) {
 	//Record Level Time
 	if (startLevelTime_ == startLevelTime_.Zero)
@@ -64,61 +76,90 @@ void Level::LoadLevel(int fn) {
 
 void Level::MapToLevel(Menu::ColorPresets preSet) {
 	char temp;
-	int lenght = 1;
-
-	for (int y = 0; y < height_; y++) {
-		for (int x = 0; x < map_.at(y).size(); x++) {
-
-			temp = map_.at(y).at(x);
-
-			if (temp == platChar_)
-			{
-				while (x+1 < map_.at(y).size() && temp == map_.at(y).at(x+1))
+	int lenght = 0;
+	int height = 0;
+	while (!MapBlank())
+	{
+		for (int y = 0; y < height_; y++) {
+			for (int x = 0; x < map_.at(y).size(); x++) {
+				temp = map_.at(y).at(x);
+				if (temp == '0')
 				{
-					lenght++;
-					x++;
+					continue;
 				}
-
-				platforms_.push_back(new Platform(tileSize_ * lenght, tileSize_, 4, sf::Vector2f((x * tileSize_)-(tileSize_ * lenght), y* tileSize_), preSet));
-				lenght = 1;
-			}
-			if (temp == jumpPlatChar_)
-			{
-				while (x + 1 < map_.at(y).size() && temp == map_.at(y).at(x + 1))
+				if (temp == platChar_)
 				{
-					lenght++;
-					x++;
-				}
+					while (x < map_.at(y).size() && temp == map_.at(y).at(x))
+					{
+						lenght++;
+						x++;
+						while (y < map_.size() && temp == map_.at(y).at(x) && lenght < 2)
+						{
+							height++;
+							map_.at(y).at(x) = '0';
+							y++;
+						}
+					}
 
-				jumpPlatforms_.push_back(new JumpPlatform(tileSize_ * lenght, tileSize_, 4, sf::Vector2f((x * tileSize_) - (tileSize_ * lenght), y* tileSize_), preSet));
-				lenght = 1;
-			}
-			if (temp == checkPoint_Char_)
-			{
-				checkPoints_.push_back(new CheckPoint(tileSize_, tileSize_, sf::Vector2f((x * tileSize_), y * tileSize_)));
-			}
-			if (temp == playerC_Char_)
-			{
-				player_ = new Player(tileSize_, 4, sf::Vector2f(x * tileSize_, y * tileSize_), Player::CIRCLE, sf::Vector2f(width_ * tileSize_, height_ * tileSize_), preSet);
-			}
-			if (temp == playerS_Char_)
-			{
-				player_ = new Player(tileSize_, 4, sf::Vector2f(x * tileSize_, y * tileSize_), Player::SQUARE, sf::Vector2f(width_ * tileSize_, height_ * tileSize_), preSet);
-			}
-			if (temp == swapChar_)
-			{
-				swapPoints_.push_back(new SwapPoint(tileSize_, sf::Vector2f(x * tileSize_, y * tileSize_), preSet));
-			}
-			if (temp == endLS_Char_)
-			{
-				endGameGoal_ = new EndGameGoal(15, sf::Vector2f(x * tileSize_, y * tileSize_), "SQUARE", preSet);
-			}
-			if (temp == endLC_Char_)
-			{
-				endGameGoal_ = new EndGameGoal(15, sf::Vector2f(x * tileSize_, y * tileSize_), "CIRCLE", preSet);
-			}
-		}
-	}
+					platforms_.push_back(new Platform(tileSize_ * lenght, tileSize_ * height, 4, sf::Vector2f((x * tileSize_) - ((tileSize_ / 2.f) * lenght),( y * tileSize_) - ((tileSize_/2.f) * height)), preSet));
+					lenght = 0;
+					height = 0;
+					break;
+				}
+				if (temp == jumpPlatChar_)
+				{
+					map_.at(y).at(x) = '0';
+					while (x < map_.at(y).size() && temp == map_.at(y).at(x))
+					{
+						lenght++;
+						map_.at(y).at(x) = '0';
+						x++;
+					}
+
+					jumpPlatforms_.push_back(new JumpPlatform(tileSize_ * lenght, tileSize_ * height, 4, sf::Vector2f((x * tileSize_) - (tileSize_ * lenght), (y * tileSize_) - ((tileSize_)* height)), preSet));
+					break;
+					lenght = 0;
+					height = 0;
+				}
+				if (temp == checkPoint_Char_)
+				{
+					map_.at(y).at(x) = '0';
+					checkPoints_.push_back(new CheckPoint(tileSize_, tileSize_, sf::Vector2f((x * tileSize_) - (tileSize_), (y * tileSize_) - ((tileSize_)))));
+					break;
+				}
+				if (temp == playerC_Char_)
+				{
+					map_.at(y).at(x) = '0';
+					player_ = new Player(tileSize_, 4, sf::Vector2f((x * tileSize_) - (tileSize_ * 1), (y * tileSize_) - ((tileSize_)* 1)), Player::CIRCLE, sf::Vector2f(width_ * tileSize_, height_ * tileSize_), preSet);
+					break;
+				}
+				if (temp == playerS_Char_)
+				{
+					map_.at(y).at(x) = '0';
+					player_ = new Player(tileSize_, 4, sf::Vector2f((x * tileSize_) - (tileSize_ * 1), (y * tileSize_) - ((tileSize_)* 1)), Player::SQUARE, sf::Vector2f(width_ * tileSize_, height_ * tileSize_), preSet);
+					break;
+				}
+				if (temp == swapChar_)
+				{
+					map_.at(y).at(x) = '0';
+					swapPoints_.push_back(new SwapPoint(tileSize_, sf::Vector2f((x * tileSize_) - (tileSize_ * 1), (y * tileSize_) - ((tileSize_)* 1)), preSet));
+					break;
+				}
+				if (temp == endLS_Char_)
+				{
+					map_.at(y).at(x) = '0';
+					endGameGoal_ = new EndGameGoal(15, sf::Vector2f((x * tileSize_) - (tileSize_ * 1), (y * tileSize_) - ((tileSize_)* 1)), "SQUARE", preSet);
+					break;
+				}
+				if (temp == endLC_Char_)
+				{
+					map_.at(y).at(x) = '0';
+					endGameGoal_ = new EndGameGoal(15, sf::Vector2f((x * tileSize_) - (tileSize_ * 1), (y * tileSize_) - ((tileSize_)* 1)), "CIRCLE", preSet);
+					break;
+				}
+			}// for loop to cycle through the x values of the map.
+		}// for loop to cycle through the y values of the map.
+	}// end of while. checks for any game entities left in the map before exiting the loop.
 }
 
 Level::~Level() {

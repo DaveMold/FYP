@@ -33,6 +33,7 @@ public:
 	Level(sf::RenderWindow &w);
 	~Level();
 	float GetLevelTime();
+	bool MapBlank(); //cycle through the map searching for any game entity that where not created.
 	sf::Vector2f GetPlayerPos();
 	void UpdateLevelTime(sf::Time totalTime);
 	void MapToLevel(Menu::ColorPresets preSet);
