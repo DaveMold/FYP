@@ -84,7 +84,8 @@ int main()
 	AudioManager* audioMgr = AudioManager::instance();
 	audioMgr->loadAudio();
 	//Levels
-	int levelCount = 3;
+	std::pair<bool, bool> level_result;
+	int levelCount = 4;
 	int currentLevel = 0;
 	std::vector<Level*> levels;
 	for (int i = 0; i < levelCount; i++)
@@ -133,9 +134,13 @@ int main()
 		switch (GameState)
 		{
 		case GAME:
-			if (levels[currentLevel]->Update(gravity, window, clock.getElapsedTime()))
+			level_result = levels[currentLevel]->Update(gravity, window, clock.getElapsedTime());
+			if (level_result.first)
 			{
-				SaveLevelData(currentLevel, levels[currentLevel]->GetLevelTime());
+				if (level_result.second)
+				{
+					SaveLevelData(currentLevel, levels[currentLevel]->GetLevelTime());
+				}
 				menu.gameOn_ = false;
 				GameState = GAMEOVER;
 				levels[currentLevel]->~Level();

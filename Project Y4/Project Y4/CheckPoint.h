@@ -22,18 +22,19 @@ protected:
 	std::vector<sf::Vector2f> points_;
 	Player::Shape playerShape_; //Stores the players shape for when they are needed to be respawned.
 	sf::Vector2f playerPos_; //Stores the players posistion for when they are needed for spawning.
-	bool collected_; //Will tell if the player has collected the checkpoint.
 public:
+	bool collected_; //Will tell if the player has collected the checkpoint.
 	bool used_; //If the player has already been reset using the checkpoint they will not be reset and will be brought to the end game screen.
 	CheckPoint(float Width, float Height, sf::Vector2f pos);
 	~CheckPoint();
-	void ResetPlayer(Player* p);
+	void ResetPlayer(Player* p); //resets the player with the shape and posistion the checkPoint stores. Only happens after the CheckPoint has been collected once.
+	void ResetCheckPoint(); //resets the CheckPoint to before it was collected or used.
 	void Draw(sf::RenderWindow &w);
 	void SetPos(sf::RenderWindow &w);
 	void Update(float time);
 	void SetColor(sf::Color color);
 	sf::Vector2f GetPos();
 	sf::ConvexShape getShape();
-	void collision(Player* p);
+	bool collision(Player* p);
 };
 #endif

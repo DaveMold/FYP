@@ -146,7 +146,7 @@ Level::~Level() {
 //	jumpPlatforms_.clear();
 }
 
-bool Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time runTime) {
+std::pair<bool,bool> Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time runTime) {
 	//Record Level time.
 	UpdateLevelTime(runTime);
 
@@ -186,28 +186,38 @@ bool Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time runTime) {
 	if (endGameGoal_->collision(player_))
 	{
 		AudioManager::instance()->PlayTrack("EndLevel");
-		return true;
+		return std::make_pair<bool, bool>(true, true);
 	}
 	//CheckPoints
-	for (auto itr = checkPoints_.begin(); itr != checkPoints_.end(); itr++)
+	for (auto itrA = checkPoints_.begin(); itrA != checkPoints_.end(); itrA++)
 	{
-		(*itr)->Update(levelTime_.asSeconds());
-		(*itr)->collision(player_);
+		(*itrA)->Update(levelTime_.asSeconds());
+		if ((*itrA)->collision(player_))
+		{
+			//If a checkPoint is collected the others are set back to active so they may be collected again.
+			for (auto itrB = checkPoints_.begin(); itrB != checkPoints_.end(); itrB++)
+			{
+				if (itrB != itrA)
+				{
+					(*itrB)->ResetCheckPoint();
+				}
+			}
+		}
 	}
 	//Check player offscreen.
 	if (player_->IsOffScreen())
 	{
-		for (auto itr = checkPoints_.begin(); itr != checkPoints_.end(); itr++)
+		for (auto R_itr = checkPoints_.rbegin(); R_itr != checkPoints_.rend(); R_itr++)
 		{
-			if (!(*itr)->used_)
+			if (!(*R_itr)->used_ && (*R_itr)->collected_)
 			{
-				(*itr)->ResetPlayer(player_);
-				return false;
+				(*R_itr)->ResetPlayer(player_);
+				return std::make_pair<bool, bool>(false, false);
 			}
 		}
-		return true;
+		return std::make_pair<bool, bool>(true, false);
 	}
-	return false;
+	return std::make_pair<bool, bool>(false, true);
 }
 
 void Level::SwapPointUpdate(Player::Shape s) {

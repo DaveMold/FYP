@@ -55,9 +55,14 @@ void CheckPoint::ResetPlayer(Player* p) {
 	if (collected_)
 	{
 		used_ = true;
-		p->SetPos(playerPos_.x, playerPos_.y);
+		p->SetPos(pos_.x, pos_.y);
 		p->SetActiveShape(playerShape_);
 	}
+}
+
+void CheckPoint::ResetCheckPoint() {
+	used_ = false;
+	collected_ = false;
 }
 
 void CheckPoint::Draw(sf::RenderWindow &w) {
@@ -66,7 +71,7 @@ void CheckPoint::Draw(sf::RenderWindow &w) {
 }
 
 void CheckPoint::SetPos(sf::RenderWindow &w) {
-
+	
 }
 
 void CheckPoint::Update(float time) {
@@ -99,7 +104,7 @@ sf::ConvexShape CheckPoint::getShape(){
 	return shape_;
 }
 
-void CheckPoint::collision(Player* p) {
+bool CheckPoint::collision(Player* p) {
 	if (p->getShape() == Player::Shape::SQUARE)
 	{
 		if (shape_.getGlobalBounds().intersects(p->getSquareShape().getGlobalBounds()))
@@ -107,10 +112,11 @@ void CheckPoint::collision(Player* p) {
 			collected_ = true;
 			playerPos_ = p->GetPos();
 			playerShape_ = p->getShape();
+			return true;
 		}
 		else
 		{
-			return;
+			return false;
 		}
 	}
 	else
@@ -120,10 +126,11 @@ void CheckPoint::collision(Player* p) {
 			collected_ = true;
 			playerPos_ = p->GetPos();
 			playerShape_ = p->getShape();
+			return true;
 		}
 		else
 		{
-			return;
+			return false;
 		}	
 	}
 }

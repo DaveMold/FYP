@@ -36,8 +36,8 @@ public:
 	sf::Vector2f GetPlayerPos();
 	void UpdateLevelTime(sf::Time totalTime);
 	void MapToLevel(Menu::ColorPresets preSet);
-	bool Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time runTime);
-	//void Clear(); //Clears the current level so that when a new instance of the same level is generated they are not drawen on eachother.
+	std::pair<bool, bool> Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time runTime); /*Returns the out come of the level as two bools. The first signafies if the level is over. The
+	secoud is wether or not the player passed the level. eg got to the end with the correct shape.*/
 	void LoadLevel(int fn);
 	void SwapPointUpdate(Player::Shape s);
 	sf::View getFollowCamView();

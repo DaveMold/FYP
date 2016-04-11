@@ -84,12 +84,18 @@ Menu::Menu(std::pair<float, float> windowDesmentions) : currentLevel(0), showSet
 	tempPos = sf::Vector2f(elements_[11]->GetPos().x, elements_[11]->GetPos().y + itemOffSet);
 	elements_.push_back(new LevelElement(tempPos, 2, lable, false, std::bind(&Menu::SetLevel, this, lable)));
 
-	elements_[10]->SetNext(elements_[12]);
+	lable = "LevelFour";
+	tempPos = sf::Vector2f(elements_[12]->GetPos().x, elements_[12]->GetPos().y + itemOffSet);
+	elements_.push_back(new LevelElement(tempPos, 3, lable, false, std::bind(&Menu::SetLevel, this, lable)));
+
+	elements_[10]->SetNext(elements_[13]);
 	elements_[10]->SetPrev(elements_[11]);
 	elements_[11]->SetNext(elements_[10]);
 	elements_[11]->SetPrev(elements_[12]);
 	elements_[12]->SetNext(elements_[11]);
-	elements_[12]->SetPrev(elements_[10]);
+	elements_[12]->SetPrev(elements_[13]);
+	elements_[13]->SetNext(elements_[12]);
+	elements_[13]->SetPrev(elements_[10]);
 
 	curretElement_ = elements_[0];
 }
@@ -143,6 +149,7 @@ void Menu::ToggleLevelSelect() {
 	elements_[10]->ToggleDraw();
 	elements_[11]->ToggleDraw();
 	elements_[12]->ToggleDraw();
+	elements_[13]->ToggleDraw();
 }
 
 void Menu::SetLevel(sf::String s){
@@ -153,6 +160,8 @@ void Menu::SetLevel(sf::String s){
 		currentLevel = 1;
 	else if (s == "LevelThree")
 		currentLevel = 2;
+	else if (s == "LevelFour")
+		currentLevel = 3;
 }
 
 void Menu::ToggleStartGame() {

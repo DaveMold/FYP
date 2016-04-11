@@ -16,7 +16,7 @@ Player::Player(float size, float sides, sf::Vector2f pos, Shape s, sf::Vector2f 
 	activeShape = s;
 
 	speed = 0;
-	acceleration = 0.018;
+	acceleration = 0.023;
 	radius = size - 4;
 	direction = sf::Vector2f(2, 0);
 	jumpForce = sf::Vector2f(0, 0);
@@ -55,6 +55,7 @@ Player::Player(float size, float sides, sf::Vector2f pos, Shape s, sf::Vector2f 
 }
 
 Player::~Player() {
+	
 }
 
 
