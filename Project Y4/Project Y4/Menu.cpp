@@ -107,19 +107,19 @@ Menu::~Menu(){
 void Menu::Update() {
 	if (InputManager::instance()->Released("Up"))
 	{
-		AudioManager::instance()->PlayTrack("menuBoop");
+		AudioManager::instance()->PlayTrack("menuBoop", false);
 		curretElement_ = curretElement_->Next();
 	}
 
 	if (InputManager::instance()->Released("Down"))
 	{
-		AudioManager::instance()->PlayTrack("menuBoop");
+		AudioManager::instance()->PlayTrack("menuBoop", false);
 		curretElement_ = curretElement_->Previous();
 	}
 
 	if (InputManager::instance()->Released("Right"))
 	{
-		AudioManager::instance()->PlayTrack("Select");
+		AudioManager::instance()->PlayTrack("Select", false);
 		curretElement_->Select();
 	}
 

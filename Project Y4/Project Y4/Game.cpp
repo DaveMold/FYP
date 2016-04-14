@@ -86,6 +86,8 @@ int main()
 	//AudioManager
 	AudioManager* audioMgr = AudioManager::instance();
 	audioMgr->loadAudio();
+	audioMgr->PlayTrack("Background", true);
+
 	//Levels
 	std::pair<bool, bool> level_result;
 	int levelCount = 4;

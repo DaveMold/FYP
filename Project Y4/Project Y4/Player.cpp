@@ -114,7 +114,7 @@ void Player::SetPos(float x, float y) {
 }
 
 void Player::ApplyJumpPlatformForce() {
-	AudioManager::instance()->PlayTrack("JumpPannel");
+	AudioManager::instance()->PlayTrack("JumpPannel", false);
 	switch (activeShape)
 	{
 	case SQUARE:
@@ -144,7 +144,7 @@ void Player::ApplyJump(sf::Vector2f collisionForce) {
 	{
 		if (InputManager::instance()->Pressed("Up"))
 		{
-			AudioManager::instance()->PlayTrack("Jump");
+			AudioManager::instance()->PlayTrack("Jump", false);
 			switch (activeShape)
 			{
 			case CIRCLE:
@@ -223,6 +223,8 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 		std::cout << "Player :: Update Defualt." << std::endl;
 		break;
 	}
+
+	sf::Listener::setPosition(sf::Vector3f(posCentre.x,posCentre.y, 0));
 	
 }
 

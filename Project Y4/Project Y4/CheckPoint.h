@@ -36,5 +36,6 @@ public:
 	sf::Vector2f GetPos();
 	sf::ConvexShape getShape();
 	bool collision(Player* p);
+	float distanceTo(sf::Vector2f pos);
 };
 #endif

@@ -38,6 +38,7 @@ public:
 	void MapToLevel(Menu::ColorPresets preSet);
 	std::pair<bool, bool> Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time runTime); /*Returns the out come of the level as two bools. The first signafies if the level is over. The
 	secoud is wether or not the player passed the level. eg got to the end with the correct shape.*/
+	void UpdateCheckPoints();
 	void LoadLevel(int fn);
 	void SwapPointUpdate(Player::Shape s);
 	sf::View getFollowCamView();
