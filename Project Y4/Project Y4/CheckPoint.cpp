@@ -134,3 +134,7 @@ bool CheckPoint::collision(Player* p) {
 		}	
 	}
 }
+
+float CheckPoint::distanceTo(sf::Vector2f v) {
+	return sqrt(pow(v.x - pos_.x, 2) + pow(v.y - pos_.y, 2));
+}

@@ -185,25 +185,11 @@ std::pair<bool,bool> Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time
 	//endGameGoal
 	if (endGameGoal_->collision(player_))
 	{
-		AudioManager::instance()->PlayTrack("EndLevel");
+		AudioManager::instance()->PlayTrack("EndLevel", false);
 		return std::make_pair<bool, bool>(true, true);
 	}
 	//CheckPoints
-	for (auto itrA = checkPoints_.begin(); itrA != checkPoints_.end(); itrA++)
-	{
-		(*itrA)->Update(levelTime_.asSeconds());
-		if ((*itrA)->collision(player_))
-		{
-			//If a checkPoint is collected the others are set back to active so they may be collected again.
-			for (auto itrB = checkPoints_.begin(); itrB != checkPoints_.end(); itrB++)
-			{
-				if (itrB != itrA)
-				{
-					(*itrB)->ResetCheckPoint();
-				}
-			}
-		}
-	}
+	UpdateCheckPoints();
 	//Check player offscreen.
 	if (player_->IsOffScreen())
 	{
@@ -220,6 +206,33 @@ std::pair<bool,bool> Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time
 	return std::make_pair<bool, bool>(false, true);
 }
 
+void Level::UpdateCheckPoints() {
+	float min = FLT_MAX;
+	std::vector<CheckPoint*>::iterator minItr;
+	for (auto itrA = checkPoints_.begin(); itrA != checkPoints_.end(); itrA++)
+	{
+		float dis = (*itrA)->distanceTo(player_->GetPos());
+		if (dis < min)
+		{
+			min = dis;
+			minItr = itrA;
+		}
+		(*itrA)->Update(levelTime_.asSeconds());
+		if ((*itrA)->collision(player_))
+		{
+			//If a checkPoint is collected the others are set back to active so they may be collected again.
+			for (auto itrB = checkPoints_.begin(); itrB != checkPoints_.end(); itrB++)
+			{
+				if (itrB != itrA)
+				{
+					(*itrB)->ResetCheckPoint();
+				}
+			}
+		}
+	}
+	AudioManager::instance()->SetSoundPos((*minItr)->GetPos(), "Background");
+}
+
 void Level::SwapPointUpdate(Player::Shape s) {
 	std::vector<SwapPoint*>::iterator removeItr;
 	bool remove = false;
@@ -229,7 +242,7 @@ void Level::SwapPointUpdate(Player::Shape s) {
 			(*itr)->ChangeActiveShape(player_->getShape());
 		if ((*itr)->collision(player_))
 		{
-			AudioManager::instance()->PlayTrack("SwapPoint");
+			AudioManager::instance()->PlayTrack("SwapPoint", false);
 			remove = true;
 			removeItr = itr;
 			player_->ChangeActiveShape();
