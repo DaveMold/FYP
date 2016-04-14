@@ -44,7 +44,10 @@ void SaveLevelData(int id, float time) {
 		std::cout << "Could not find save file" << std::endl;
 		return;
 	}
-	levelDat["Levels"][id] = time;
+	if (levelDat["Levels"][id] < time)
+	{
+		levelDat["Levels"][id] = time;
+	}
 	std::ofstream streamB("Assets/Saves/Save1.sav");
 	writer.write(streamB, levelDat);
 	streamA.close();

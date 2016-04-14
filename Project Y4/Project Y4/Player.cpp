@@ -139,20 +139,27 @@ void Player::ApplyJumpPlatformForce() {
 void Player::ApplyJump(sf::Vector2f collisionForce) {
 	/*If the player is in contact with another object there will be a collsision force,
 	so if the collsionion force is greater than 0, it must be colliding with somthing.*/
- 	float collisionForceMagnatude = sqrt(pow(collisionForce.x, 2) + pow(collisionForce.y, 2));
-	if (InputManager::instance()->Pressed("Up") && (collisionForceMagnatude != 0 && collisionForce.y < 0 && collisionForce.x != 0))
+	float collisionForceMagnatude = sqrt(pow(collisionForce.x, 2) + pow(collisionForce.y, 2));
+	if( (collisionForceMagnatude != 0 && collisionForce.y < 0 && collisionForce.x != 0))
 	{
-		AudioManager::instance()->PlayTrack("Jump");
-		switch (activeShape)
+		if (InputManager::instance()->Pressed("Up"))
 		{
-		case CIRCLE:
-			jumpForce = sf::Vector2f(jumpForce.x, -0.2502f);
-			break;
-		case SQUARE:
-			jumpForce = sf::Vector2f(jumpForce.x, -0.2702f);
+			AudioManager::instance()->PlayTrack("Jump");
+			switch (activeShape)
+			{
+			case CIRCLE:
+				jumpForce = sf::Vector2f(jumpForce.x, -0.2502f);
+				break;
+			case SQUARE:
+				jumpForce = sf::Vector2f(jumpForce.x, -0.2702f);
+			}
 		}
 	}
-	else//if (InputManager::instance()->Released("Up"))
+	else if (collisionForceMagnatude != 0 && collisionForce.y > 0 && collisionForce.x != 0)
+	{
+		jumpForce = sf::Vector2f(jumpForce.x, jumpForce.y + 0.0006f);
+	}
+	else
 	{
 		//y-axis reset
 		if (jumpForce.y > 0.0f)
@@ -184,10 +191,6 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 			debug = false;
 		else
 			debug = true;
-	}
-	if (InputManager::instance()->Pressed("Home"))
-	{
-		posCentre = resetPos;
 	}
 
 	MoveUpdate();
