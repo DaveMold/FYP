@@ -113,6 +113,10 @@ void Player::SetPos(float x, float y) {
 	posCentre = sf::Vector2f(x, y);
 }
 
+sf::Vector2f Player::GetPos() {
+	return posCentre;
+}
+
 void Player::ApplyJumpPlatformForce() {
 	AudioManager::instance()->PlayTrack("JumpPannel", false);
 	switch (activeShape)

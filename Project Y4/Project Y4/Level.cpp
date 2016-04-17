@@ -128,7 +128,7 @@ void Level::MapToLevel(Menu::ColorPresets preSet) {
 Level::~Level() {
 	player_->~Player();
 	endGameGoal_->~EndGameGoal();
-	for (int i = 0; i < swapPoints_.size(); i++)
+	/*for (int i = 0; i < swapPoints_.size(); i++)
 	{
 		swapPoints_[i]->~SwapPoint();
 	}
@@ -147,11 +147,13 @@ Level::~Level() {
 	for (int i = 0; i < distructionObjects_.size(); i++)
 	{
 		distructionObjects_[i]->~DistructionObject();
-	}
+	}*/
+	swapPoints_.clear();
+	platforms_.clear();
+	jumpPlatforms_.clear();
+	checkPoints_.clear();
+	distructionObjects_.clear();
 	map_.clear();
-//	swapPoints_.clear();
-//	platforms_.clear();
-//	jumpPlatforms_.clear();
 }
 
 std::pair<bool,bool> Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time runTime) {

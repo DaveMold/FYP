@@ -15,6 +15,7 @@ public:
 	void MoveUpdate();
 	sf::View getView();
 	void SetPos(float x, float y);
+	sf::Vector2f GetPos();
 	void ApplyJumpPlatformForce();
 	void ApplyJump(sf::Vector2f collisionForce); /* This will check for the jump key press as well determin if the player should be aloud jump.
 	It will then apply the correct magnatude of force for the shape. */

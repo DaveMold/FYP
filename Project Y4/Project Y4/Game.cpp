@@ -72,7 +72,7 @@ int main()
 	GameOverSprite.setTexture(GameOverTexture);
 	GameOverSprite.setPosition(sf::Vector2f(0, 0));
 
-	enum States { GAME, MENU, GAMEOVER };
+	enum States { GAME, MENU, PAUSE,GAMEOVER };
 	States GameState = MENU;
 	//menu create
 	Menu menu(windowDimentions);
@@ -99,6 +99,7 @@ int main()
 	}
 
 	OnScreenLable levelTime(sf::Vector2f(windowDimentions.first - 500, 10), "Current Time : ", true );
+	OnScreenLable PauseText(sf::Vector2f(windowDimentions.first/2.f, windowDimentions.second /2.f),"Game Paused\nPress Right to Continue\nPress Left to Exit To Menu", false);
 
 	// Start game loop
 	while (window.isOpen()) {
@@ -139,6 +140,10 @@ int main()
 		switch (GameState)
 		{
 		case GAME:
+			if (inputMgr->Held("Home"))
+			{
+				GameState = PAUSE;
+			}
 			level_result = levels[currentLevel]->Update(gravity, window, clock.getElapsedTime());
 			if (level_result.first)
 			{
@@ -177,6 +182,22 @@ int main()
 			menu.Update();
 			//std::cout << "State : MENU." << std::endl;
 			break;
+		case PAUSE:
+			if(InputManager::instance()->Pressed("Right"))
+			{
+				PauseText.SetDraw(false);
+				GameState = GAME;
+			}
+			if (InputManager::instance()->Pressed("Left"))
+			{
+				PauseText.SetDraw(false);
+				levels[currentLevel]->~Level();
+				GameState = MENU;
+				menu.gameOn_ = false;
+			}
+			PauseText.SetPos(levels[currentLevel]->GetPlayerPos());
+			PauseText.SetDraw(true);
+			break;
 		}
 		
 		//prepare frame
@@ -198,6 +219,9 @@ int main()
 			window.setView(window.getDefaultView());
 			menu.Draw(window);
 			//std::cout << "State : MENU." << std::endl;
+			break;
+		case PAUSE:
+			PauseText.Draw(window);
 			break;
 		}
 
