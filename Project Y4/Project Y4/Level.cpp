@@ -2,7 +2,7 @@
 #include "InputManager.h"
 
 Level::Level(sf::RenderWindow &w)
-	: tileSize_(25), platChar_('1'), playerC_Char_('9'), checkPoint_Char_('2'), playerS_Char_('8'), swapChar_('3'), endLS_Char_('6'), endLC_Char_('7'), jumpPlatChar_('5')
+	: tileSize_(25), plat_Char_('1'), disObj_Char_('4'),playerC_Char_('9'), checkPoint_Char_('2'), playerS_Char_('8'), swapChar_('3'), endLS_Char_('6'), endLC_Char_('7'), jumpPlatChar_('5')
 {
 	startLevelTime_ = startLevelTime_.Zero;
 }
@@ -71,7 +71,7 @@ void Level::MapToLevel(Menu::ColorPresets preSet) {
 
 			temp = map_.at(y).at(x);
 
-			if (temp == platChar_)
+			if (temp == plat_Char_)
 			{
 				while (x+1 < map_.at(y).size() && temp == map_.at(y).at(x+1))
 				{
@@ -81,6 +81,10 @@ void Level::MapToLevel(Menu::ColorPresets preSet) {
 
 				platforms_.push_back(new Platform(tileSize_ * lenght, tileSize_, 4, sf::Vector2f((x * tileSize_)-(tileSize_ * lenght), y* tileSize_), preSet));
 				lenght = 1;
+			}
+			if (temp == disObj_Char_)
+			{
+				distructionObjects_.push_back(new DistructionObject(tileSize_, 6,sf::Vector2f((x * tileSize_), y * tileSize_), preSet));
 			}
 			if (temp == jumpPlatChar_)
 			{
@@ -140,6 +144,10 @@ Level::~Level() {
 	{
 		checkPoints_[i]->~CheckPoint();
 	}
+	for (int i = 0; i < distructionObjects_.size(); i++)
+	{
+		distructionObjects_[i]->~DistructionObject();
+	}
 	map_.clear();
 //	swapPoints_.clear();
 //	platforms_.clear();
@@ -180,6 +188,35 @@ std::pair<bool,bool> Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time
 			player_->ApplyJumpPlatformForce();
 		}
 	}
+	//Distruction Objects
+	for (auto itr = distructionObjects_.begin(); itr != distructionObjects_.end(); itr++)
+	{
+		(*itr)->Update();
+		std::pair<float, sf::Vector2f> temp;
+		temp.first = false;
+		if (player_->SquareCircle(&(*itr)->getShape()))
+		{
+			temp = player_->CollisionWithPlayer(w, (*itr));
+		}
+		if (temp.first)
+		{
+
+			for (auto R_itr = checkPoints_.rbegin(); R_itr != checkPoints_.rend(); R_itr++)
+			{
+				if (!(*R_itr)->used_ && (*R_itr)->collected_)
+				{
+					(*R_itr)->ResetPlayer(player_);
+					return std::make_pair<bool, bool>(false, false);
+				}
+			}
+			AudioManager::instance()->PlayTrack("EndLevel", false);
+			return std::make_pair<bool, bool>(true, false); 
+		}
+		else
+		{
+			player_->Update(g, sf::Vector2f(0, 0));
+		}
+	}
 	//swapPoints
 	SwapPointUpdate(player_->getShape());
 	//endGameGoal
@@ -201,6 +238,7 @@ std::pair<bool,bool> Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time
 				return std::make_pair<bool, bool>(false, false);
 			}
 		}
+		AudioManager::instance()->PlayTrack("EndLevel", false);
 		return std::make_pair<bool, bool>(true, false);
 	}
 	return std::make_pair<bool, bool>(false, true);
@@ -258,6 +296,10 @@ sf::View Level::getFollowCamView() {
 
 void Level::Draw(sf::RenderWindow &w) {
 	for (auto itr = platforms_.begin(); itr != platforms_.end(); itr++)
+	{
+		(*itr)->Draw(w);
+	}
+	for (auto itr = distructionObjects_.begin(); itr != distructionObjects_.end(); itr++)
 	{
 		(*itr)->Draw(w);
 	}
