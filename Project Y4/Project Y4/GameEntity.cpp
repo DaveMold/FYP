@@ -25,6 +25,18 @@ GameEntity::GameEntity(float size, float sides, sf::Vector2f pos, Menu::ColorPre
 		points.push_back(sf::Vector2f(cos(DegreToRad * 150), sin(DegreToRad * 150)));
 		width = sqrt(pow((points[2].x - points[1].x), 2) + pow((points[2].y - points[1].y), 2));
 		height = sqrt(pow(width,2) - (pow(width,2)/4.0f));
+		for (int i = 0; i < numSides; i++) {
+			points[i] *= radius;
+		}
+		break;
+	case 6: //Distruction Object
+			//This will draw a square rotated to one side as well as having a line drawn through it.
+		points.push_back(sf::Vector2f(-size/2.f, 0));
+		points.push_back(sf::Vector2f(0, -size/2.f));
+		points.push_back(sf::Vector2f(size / 2.f, 0));
+		points.push_back(sf::Vector2f(-size / 2.f, 0));
+		points.push_back(sf::Vector2f(0, size/2.f));
+		points.push_back(sf::Vector2f(size / 2.f, 0));
 		break;
 	default:
 		for (int i = 0; i < numSides; i++) {
@@ -34,12 +46,12 @@ GameEntity::GameEntity(float size, float sides, sf::Vector2f pos, Menu::ColorPre
 		}
 		width = sqrt(pow((points[2].x - points[1].x), 2) + pow((points[2].y - points[1].y), 2));
 		height = width;
+		for (int i = 0; i < numSides; i++) {
+			points[i] *= radius;
+		}
 		break;
 	}//end switch
 
-	for (int i = 0; i < numSides; i++) {
-		points[i] *= radius;
-	}
 	for (int i = 0; i < numSides; i++) {
 		shape.setPoint(i, points[i]);
 	}
@@ -65,7 +77,7 @@ GameEntity::GameEntity(float size, float sides, sf::Vector2f pos, Menu::ColorPre
 
 GameEntity::GameEntity(float Width, float Height, float sides, sf::Vector2f pos, Menu::ColorPresets preSet) :shape(sides) {
 	rotateSpeed = 0;
-	numSides = sides;
+	numSides = 4;
 	DegreToRad = 3.14 / 180;
 	rotateSpeed = 0;
 	posCentre = pos;

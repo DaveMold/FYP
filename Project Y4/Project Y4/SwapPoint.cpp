@@ -39,8 +39,8 @@ SwapPoint::SwapPoint(float size, sf::Vector2f pos, Menu::ColorPresets preSet) :s
 	switch (preSet)
 	{
 	case Menu::ColorPresets::PRESETONE:
-		shapeSquare.setOutlineColor(sf::Color::Red);
-		shapeCircle.setOutlineColor(sf::Color::Red);
+		shapeSquare.setOutlineColor(sf::Color(200,100,50));
+		shapeCircle.setOutlineColor(sf::Color(200, 100, 50));
 		break;
 	case Menu::ColorPresets::PRESETTWO:
 		shapeSquare.setOutlineColor(sf::Color::Yellow); 

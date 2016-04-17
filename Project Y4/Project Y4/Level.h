@@ -9,6 +9,7 @@
 #include "AudioManager.h"
 #include "CheckPoint.h"
 #include "Menu.h"
+#include "DistructionObject.h"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -22,12 +23,13 @@ private:
 	std::vector<std::vector<char>> map_;
 	int tileSize_, width_, height_;
 	enum Shape { CIRCLE, SQUARE };
+	std::vector<DistructionObject*> distructionObjects_;
 	std::vector<SwapPoint*> swapPoints_;
 	std::vector<Platform*> platforms_;
 	std::vector<CheckPoint*> checkPoints_;
 	std::vector<JumpPlatform*> jumpPlatforms_;
 	EndGameGoal* endGameGoal_;
-	char platChar_, playerC_Char_, playerS_Char_, checkPoint_Char_, endLC_Char_, endLS_Char_, swapChar_, jumpPlatChar_;
+	char plat_Char_, disObj_Char_, playerC_Char_, playerS_Char_, checkPoint_Char_, endLC_Char_, endLS_Char_, swapChar_, jumpPlatChar_;
 	
 public:
 	Level(sf::RenderWindow &w);
