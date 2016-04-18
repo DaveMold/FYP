@@ -1,7 +1,7 @@
 #include "Menu.h"
 
 
-Menu::Menu(std::pair<float, float> windowDesmentions) : currentLevel(0), showSettings_(false), preset_(PRESETONE), gameOn_(false), exit_(false), showExitConfermation_(false), ShowLevelsSelect_(false) {
+Menu::Menu(sf::Vector2f windowDesmentions) : currentLevel(0), showSettings_(false), preset_(PRESETONE), gameOn_(false), exit_(false), showExitConfermation_(false), ShowLevelsSelect_(false) {
 	sf::String lable;
 	sf::Vector2f tempPos;
 	float itemOffSet = 50;
@@ -11,19 +11,19 @@ Menu::Menu(std::pair<float, float> windowDesmentions) : currentLevel(0), showSet
 
 	//Main Menu
 	lable = "Start";
-	tempPos = sf::Vector2f(windowDesmentions.first / 6, windowDesmentions.second / 4.0f);
+	tempPos = sf::Vector2f(windowDesmentions.x / 6, windowDesmentions.y / 4.0f);
 	elements_.push_back(new MenuElement(tempPos, lable, true, std::bind(&Menu::ToggleStartGame, this)));
 
 	lable = "Settings";
-	tempPos = sf::Vector2f(windowDesmentions.first / 6, elements_[0]->GetPos().y + itemOffSet);
+	tempPos = sf::Vector2f(windowDesmentions.x / 6, elements_[0]->GetPos().y + itemOffSet);
 	elements_.push_back(new MenuElement(tempPos, lable, true, std::bind(&Menu::ToggleSettings, this)));
 
 	lable = "Levels";
-	tempPos = sf::Vector2f(windowDesmentions.first / 6, elements_[1]->GetPos().y + itemOffSet);
+	tempPos = sf::Vector2f(windowDesmentions.x / 6, elements_[1]->GetPos().y + itemOffSet);
 	elements_.push_back(new MenuElement(tempPos, lable, true, std::bind(&Menu::ToggleLevelSelect, this)));
 
 	lable = "Quit";
-	tempPos = sf::Vector2f(windowDesmentions.first / 6, elements_[2]->GetPos().y + itemOffSet);
+	tempPos = sf::Vector2f(windowDesmentions.x / 6, elements_[2]->GetPos().y + itemOffSet);
 	elements_.push_back(new MenuElement(tempPos, lable, true, std::bind(&Menu::ToggleExitConfermation, this)));
 	
 	elements_[0]->SetNext(elements_[3]);
@@ -37,7 +37,7 @@ Menu::Menu(std::pair<float, float> windowDesmentions) : currentLevel(0), showSet
 
 	//Settings
 	lable = "Colors";
-	tempPos = sf::Vector2f((windowDesmentions.first / 4.0f) * 2.0f, windowDesmentions.second / 2.0f);
+	tempPos = sf::Vector2f((windowDesmentions.x / 4.0f) * 2.0f, windowDesmentions.y / 2.0f);
 	elements_.push_back(new MenuElement(tempPos, lable, false, std::bind(&Menu::ToggleColorPreset, this)));
 
 	lable = "Preset1";

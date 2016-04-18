@@ -61,22 +61,22 @@ int main()
 	std::cout << "Game Controls \n Jump : Up Arrow Key. \n Movement : Right/Left Arrow Keys. \n Reset Pos = Home Key." << std::endl;
 	std::cout << "GameOver Controls \n Back To Menu : Home Key." << std::endl;
 	// Create the main window
-	std::pair<float, float> windowDimentions;
-	windowDimentions.first = 800;
-	windowDimentions.second = 600;
-	sf::RenderWindow window(sf::VideoMode(windowDimentions.first, windowDimentions.second, 32), "Project Y4");
+	sf::Vector2f windowDimentions;
+	windowDimentions.x = 800;
+	windowDimentions.y = 600;
+	sf::RenderWindow window(sf::VideoMode(windowDimentions.x, windowDimentions.y, 32), "Project Y4");
 	//step up end game scene
 	sf::Texture GameOverTexture;
 	sf::Sprite GameOverSprite;
 	GameOverTexture.loadFromFile("Assets/Menu/GameOverScene.png");
 	GameOverSprite.setTexture(GameOverTexture);
 	GameOverSprite.setPosition(sf::Vector2f(0, 0));
-
+	//Enum set up for FSM style update method.
 	enum States { GAME, MENU, GAMEOVER };
 	States GameState = MENU;
 	//menu create
 	Menu menu(windowDimentions);
-	//set up fixed time.
+	//set up fixed time step update as well as a clock used for recording the LevelTime.
 	sf::Clock levelClock = sf::Clock();
 	sf::Clock fixedUpdateClock = sf::Clock();
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
@@ -100,10 +100,11 @@ int main()
 		levels.push_back(new Level(window));
 	}
 
-	OnScreenLable levelTime(sf::Vector2f(windowDimentions.first - 500, 10), "Current Time : ", true );
+	OnScreenLable levelTime(sf::Vector2f(windowDimentions.x - 500, 10), "Current Time : ", true );
 
 	// Start game loop
 	while (window.isOpen()) {
+		//Fixed Time Step
 		sf::Time elapsedTime = fixedUpdateClock.restart();
 		timeSinceLastUpdate += elapsedTime;
 		while (timeSinceLastUpdate > timePerFrame)
@@ -208,6 +209,5 @@ int main()
 			window.display();
 		}
 	} //loop back for next frame
-
 	return EXIT_SUCCESS;
 }
