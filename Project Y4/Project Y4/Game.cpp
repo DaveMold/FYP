@@ -107,9 +107,6 @@ int main()
 		sf::Event Event;
 
 		while (window.pollEvent(Event)) {
-
-			
-
 			switch (Event.type) {
 				// Close window : exit
 			case sf::Event::Closed:
@@ -175,7 +172,7 @@ int main()
 			if (menu.gameOn_)
 			{
 				currentLevel = menu.currentLevel;
-				levels[currentLevel]->LoadLevel(currentLevel);
+				levels[currentLevel]->LoadLevelFromTexture(currentLevel);
 				levels[currentLevel]->MapToLevel(menu.preset_);
 				GameState = GAME;
 			}
