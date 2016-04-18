@@ -2,7 +2,7 @@
 #include "InputManager.h"
 
 Level::Level(sf::RenderWindow &w)
-	: tileSize_(25), plat_Char_('1'), disObj_Char_('4'),playerC_Char_('9'), checkPoint_Char_('2'), playerS_Char_('8'), swapChar_('3'), endLS_Char_('6'), endLC_Char_('7'), jumpPlatChar_('5')
+	: tileSize_(25)
 {
 	startLevelTime_ = startLevelTime_.Zero;
 }
@@ -22,56 +22,62 @@ void Level::UpdateLevelTime(sf::Time totalTime) {
 	levelTime_ = totalTime - startLevelTime_;
 }
 
-void Level::LoadLevel(int fn) {
-	int temp = 1 + fn;
-	std::string tempString = "Assets/Levels/Level" + std::to_string(temp) + "Map.swg";
-	//LevelMap file
-	std::ifstream mapFile(tempString);
-	std::vector<char> MapVals;//stores the maps values from file.
-
-	if (mapFile.is_open())
+void Level::LoadLevelFromTexture(int fn) {
+	sf::Image img;
+	sf::Color color;
+	sf::Vector2f imgDemtions;
+	int temp = fn + 1;
+	//If we can load image
+	if (img.loadFromFile("Assets/Levels/Level" + std::to_string(temp) + "Map.png"))
 	{
-		while (!mapFile.eof())
+
+		//get image size
+		imgDemtions.y = img.getSize().y;
+		imgDemtions.x = img.getSize().x;
+		////Reserve the same dementions in the map_/
+		//map_.reserve(imgDemtions.y);
+		//for (int i = 0; i < imgDemtions.y; i++)
+		//{
+		//	map_[i].reserve(imgDemtions.x);
+		//}
+
+		//Loop Through the texture.
+
+		for (int y = 0; y < imgDemtions.y; ++y)
 		{
-			//walk through file and grab each tile
-			std::string str, value;
-			std::getline(mapFile, str);
-			std::stringstream stream(str);
-
-			while (std::getline(stream, value, ' '))
+			std::vector<sf::Color> mapX;
+			for (int x = 0; x < imgDemtions.x; ++x)
 			{
-				if (value.length() > 0)
-				{
-					MapVals.push_back(value[0]);
-				}
-			}
-			if (!MapVals.empty())
-			{
-				//update the map width
-				width_ = MapVals.size() > width_ ? MapVals.size() : width_;
-
-				//Push back tiles
-				map_.push_back(MapVals);
-				MapVals.clear();
-
-
-			}
-			//once we've finished loading, update the height
-			height_ = map_.size();
-		}
+				//get pixel.
+				color = img.getPixel(x, y);
+				if (color == sf::Color(255, 255, 255,0))
+					color = EmptyRGB;
+				//place each color into a vector for the X component.
+				mapX.push_back(color);
+			}//For end for cycling through x.
+			 //update the map width
+			width_ = mapX.size() > width_ ? mapX.size() : width_;
+			//push the vector mapX into map_ Y vector.
+			map_.push_back(mapX);
+		}//For end for cycling through y.
+		height_ = map_.size();
+	}
+	else
+	{
+		printf("No LevelTexture ezists for Level : " + temp);
 	}
 }
 
 void Level::MapToLevel(Menu::ColorPresets preSet) {
-	char temp;
+	sf::Color temp;
 	int lenght = 1;
 
-	for (int y = 0; y < height_; y++) {
+	for (int y = 0; y < map_.size(); y++) {
 		for (int x = 0; x < map_.at(y).size(); x++) {
 
 			temp = map_.at(y).at(x);
 
-			if (temp == plat_Char_)
+			if (temp == PlatRGB)
 			{
 				while (x+1 < map_.at(y).size() && temp == map_.at(y).at(x+1))
 				{
@@ -82,11 +88,11 @@ void Level::MapToLevel(Menu::ColorPresets preSet) {
 				platforms_.push_back(new Platform(tileSize_ * lenght, tileSize_, 4, sf::Vector2f((x * tileSize_)-(tileSize_ * lenght), y* tileSize_), preSet));
 				lenght = 1;
 			}
-			if (temp == disObj_Char_)
+			if (temp == DisObjRGB)
 			{
 				distructionObjects_.push_back(new DistructionObject(tileSize_, 6,sf::Vector2f((x * tileSize_), y * tileSize_), preSet));
 			}
-			if (temp == jumpPlatChar_)
+			if (temp == JPlatRGB)
 			{
 				while (x + 1 < map_.at(y).size() && temp == map_.at(y).at(x + 1))
 				{
@@ -97,27 +103,27 @@ void Level::MapToLevel(Menu::ColorPresets preSet) {
 				jumpPlatforms_.push_back(new JumpPlatform(tileSize_ * lenght, tileSize_, 4, sf::Vector2f((x * tileSize_) - (tileSize_ * lenght), y* tileSize_), preSet));
 				lenght = 1;
 			}
-			if (temp == checkPoint_Char_)
+			if (temp == CheckPointRGB)
 			{
 				checkPoints_.push_back(new CheckPoint(tileSize_, tileSize_, sf::Vector2f((x * tileSize_), y * tileSize_)));
 			}
-			if (temp == playerC_Char_)
+			if (temp == PlayerC_RGB)
 			{
 				player_ = new Player(tileSize_, 4, sf::Vector2f(x * tileSize_, y * tileSize_), Player::CIRCLE, sf::Vector2f(width_ * tileSize_, height_ * tileSize_), preSet);
 			}
-			if (temp == playerS_Char_)
+			if (temp == PlayerS_RGB)
 			{
 				player_ = new Player(tileSize_, 4, sf::Vector2f(x * tileSize_, y * tileSize_), Player::SQUARE, sf::Vector2f(width_ * tileSize_, height_ * tileSize_), preSet);
 			}
-			if (temp == swapChar_)
+			if (temp == SwapRGB)
 			{
 				swapPoints_.push_back(new SwapPoint(tileSize_, sf::Vector2f(x * tileSize_, y * tileSize_), preSet));
 			}
-			if (temp == endLS_Char_)
+			if (temp == EndS_RGB)
 			{
 				endGameGoal_ = new EndGameGoal(15, sf::Vector2f(x * tileSize_, y * tileSize_), "SQUARE", preSet);
 			}
-			if (temp == endLC_Char_)
+			if (temp == EndC_RGB)
 			{
 				endGameGoal_ = new EndGameGoal(15, sf::Vector2f(x * tileSize_, y * tileSize_), "CIRCLE", preSet);
 			}
@@ -228,7 +234,8 @@ std::pair<bool,bool> Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time
 		return std::make_pair<bool, bool>(true, true);
 	}
 	//CheckPoints
-	UpdateCheckPoints();
+	if(!checkPoints_.empty())
+		UpdateCheckPoints();
 	//Check player offscreen.
 	if (player_->IsOffScreen())
 	{
@@ -270,7 +277,10 @@ void Level::UpdateCheckPoints() {
 			}
 		}
 	}
-	AudioManager::instance()->SetSoundPos((*minItr)->GetPos(), "Background");
+	if (*minItr != NULL)
+	{
+		AudioManager::instance()->SetSoundPos((*minItr)->GetPos(), "Background");
+	}
 }
 
 void Level::SwapPointUpdate(Player::Shape s) {
