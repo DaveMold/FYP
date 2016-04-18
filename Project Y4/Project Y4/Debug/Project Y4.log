@@ -1,30 +1,27 @@
-﻿Build started 4/18/2016 2:19:17 PM.
+﻿Build started 4/18/2016 2:39:27 PM.
      1>Project "C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Project Y4\Project Y4.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp Level.cpp
-         Game.cpp
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\game.cpp(67): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\game.cpp(83): warning C4305: 'argument': truncation from 'double' to 'float'
-         Generating Code...
-         Compiling...
          Level.cpp
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(75): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(76): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(99): warning C4018: '>': signed/unsigned mismatch
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(115): warning C4018: '<': signed/unsigned mismatch
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(116): warning C4018: '<': signed/unsigned mismatch
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(122): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(35): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(36): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(59): warning C4018: '>': signed/unsigned mismatch
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(75): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(76): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(82): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(97): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(103): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(108): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(112): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(116): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(120): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(124): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
      1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(128): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(133): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(137): warning C4018: '<': signed/unsigned mismatch
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(143): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(148): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(152): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(156): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(160): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(164): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\level.cpp(168): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
          Generating Code...
+         Skipping... (no relevant changes detected)
+         Game.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Debug\Project Y41.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.3.2\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Debug\Project Y41.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Debug\Project Y41.lib" /MACHINE:X86 Debug\AudioManager.obj
          Debug\CheckPoint.obj
@@ -48,4 +45,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:05.58
+Time Elapsed 00:00:03.16
