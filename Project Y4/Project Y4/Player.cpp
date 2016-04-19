@@ -16,7 +16,7 @@ Player::Player(float size, float sides, sf::Vector2f pos, Shape s, sf::Vector2f 
 	activeShape = s;
 
 	speed = 0;
-	acceleration = 0.023;
+	acceleration = 0.013f;
 	radius = size - 4;
 	direction = sf::Vector2f(2, 0);
 	jumpForce = sf::Vector2f(0, 0);
@@ -94,11 +94,11 @@ void Player::MoveUpdate() {
 	speed = 0;
 
 	//look for the Left Arrow Key in vector of keys pressed
-	if ((InputManager::instance()->Pressed("Left") || InputManager::instance()->Held("Left")) && !InputManager::instance()->Released("Left"))
+	if (((InputManager::instance()->Pressed("Left") || InputManager::instance()->Held("Left")) && !InputManager::instance()->Released("Left")) && -maxSpeed_ < speed)
 	{
 		speed -= acceleration;
 	}
-	if ((InputManager::instance()->Pressed("Right") || InputManager::instance()->Held("Right")) && !InputManager::instance()->Released("Right"))
+	if (((InputManager::instance()->Pressed("Right") || InputManager::instance()->Held("Right")) && !InputManager::instance()->Released("Right")) && maxSpeed_ > speed)
 
 	{
 		speed += acceleration;
@@ -122,16 +122,16 @@ void Player::ApplyJumpPlatformForce() {
 	switch (activeShape)
 	{
 	case SQUARE:
-		jumpForce = sf::Vector2f(0, -0.3f);
+		jumpForce = sf::Vector2f(0, -0.2702f);
 		break;
 	case CIRCLE:
 		if (InputManager::instance()->Pressed("Left") || InputManager::instance()->Held("Left"))
 		{
-			jumpForce = sf::Vector2f(-0.1f, -0.2702f);
+			jumpForce = sf::Vector2f(-0.15f, -0.2502f);
 		}
 		else
 		{
-			jumpForce = sf::Vector2f(0.1f, -0.2702f);
+			jumpForce = sf::Vector2f(0.15f, -0.2702f);
 		}
 		break;
 	default:
@@ -152,10 +152,10 @@ void Player::ApplyJump(sf::Vector2f collisionForce) {
 			switch (activeShape)
 			{
 			case CIRCLE:
-				jumpForce = sf::Vector2f(jumpForce.x, -0.2502f);
+				jumpForce = sf::Vector2f(jumpForce.x, -0.2302f);
 				break;
 			case SQUARE:
-				jumpForce = sf::Vector2f(jumpForce.x, -0.2702f);
+				jumpForce = sf::Vector2f(jumpForce.x, -0.2502f);
 			}
 		}
 	}

@@ -76,11 +76,13 @@ int main()
 	States GameState = MENU;
 	//menu create
 	Menu menu(windowDimentions);
-	//set up fixed time.
-	sf::Clock clock = sf::Clock();
-	sf::Time elapsedTime;
+	//set up fixed time step update as well as a clock used for recording the LevelTime.
+	sf::Clock levelClock = sf::Clock();
+	sf::Clock fixedUpdateClock = sf::Clock();
+	sf::Time timeSinceLastUpdate = sf::Time::Zero;
+	const sf::Time timePerFrame = sf::seconds(0.125f / 60.f);
 	//Gravity
-	sf::Vector2f gravity = sf::Vector2f(0, 0.0981);// 0.0981);
+	sf::Vector2f gravity = sf::Vector2f(0, 0.0881);// 0.0981);
 	//InputManager
 	InputManager* inputMgr = InputManager::instance();
 	//AudioManager
@@ -103,128 +105,133 @@ int main()
 
 	// Start game loop
 	while (window.isOpen()) {
-		// Process events
-		sf::Event Event;
+		//Fixed Time Step
+		sf::Time elapsedTime = fixedUpdateClock.restart();
+		timeSinceLastUpdate += elapsedTime;
+		while (timeSinceLastUpdate > timePerFrame)
+		{
+			timeSinceLastUpdate -= timePerFrame;
+			// Process events
+			sf::Event Event;
 
-		while (window.pollEvent(Event)) {
-			switch (Event.type) {
-				// Close window : exit
-			case sf::Event::Closed:
-				for (std::vector<Level*>::iterator itr = levels.begin(); itr != levels.end(); itr++) {
-					(*itr)->~Level();
-				}
-				menu.~Menu();
+			while (window.pollEvent(Event)) {
+				switch (Event.type) {
+					// Close window : exit
+				case sf::Event::Closed:
+					for (std::vector<Level*>::iterator itr = levels.begin(); itr != levels.end(); itr++) {
+						(*itr)->~Level();
+					}
+					menu.~Menu();
+					window.close();
+					break;
+				case sf::Event::KeyPressed:
+					inputMgr->KeyPressEvent(Event);
+					break;
+				case sf::Event::KeyReleased:
+					inputMgr->KeyReleaseEvent(Event);
+					break;
+				default:
+					break;
+				}//end switch
+			}//end while
+
+			//Update
+
+			if (menu.exit_)
+			{
 				window.close();
-				break;
-			case sf::Event::KeyPressed:
-				inputMgr->KeyPressEvent(Event);
-				break;
-			case sf::Event::KeyReleased:
-				inputMgr->KeyReleaseEvent(Event);
-				break;
-			default:
-				break;
-			}//end switch
-		}//end while
-
-		//Update
-
-		if (menu.exit_)
-		{
-			window.close();
-		}
-
-		switch (GameState)
-		{
-		case GAME:
-			if (inputMgr->Released("Home"))
-			{
-				GameState = PAUSE;
 			}
-			level_result = levels[currentLevel]->Update(gravity, window, clock.getElapsedTime());
-			if (level_result.first)
+
+			switch (GameState)
 			{
-				if (level_result.second)
+			case GAME:
+				if (inputMgr->Released("Home"))
 				{
-					SaveLevelData(currentLevel, levels[currentLevel]->GetLevelTime());
+					GameState = PAUSE;
 				}
-				levels[currentLevel]->ResetLevelTime();
-				menu.gameOn_ = false;
-				GameState = GAMEOVER;
+				level_result = levels[currentLevel]->Update(gravity, window, levelClock.getElapsedTime());
+				if (level_result.first)
+				{
+					if (level_result.second)
+					{
+						SaveLevelData(currentLevel, levels[currentLevel]->GetLevelTime());
+					}
+					levels[currentLevel]->ResetLevelTime();
+					menu.gameOn_ = false;
+					GameState = GAMEOVER;
+					break;
+				}
+				//Update the Posistion of the LevelTime to run with the Player.
+				levelTime.SetPos(levels[currentLevel]->GetPlayerPos());
+				levelTime.SetText("Current Time : \n" + std::to_string(levels[currentLevel]->GetLevelTime()));
+
+
+				break;
+			case GAMEOVER:
+				if (inputMgr->Pressed("Home"))
+				{
+					levels[currentLevel]->clearLevel();
+					GameState = MENU;
+					menu.gameOn_ = false;
+				}
+				//std::cout << "State : GAMEOVER." << std::endl;
+				break;
+			case MENU:
+				if (menu.gameOn_)
+				{
+					currentLevel = menu.currentLevel;
+					levels[currentLevel]->LoadLevelFromTexture(currentLevel);
+					levels[currentLevel]->MapToLevel(menu.preset_);
+					GameState = GAME;
+				}
+				menu.Update();
+				//std::cout << "State : MENU." << std::endl;
+				break;
+			case PAUSE:
+				if (InputManager::instance()->Pressed("Right"))
+				{
+					PauseText.SetDraw(false);
+					GameState = GAME;
+				}
+				if (InputManager::instance()->Pressed("Left"))
+				{
+					PauseText.SetDraw(false);
+					GameState = GAMEOVER;
+					menu.gameOn_ = false;
+				}
+				PauseText.SetPos(levels[currentLevel]->GetPlayerPos());
+				PauseText.SetDraw(true);
 				break;
 			}
-			//Update the Posistion of the LevelTime to run with the Player.
-			levelTime.SetPos(levels[currentLevel]->GetPlayerPos());
-			levelTime.SetText("Current Time : \n" + std::to_string(levels[currentLevel]->GetLevelTime()));
 
+			//prepare frame
+			window.clear();
 
-			break;
-		case GAMEOVER:
-			if (inputMgr->Pressed("Home"))
+			switch (GameState)
 			{
-				levels[currentLevel]->clearLevel();
-				GameState = MENU;
-				menu.gameOn_ = false;
+			case GAME:
+				window.setView(levels[currentLevel]->getFollowCamView());
+				levels[currentLevel]->Draw(window);
+				levelTime.Draw(window);
+				break;
+			case GAMEOVER:
+				window.setView(window.getDefaultView());
+				window.draw(GameOverSprite);
+				//std::cout << "State : GAMEOVER." << std::endl;
+				break;
+			case MENU:
+				window.setView(window.getDefaultView());
+				menu.Draw(window);
+				//std::cout << "State : MENU." << std::endl;
+				break;
+			case PAUSE:
+				PauseText.Draw(window);
+				break;
 			}
-			//std::cout << "State : GAMEOVER." << std::endl;
-			break;
-		case MENU:
-			if (menu.gameOn_)
-			{
-				currentLevel = menu.currentLevel;
-				levels[currentLevel]->LoadLevelFromTexture(currentLevel);
-				levels[currentLevel]->MapToLevel(menu.preset_);
-				GameState = GAME;
-			}
-			menu.Update();
-			//std::cout << "State : MENU." << std::endl;
-			break;
-		case PAUSE:
-			if(InputManager::instance()->Pressed("Right"))
-			{
-				PauseText.SetDraw(false);
-				GameState = GAME;
-			}
-			if (InputManager::instance()->Pressed("Left"))
-			{
-				PauseText.SetDraw(false);
-				GameState = GAMEOVER;
-				menu.gameOn_ = false;
-			}
-			PauseText.SetPos(levels[currentLevel]->GetPlayerPos());
-			PauseText.SetDraw(true);
-			break;
+
+			// Finally, display rendered frame on screen
+			window.display();
 		}
-		
-		//prepare frame
-		window.clear();
-		
-		switch (GameState)
-		{
-		case GAME:
-			window.setView(levels[currentLevel]->getFollowCamView());
-			levels[currentLevel]->Draw(window);
-			levelTime.Draw(window);
-			break;
-		case GAMEOVER:
-			window.setView(window.getDefaultView());
-			window.draw(GameOverSprite);
-			//std::cout << "State : GAMEOVER." << std::endl;
-			break;
-		case MENU:
-			window.setView(window.getDefaultView());
-			menu.Draw(window);
-			//std::cout << "State : MENU." << std::endl;
-			break;
-		case PAUSE:
-			PauseText.Draw(window);
-			break;
-		}
-
-		// Finally, display rendered frame on screen
-		window.display();
-		//clock.restart();
 	} //loop back for next frame
-
 	return EXIT_SUCCESS;
 }
