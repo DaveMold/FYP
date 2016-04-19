@@ -45,7 +45,9 @@ private:
 public:
 	Level(sf::RenderWindow &w);
 	~Level();
+	void clearLevel();
 	float GetLevelTime();
+	void ResetLevelTime();
 	sf::Vector2f GetPlayerPos();
 	void UpdateLevelTime(sf::Time totalTime);
 	void MapToLevel(Menu::ColorPresets preSet);
