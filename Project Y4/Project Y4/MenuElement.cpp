@@ -24,6 +24,18 @@ MenuElement::MenuElement(sf::Vector2f pos, sf::String string, bool draw, std::fu
 	text_.setStyle(sf::Text::Bold);
 }
 
+MenuElement::MenuElement(sf::Vector2f pos, sf::String string, float f_size, bool draw, std::function<void()> function)
+	: draw_(draw), funct_(function) {
+	font_.loadFromFile("Assets/Menu/Squared Display.ttf");
+	text_.setFont(font_);
+	text_.setScale(f_size, f_size);
+	text_.setPosition(pos);
+	text_.setString(string);
+	text_.setColor(sf::Color::Blue);
+	text_.setCharacterSize(32);
+	text_.setStyle(sf::Text::Bold);
+}
+
 MenuElement::MenuElement(sf::Vector2f pos, sf::String string, bool draw)
 	: draw_(draw) {
 	font_.loadFromFile("Assets/Menu/Squared Display.ttf");
