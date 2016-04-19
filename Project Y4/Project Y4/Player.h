@@ -38,6 +38,7 @@ private:
 	sf::View followPlayer;
 	sf::CircleShape shapeCircle, boundingCircle;
 	float speed;
+	const float maxSpeed_ = 10.75f;
 	float acceleration;
 	sf::Vector2f resetPos;//Used to store the start posistion on this level.
 	sf::Vector2f jumpForce;
