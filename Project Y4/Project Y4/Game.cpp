@@ -137,7 +137,7 @@ int main()
 		switch (GameState)
 		{
 		case GAME:
-			if (inputMgr->Held("Home"))
+			if (inputMgr->Released("Home"))
 			{
 				GameState = PAUSE;
 			}
@@ -148,9 +148,9 @@ int main()
 				{
 					SaveLevelData(currentLevel, levels[currentLevel]->GetLevelTime());
 				}
+				levels[currentLevel]->ResetLevelTime();
 				menu.gameOn_ = false;
 				GameState = GAMEOVER;
-				levels[currentLevel]->~Level();
 				break;
 			}
 			//Update the Posistion of the LevelTime to run with the Player.
@@ -162,7 +162,7 @@ int main()
 		case GAMEOVER:
 			if (inputMgr->Pressed("Home"))
 			{
-				levels[currentLevel]->~Level();
+				levels[currentLevel]->clearLevel();
 				GameState = MENU;
 				menu.gameOn_ = false;
 			}
@@ -188,8 +188,7 @@ int main()
 			if (InputManager::instance()->Pressed("Left"))
 			{
 				PauseText.SetDraw(false);
-				levels[currentLevel]->~Level();
-				GameState = MENU;
+				GameState = GAMEOVER;
 				menu.gameOn_ = false;
 			}
 			PauseText.SetPos(levels[currentLevel]->GetPlayerPos());

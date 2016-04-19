@@ -119,7 +119,9 @@ GameEntity::GameEntity(float Width, float Height, float sides, sf::Vector2f pos,
 	shape.setFillColor(sf::Color::Black);
 }
 
-GameEntity::~GameEntity() {}
+GameEntity::~GameEntity() {
+	points.clear();
+}
 
 void GameEntity::Draw(sf::RenderWindow &w) {
 	w.draw(shape);

@@ -49,13 +49,13 @@ Player::Player(float size, float sides, sf::Vector2f pos, Shape s, sf::Vector2f 
 		shapeCircle.setOutlineColor(sf::Color::Magenta);
 		break;
 	default:
-		printf("SwapPoint::SwapPoint() ColorPresent not correct value.");
+		printf("Player::Player() ColorPresent not correct value.");
 		break;
 	}
 }
 
 Player::~Player() {
-	
+	points.clear();
 }
 
 

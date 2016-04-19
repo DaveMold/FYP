@@ -11,6 +11,11 @@ float Level::GetLevelTime() {
 	return levelTime_.asSeconds();
 }
 
+void Level::ResetLevelTime() {
+	levelTime_ = startLevelTime_.Zero;
+	startLevelTime_ = levelTime_;
+}
+
 sf::Vector2f Level::GetPlayerPos() {
 	return player_->GetPos();
 }
@@ -132,28 +137,32 @@ void Level::MapToLevel(Menu::ColorPresets preSet) {
 }
 
 Level::~Level() {
-	player_->~Player();
-	endGameGoal_->~EndGameGoal();
-	/*for (int i = 0; i < swapPoints_.size(); i++)
+	
+}
+
+void Level::clearLevel() {
+	delete player_;
+	delete endGameGoal_;
+	for (int i = 0; i < swapPoints_.size(); i++)
 	{
-		swapPoints_[i]->~SwapPoint();
+		delete swapPoints_[i];
 	}
 	for (int i = 0; i < platforms_.size(); i++)
 	{
-		platforms_[i]->~Platform();
+		delete platforms_[i];
 	}
 	for (int i = 0; i < jumpPlatforms_.size(); i++)
 	{
-		jumpPlatforms_[i]->~JumpPlatform();
+		delete jumpPlatforms_[i];
 	}
 	for (int i = 0; i < checkPoints_.size(); i++)
 	{
-		checkPoints_[i]->~CheckPoint();
+		delete checkPoints_[i];
 	}
 	for (int i = 0; i < distructionObjects_.size(); i++)
 	{
-		distructionObjects_[i]->~DistructionObject();
-	}*/
+		delete distructionObjects_[i];
+	}
 	swapPoints_.clear();
 	platforms_.clear();
 	jumpPlatforms_.clear();
