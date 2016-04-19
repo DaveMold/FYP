@@ -18,6 +18,7 @@ public:
 	sf::Font font_;
 	MenuElement(sf::Vector2f pos, sf::String string, bool draw, MenuElement* next, MenuElement* previous, std::function<void()> function);
 	MenuElement(sf::Vector2f pos, sf::String string, bool draw, std::function<void ()> function);
+	MenuElement(sf::Vector2f pos, sf::String string, float f_size, bool draw, std::function<void()> function);
 	MenuElement(sf::Vector2f pos, sf::String string, bool draw);
 	~MenuElement();
 	sf::Vector2f GetPos();
