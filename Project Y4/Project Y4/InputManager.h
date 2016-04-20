@@ -11,21 +11,21 @@
 
 class InputManager {
 private:
-	std::vector<sf::String> keysPressed;
-	std::vector<sf::String> keysPressedLastUpdate;
-	static InputManager* mInstance;
-	InputManager();
+	std::vector<sf::String> keysPressed; //stores the keys pressed.
+	std::vector<sf::String> keysPressedLastUpdate;	//stores the keys pressed last update so we can tell if a key is held perhaps.
+	static InputManager* mInstance; //used for creating an instance of the class so the object can be acessed from any where.
+	InputManager(); //Constructor
 
 public:
-	static InputManager* instance();
-	std::vector<sf::String> const& getKeys();
-	std::vector<sf::String> const& getKeysLastUpdate();
-	bool Down(sf::String key);
-	bool Up(sf::String key);
-	bool Pressed(sf::String key);
-	bool Held(sf::String key);
-	bool Released(sf::String key);
-	void KeyPressEvent(sf::Event e);
-	void KeyReleaseEvent(sf::Event e);
+	static InputManager* instance(); //get the instance or create a new one if one dose not egsist.
+	std::vector<sf::String> const& getKeys(); //reuturns the keys pressed.
+	std::vector<sf::String> const& getKeysLastUpdate(); //returns the keys pressed last update.
+	bool Down(sf::String key); //if the key is just pressed down.
+	bool Up(sf::String key); //if the key is just released.
+	bool Pressed(sf::String key); //if the key has be pressed and not held.
+	bool Held(sf::String key); // if the key is held down.
+	bool Released(sf::String key); //if the keys is released but not pressed resenly
+	void KeyPressEvent(sf::Event e); // update keys pressed.
+	void KeyReleaseEvent(sf::Event e); // update keys relased.
 };
 #endif

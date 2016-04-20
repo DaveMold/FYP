@@ -39,33 +39,26 @@ void Level::LoadLevelFromTexture(int fn) {
 		//get image size
 		imgDemtions.y = img.getSize().y;
 		imgDemtions.x = img.getSize().x;
-		////Reserve the same dementions in the map_/
-		//map_.reserve(imgDemtions.y);
-		//for (int i = 0; i < imgDemtions.y; i++)
-		//{
-		//	map_[i].reserve(imgDemtions.x);
-		//}
 
 		//Loop Through the texture.
-
-		for (int y = 0; y < imgDemtions.y; ++y)
+		for (int y = 0; y < imgDemtions.y; y++)
 		{
 			std::vector<sf::Color> mapX;
-			for (int x = 0; x < imgDemtions.x; ++x)
+			for (int x = 0; x < imgDemtions.x; x++)
 			{
 				//get pixel.
 				color = img.getPixel(x, y);
 				if (color == sf::Color(255, 255, 255,0))
-					color = EmptyRGB;
+					color = sf::Color(0,0,0,255);
 				//place each color into a vector for the X component.
 				mapX.push_back(color);
 			}//For end for cycling through x.
-			 //update the map width
-			width_ = mapX.size() > width_ ? mapX.size() : width_;
 			//push the vector mapX into map_ Y vector.
 			map_.push_back(mapX);
 		}//For end for cycling through y.
 		height_ = map_.size();
+		//update the map width
+		width_ = map_[0].size();
 	}
 	else
 	{

@@ -71,8 +71,9 @@ int main()
 	GameOverTexture.loadFromFile("Assets/Menu/GameOverScene.png");
 	GameOverSprite.setTexture(GameOverTexture);
 	GameOverSprite.setPosition(sf::Vector2f(0, 0));
-
+	//Games State used to cycle through a switch statment simular to a FSM.
 	enum States { GAME, MENU, PAUSE,GAMEOVER };
+	//Start state == MENU.
 	States GameState = MENU;
 	//menu create
 	Menu menu(windowDimentions);
@@ -91,8 +92,9 @@ int main()
 	audioMgr->PlayTrack("Background", true);
 
 	//Levels
+	//create blank levels for the levels the game will use.
 	std::pair<bool, bool> level_result;
-	int levelCount = 4;
+	int levelCount = 8;
 	int currentLevel = 0;
 	std::vector<Level*> levels;
 	for (int i = 0; i < levelCount; i++)
@@ -100,6 +102,7 @@ int main()
 		levels.push_back(new Level(window));
 	}
 
+	
 	OnScreenLable levelTime(sf::Vector2f(windowDimentions.first - 500, 10), "Current Time : ", true );
 	OnScreenLable PauseText(sf::Vector2f(windowDimentions.first/2.f, windowDimentions.second /2.f),"Game Paused\nPress Right to Continue\nPress Left to Exit To Menu", false);
 
@@ -118,6 +121,7 @@ int main()
 				switch (Event.type) {
 					// Close window : exit
 				case sf::Event::Closed:
+					//If the game is closed deconstruct all the levels and Menu.
 					for (std::vector<Level*>::iterator itr = levels.begin(); itr != levels.end(); itr++) {
 						(*itr)->~Level();
 					}
@@ -206,7 +210,7 @@ int main()
 
 			//prepare frame
 			window.clear();
-
+			//Draw Switch Statement.
 			switch (GameState)
 			{
 			case GAME:

@@ -1,11 +1,28 @@
-﻿Build started 4/19/2016 8:19:15 PM.
-     1>Project "C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Project Y4\Project Y4.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\SFML-2.3.2\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Release\\" /Fd"Release\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt CheckPoint.cpp EndGameGoal.cpp Game.cpp Level.cpp Player.cpp SwapPoint.cpp
+﻿Build started 20/04/2016 15:22:14.
+     1>Project "C:\Users\lab422\Desktop\FYP\Project Y4\Project Y4\Project Y4.vcxproj" on node 2 (Build target(s)).
+     1>PreBuildEvent:
+         xcopy "C:\Users\lab422\Desktop\FYP\Project Y4\Assets" "C:\Users\lab422\Desktop\FYP\Project Y4\Release\..\Assets" /S /E /D /Y /I /F
+         xcopy "C:\SFML-2.3.2\bin\sfml-audio-2.dll" "C:\Users\lab422\Desktop\FYP\Project Y4\Release\" /Q /D /Y
+         xcopy "C:\SFML-2.3.2\bin\sfml-graphics-2.dll" "C:\Users\lab422\Desktop\FYP\Project Y4\Release\" /Q /D /Y
+         xcopy "C:\SFML-2.3.2\bin\sfml-network-2.dll" "C:\Users\lab422\Desktop\FYP\Project Y4\Release\" /Q /D /Y
+         xcopy "C:\SFML-2.3.2\bin\sfml-system-2.dll" "C:\Users\lab422\Desktop\FYP\Project Y4\Release\" /Q /D /Y
+         xcopy "C:\SFML-2.3.2\bin\sfml-window-2.dll" "C:\Users\lab422\Desktop\FYP\Project Y4\Release\" /Q /D /Y
+         :VCEnd
+         Cannot perform a cyclic copy
+         0 File(s) copied
+         0 File(s) copied
+         0 File(s) copied
+         0 File(s) copied
+         0 File(s) copied
+         0 File(s) copied
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\SFML-2.3.2\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Release\\" /Fd"Release\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt AudioManager.cpp CheckPoint.cpp DistructionObject.cpp EndGameGoal.cpp Game.cpp GameEntity.cpp InputManager.cpp JumpPlatform.cpp Level.cpp LevelElement.cpp Menu.cpp MenuElement.cpp OnScreenLable.cpp Platform.cpp Player.cpp SwapPoint.cpp
+         AudioManager.cpp
          CheckPoint.cpp
      1>CheckPoint.cpp(6): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
      1>CheckPoint.cpp(9): warning C4244: 'argument': conversion from 'float' to 'size_t', possible loss of data
      1>CheckPoint.cpp(78): warning C4018: '<': signed/unsigned mismatch
+         DistructionObject.cpp
          EndGameGoal.cpp
      1>EndGameGoal.cpp(3): warning C4244: 'argument': conversion from 'float' to 'size_t', possible loss of data
      1>EndGameGoal.cpp(13): warning C4305: '=': truncation from 'double' to 'float'
@@ -14,29 +31,60 @@
      1>EndGameGoal.cpp(78): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
          Game.cpp
      1>Game.cpp(67): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-     1>Game.cpp(85): warning C4305: 'argument': truncation from 'double' to 'float'
+     1>Game.cpp(86): warning C4305: 'argument': truncation from 'double' to 'float'
+         GameEntity.cpp
+     1>GameEntity.cpp(5): warning C4244: 'argument': conversion from 'float' to 'size_t', possible loss of data
+     1>GameEntity.cpp(9): warning C4305: '=': truncation from 'double' to 'float'
+     1>GameEntity.cpp(12): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+     1>GameEntity.cpp(43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+     1>GameEntity.cpp(78): warning C4244: 'argument': conversion from 'float' to 'size_t', possible loss of data
+     1>GameEntity.cpp(81): warning C4305: '=': truncation from 'double' to 'float'
+     1>GameEntity.cpp(84): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+     1>GameEntity.cpp(131): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+     1>GameEntity.cpp(138): warning C4018: '<': signed/unsigned mismatch
+     1>GameEntity.cpp(141): warning C4018: '<': signed/unsigned mismatch
+     1>GameEntity.cpp(174): warning C4101: 'max': unreferenced local variable
+     1>GameEntity.cpp(174): warning C4101: 'tempS1': unreferenced local variable
+     1>GameEntity.cpp(174): warning C4101: 'min': unreferenced local variable
+     1>GameEntity.cpp(174): warning C4101: 'tempS2': unreferenced local variable
+     1>GameEntity.cpp(266): warning C4018: '<': signed/unsigned mismatch
+     1>GameEntity.cpp(291): warning C4018: '<': signed/unsigned mismatch
+     1>GameEntity.cpp(309): warning C4018: '<': signed/unsigned mismatch
+     1>C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\utility(158): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+         GameEntity.cpp(200): note: see reference to function template instantiation 'std::pair<bool,float>::pair<bool,double,void>(std::pair<bool,double> &&) noexcept' being compiled
+         GameEntity.cpp(200): note: see reference to function template instantiation 'std::pair<bool,float>::pair<bool,double,void>(std::pair<bool,double> &&) noexcept' being compiled
+         InputManager.cpp
+         JumpPlatform.cpp
          Level.cpp
      1>Level.cpp(40): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
      1>Level.cpp(41): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
-     1>Level.cpp(64): warning C4018: '>': signed/unsigned mismatch
+     1>Level.cpp(73): warning C4018: '<': signed/unsigned mismatch
+     1>Level.cpp(74): warning C4018: '<': signed/unsigned mismatch
      1>Level.cpp(80): warning C4018: '<': signed/unsigned mismatch
-     1>Level.cpp(81): warning C4018: '<': signed/unsigned mismatch
-     1>Level.cpp(87): warning C4018: '<': signed/unsigned mismatch
-     1>Level.cpp(93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>Level.cpp(98): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>Level.cpp(102): warning C4018: '<': signed/unsigned mismatch
-     1>Level.cpp(108): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>Level.cpp(113): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>Level.cpp(117): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>Level.cpp(121): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>Level.cpp(125): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>Level.cpp(129): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>Level.cpp(133): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>Level.cpp(146): warning C4018: '<': signed/unsigned mismatch
-     1>Level.cpp(150): warning C4018: '<': signed/unsigned mismatch
-     1>Level.cpp(154): warning C4018: '<': signed/unsigned mismatch
-     1>Level.cpp(158): warning C4018: '<': signed/unsigned mismatch
-     1>Level.cpp(162): warning C4018: '<': signed/unsigned mismatch
+     1>Level.cpp(86): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>Level.cpp(91): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>Level.cpp(95): warning C4018: '<': signed/unsigned mismatch
+     1>Level.cpp(101): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>Level.cpp(106): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>Level.cpp(110): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>Level.cpp(114): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>Level.cpp(118): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>Level.cpp(122): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>Level.cpp(126): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>Level.cpp(139): warning C4018: '<': signed/unsigned mismatch
+     1>Level.cpp(143): warning C4018: '<': signed/unsigned mismatch
+     1>Level.cpp(147): warning C4018: '<': signed/unsigned mismatch
+     1>Level.cpp(151): warning C4018: '<': signed/unsigned mismatch
+     1>Level.cpp(155): warning C4018: '<': signed/unsigned mismatch
+         LevelElement.cpp
+     1>LevelElement.cpp(10): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
+         Menu.cpp
+     1>Menu.cpp(154): warning C4018: '<': signed/unsigned mismatch
+     1>Menu.cpp(255): warning C4018: '<': signed/unsigned mismatch
+     1>Menu.cpp(269): warning C4018: '<': signed/unsigned mismatch
+         MenuElement.cpp
+         OnScreenLable.cpp
+         Platform.cpp
          Player.cpp
      1>Player.cpp(215): warning C4018: '<': signed/unsigned mismatch
      1>Player.cpp(218): warning C4018: '<': signed/unsigned mismatch
@@ -47,7 +95,7 @@
      1>SwapPoint.cpp(19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
      1>SwapPoint.cpp(76): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Release\Project Y4.exe" /NOLOGO /LIBPATH:"C:\SFML-2.3.2\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Release\Project Y4.pdb" /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Release\Project Y4.lib" /MACHINE:X86 /SAFESEH Release\AudioManager.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\lab422\Desktop\FYP\Project Y4\Release\Project Y4.exe" /NOLOGO /LIBPATH:"C:\SFML-2.3.2\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\lab422\Desktop\FYP\Project Y4\Release\Project Y4.pdb" /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\lab422\Desktop\FYP\Project Y4\Release\Project Y4.lib" /MACHINE:X86 /SAFESEH Release\AudioManager.obj
          Release\CheckPoint.obj
          Release\DistructionObject.obj
          Release\EndGameGoal.obj
@@ -65,13 +113,13 @@
          Release\Player.obj
          Release\SwapPoint.obj
          Generating code
-         1 of 2746 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+         8 of 2747 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
            0 functions were new in current compilation
-           1 functions had inline decision re-evaluated but remain unchanged
+           29 functions had inline decision re-evaluated but remain unchanged
          Finished generating code
-         Project Y4.vcxproj -> C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Release\Project Y4.exe
-     1>Done Building Project "C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Project Y4\Project Y4.vcxproj" (Build target(s)).
+         Project Y4.vcxproj -> C:\Users\lab422\Desktop\FYP\Project Y4\Release\Project Y4.exe
+     1>Done Building Project "C:\Users\lab422\Desktop\FYP\Project Y4\Project Y4\Project Y4.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:09.99
+Time Elapsed 00:00:15.97

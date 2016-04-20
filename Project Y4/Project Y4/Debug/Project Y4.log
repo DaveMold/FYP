@@ -1,12 +1,24 @@
-﻿Build started 4/19/2016 7:27:13 PM.
-     1>Project "C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Project Y4\Project Y4.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
+﻿Build started 20/04/2016 12:33:07.
+     1>Project "C:\Users\lab422\Desktop\FYP\Project Y4\Project Y4\Project Y4.vcxproj" on node 2 (Build target(s)).
+     1>PreBuildEvent:
+         xcopy "C:\SFML-2.3.2\bin\sfml-audio-d-2.dll" "C:\Users\lab422\Desktop\FYP\Project Y4\Debug\" /Q /D /Y /F
+         xcopy "C:\SFML-2.3.2\bin\sfml-graphics-d-2.dll" "C:\Users\lab422\Desktop\FYP\Project Y4\Debug\" /Q /D /Y /F
+         xcopy "C:\SFML-2.3.2\bin\sfml-network-d-2.dll" "C:\Users\lab422\Desktop\FYP\Project Y4\Debug\" /Q /D /Y /F
+         xcopy "C:\SFML-2.3.2\bin\sfml-system-d-2.dll" "C:\Users\lab422\Desktop\FYP\Project Y4\Debug\" /Q /D /Y /F
+         xcopy "C:\SFML-2.3.2\bin\sfml-window-d-2.dll" "C:\Users\lab422\Desktop\FYP\Project Y4\Debug\" /Q /D /Y /F
+         :VCEnd
+         0 File(s) copied
+         0 File(s) copied
+         0 File(s) copied
+         0 File(s) copied
+         0 File(s) copied
+       ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
          Game.cpp
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\game.cpp(67): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\eigenaar\documents\college projects\year 4\fyp\project y4\project y4\game.cpp(85): warning C4305: 'argument': truncation from 'double' to 'float'
+     1>c:\users\lab422\desktop\fyp\project y4\project y4\game.cpp(67): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\lab422\desktop\fyp\project y4\project y4\game.cpp(85): warning C4305: 'argument': truncation from 'double' to 'float'
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Debug\Project Y41.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.3.2\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Debug\Project Y41.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Debug\Project Y41.lib" /MACHINE:X86 Debug\AudioManager.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\lab422\Desktop\FYP\Project Y4\Debug\Project Y41.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.3.2\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\lab422\Desktop\FYP\Project Y4\Debug\Project Y41.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\lab422\Desktop\FYP\Project Y4\Debug\Project Y41.lib" /MACHINE:X86 Debug\AudioManager.obj
          Debug\CheckPoint.obj
          Debug\DistructionObject.obj
          Debug\EndGameGoal.obj
@@ -23,9 +35,9 @@
          Debug\Platform.obj
          Debug\Player.obj
          Debug\SwapPoint.obj
-         Project Y4.vcxproj -> C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Debug\Project Y41.exe
-     1>Done Building Project "C:\Users\Eigenaar\Documents\College Projects\Year 4\FYP\Project Y4\Project Y4\Project Y4.vcxproj" (Build target(s)).
+         Project Y4.vcxproj -> C:\Users\lab422\Desktop\FYP\Project Y4\Debug\Project Y41.exe
+     1>Done Building Project "C:\Users\lab422\Desktop\FYP\Project Y4\Project Y4\Project Y4.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.56
+Time Elapsed 00:00:01.66

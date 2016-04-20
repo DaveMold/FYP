@@ -16,7 +16,7 @@ Player::Player(float size, float sides, sf::Vector2f pos, Shape s, sf::Vector2f 
 	activeShape = s;
 
 	speed = 0;
-	acceleration = 0.013f;
+	acceleration = 0.016f;
 	radius = size - 4;
 	direction = sf::Vector2f(2, 0);
 	jumpForce = sf::Vector2f(0, 0);
@@ -122,7 +122,7 @@ void Player::ApplyJumpPlatformForce() {
 	switch (activeShape)
 	{
 	case SQUARE:
-		jumpForce = sf::Vector2f(0, -0.2702f);
+		jumpForce = sf::Vector2f(0, -0.2704f);
 		break;
 	case CIRCLE:
 		if (InputManager::instance()->Pressed("Left") || InputManager::instance()->Held("Left"))
