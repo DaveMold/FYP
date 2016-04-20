@@ -16,7 +16,8 @@ Player::Player(float size, float sides, sf::Vector2f pos, Shape s, sf::Vector2f 
 	activeShape = s;
 
 	speed = 0;
-	acceleration = 0.016f;
+	accelerationS_ = 0.036f;
+	accelerationC_ = 0.056f;
 	radius = size - 4;
 	direction = sf::Vector2f(2, 0);
 	jumpForce = sf::Vector2f(0, 0);
@@ -93,15 +94,35 @@ void Player::MoveUpdate() {
 
 	speed = 0;
 
-	//look for the Left Arrow Key in vector of keys pressed
-	if (((InputManager::instance()->Pressed("Left") || InputManager::instance()->Held("Left")) && !InputManager::instance()->Released("Left")) && -maxSpeed_ < speed)
+	switch (activeShape)
 	{
-		speed -= acceleration;
-	}
-	if (((InputManager::instance()->Pressed("Right") || InputManager::instance()->Held("Right")) && !InputManager::instance()->Released("Right")) && maxSpeed_ > speed)
+	case SQUARE:
+		//look for the Left Arrow Key in vector of keys pressed
+		if (((InputManager::instance()->Pressed("Left") || InputManager::instance()->Held("Left")) && !InputManager::instance()->Released("Left")) && -maxSpeed_ < speed)
+		{
+			speed -= accelerationS_;
+		}
+		if (((InputManager::instance()->Pressed("Right") || InputManager::instance()->Held("Right")) && !InputManager::instance()->Released("Right")) && maxSpeed_ > speed)
 
-	{
-		speed += acceleration;
+		{
+			speed += accelerationS_;
+		}
+		break;
+	case CIRCLE:
+		//look for the Left Arrow Key in vector of keys pressed
+		if (((InputManager::instance()->Pressed("Left") || InputManager::instance()->Held("Left")) && !InputManager::instance()->Released("Left")) && -maxSpeed_ < speed)
+		{
+			speed -= accelerationC_;
+		}
+		if (((InputManager::instance()->Pressed("Right") || InputManager::instance()->Held("Right")) && !InputManager::instance()->Released("Right")) && maxSpeed_ > speed)
+
+		{
+			speed += accelerationC_;
+		}
+		break;
+	default:
+		std::cout << "Player :: MoveUpdate Defualt." << std::endl;
+		break;
 	}
 }
 
@@ -122,16 +143,16 @@ void Player::ApplyJumpPlatformForce() {
 	switch (activeShape)
 	{
 	case SQUARE:
-		jumpForce = sf::Vector2f(0, -0.2704f);
+		jumpForce = sf::Vector2f(0, -1);//.9402f);
 		break;
 	case CIRCLE:
 		if (InputManager::instance()->Pressed("Left") || InputManager::instance()->Held("Left"))
 		{
-			jumpForce = sf::Vector2f(-0.15f, -0.2502f);
+			jumpForce = sf::Vector2f(-0.15f, -0.7402f);
 		}
 		else
 		{
-			jumpForce = sf::Vector2f(0.15f, -0.2702f);
+			jumpForce = sf::Vector2f(0.15f, -0.7402f);
 		}
 		break;
 	default:
@@ -140,11 +161,15 @@ void Player::ApplyJumpPlatformForce() {
 	}
 }
 
+void Player::UpdateCollisionForce(sf::Vector2f collisionForce) {
+	collisionForce_ = collisionForce;
+}
+
 void Player::ApplyJump(sf::Vector2f collisionForce) {
 	/*If the player is in contact with another object there will be a collsision force,
 	so if the collsionion force is greater than 0, it must be colliding with somthing.*/
 	float collisionForceMagnatude = sqrt(pow(collisionForce.x, 2) + pow(collisionForce.y, 2));
-	if( (collisionForceMagnatude != 0 && collisionForce.y < 0 && collisionForce.x != 0))
+	if( (collisionForceMagnatude != 0 /*&& collisionForce.y < 0 && collisionForce.x != 0*/))
 	{
 		if (InputManager::instance()->Pressed("Up"))
 		{
@@ -152,16 +177,32 @@ void Player::ApplyJump(sf::Vector2f collisionForce) {
 			switch (activeShape)
 			{
 			case CIRCLE:
-				jumpForce = sf::Vector2f(jumpForce.x, -0.2302f);
+				jumpForce = sf::Vector2f(jumpForce.x, -0.7402f);
 				break;
 			case SQUARE:
-				jumpForce = sf::Vector2f(jumpForce.x, -0.2502f);
+				jumpForce = sf::Vector2f(jumpForce.x, -0.8402f);
+				break;
 			}
+			return;
 		}
-	}
-	else if (collisionForceMagnatude != 0 && collisionForce.y > 0 && collisionForce.x != 0)
-	{
-		jumpForce = sf::Vector2f(jumpForce.x, jumpForce.y + 0.0006f);
+		//y-axis reset
+		if (jumpForce.y > 0.0f)
+		{
+			jumpForce.y = 0.0f;
+		}
+		if (jumpForce.y < 0.0f)
+		{
+			jumpForce = sf::Vector2f(jumpForce.x, jumpForce.y + 0.001f);
+		}
+		//x-axis reset
+		if (jumpForce.x > 0.0f)
+		{
+			jumpForce = sf::Vector2f(jumpForce.x - 0.0001f, jumpForce.y);
+		}
+		if (jumpForce.x < 0.0f)
+		{
+			jumpForce = sf::Vector2f(jumpForce.x + 0.0001f, jumpForce.y);
+		}
 	}
 	else
 	{
@@ -172,7 +213,7 @@ void Player::ApplyJump(sf::Vector2f collisionForce) {
 		}
 		if (jumpForce.y < 0.0f)
 		{
-			jumpForce = sf::Vector2f(jumpForce.x, jumpForce.y + 0.0001f);
+			jumpForce = sf::Vector2f(jumpForce.x, jumpForce.y + 0.001f);
 		}
 		//x-axis reset
 		if (jumpForce.x > 0.0f)
@@ -188,7 +229,7 @@ void Player::ApplyJump(sf::Vector2f collisionForce) {
 
 
 
-void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
+void Player::Update(sf::Vector2f g) {
 	if (InputManager::instance()->Pressed("Delete"))
 	{
 		if (debug)
@@ -200,10 +241,10 @@ void Player::Update(sf::Vector2f g, sf::Vector2f collisionForce) {
 	MoveUpdate();
 
 	
-	ApplyJump(collisionForce);
+	ApplyJump(collisionForce_);
 
 
-	sf::Vector2f force = g + collisionForce + jumpForce;
+	sf::Vector2f force = g + collisionForce_ + jumpForce;
 	posCentre += force + (direction * speed);
 	rotation.rotate(rotateSpeed);
 	followPlayer.setCenter(posCentre.x, followPlayer.getCenter().y);

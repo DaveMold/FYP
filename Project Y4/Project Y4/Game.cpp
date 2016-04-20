@@ -81,9 +81,9 @@ int main()
 	sf::Clock levelClock = sf::Clock();
 	sf::Clock fixedUpdateClock = sf::Clock();
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
-	const sf::Time timePerFrame = sf::seconds(0.125f / 60.f);
+	const sf::Time timePerFrame = sf::seconds(0.025f / 60.f);
 	//Gravity
-	sf::Vector2f gravity = sf::Vector2f(0, 0.0881);// 0.0981);
+	sf::Vector2f gravity = sf::Vector2f(0, 0.2996);// 0.0981);
 	//InputManager
 	InputManager* inputMgr = InputManager::instance();
 	//AudioManager

@@ -165,9 +165,11 @@ void Level::clearLevel() {
 }
 
 std::pair<bool,bool> Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time runTime) {
+	sf::Vector2f collisonF;
 	//Record Level time.
 	UpdateLevelTime(runTime);
-
+	//Player
+	player_->Update(g);
 	//Platforms
 	for (auto itr = platforms_.begin(); itr != platforms_.end(); itr++)
 	{
@@ -181,13 +183,14 @@ std::pair<bool,bool> Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time
 		}
 		if (temp.first)
 		{
-			player_->Update(g, temp.second);
+			collisonF += temp.second;
 		}
 		else
 		{
-			player_->Update(g, sf::Vector2f(0,0));
+			collisonF += sf::Vector2f(0,0);
 		}
 	}
+	player_->UpdateCollisionForce(collisonF);
 	//JumpPlatforms
 	for (auto itr = jumpPlatforms_.begin(); itr != jumpPlatforms_.end(); itr++)
 	{
@@ -221,10 +224,6 @@ std::pair<bool,bool> Level::Update(sf::Vector2f g, sf::RenderWindow &w, sf::Time
 			}
 			AudioManager::instance()->PlayTrack("EndLevel", false);
 			return std::make_pair<bool, bool>(true, false); 
-		}
-		else
-		{
-			player_->Update(g, sf::Vector2f(0, 0));
 		}
 	}
 	//swapPoints
