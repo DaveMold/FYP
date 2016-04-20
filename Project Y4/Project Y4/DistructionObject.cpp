@@ -1,7 +1,7 @@
 #include "DistructionObject.h"
 
 DistructionObject::DistructionObject(float size, float sides, sf::Vector2f pos, Menu::ColorPresets preSet)
-	:GameEntity(size, sides , pos, preSet) {
+	:GameEntity(size, sides , sf::Vector2f(pos.x - size/2.f,pos.y), preSet) {
 	//Color Preset
 	switch (preSet)
 	{

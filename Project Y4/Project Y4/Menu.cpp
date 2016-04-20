@@ -77,7 +77,7 @@ Menu::Menu(std::pair<float, float> windowDesmentions) : currentLevel(0), showSet
 
 	//Level Select
 	lable = "LevelOne";
-	tempPos = sf::Vector2f(elements_[2]->GetPos().x + itemOffSet*3, elements_[2]->GetPos().y);
+	tempPos = sf::Vector2f(elements_[2]->GetPos().x + itemOffSet*3, elements_[0]->GetPos().y);
 	elements_.push_back(new LevelElement(tempPos, 0, lable, false, std::bind(&Menu::SetLevel, this, lable)));
 
 	lable = "LevelTwo";
@@ -92,6 +92,22 @@ Menu::Menu(std::pair<float, float> windowDesmentions) : currentLevel(0), showSet
 	tempPos = sf::Vector2f(elements_[13]->GetPos().x, elements_[13]->GetPos().y + itemOffSet);
 	elements_.push_back(new LevelElement(tempPos, 3, lable, false, std::bind(&Menu::SetLevel, this, lable)));
 
+	lable = "LevelFive";
+	tempPos = sf::Vector2f(elements_[14]->GetPos().x, elements_[14]->GetPos().y + itemOffSet);
+	elements_.push_back(new LevelElement(tempPos, 4, lable, false, std::bind(&Menu::SetLevel, this, lable)));
+
+	lable = "LevelSix";
+	tempPos = sf::Vector2f(elements_[14]->GetPos().x, elements_[15]->GetPos().y + itemOffSet);
+	elements_.push_back(new LevelElement(tempPos, 5, lable, false, std::bind(&Menu::SetLevel, this, lable)));
+
+	lable = "LevelSeven";
+	tempPos = sf::Vector2f(elements_[14]->GetPos().x, elements_[16]->GetPos().y + itemOffSet);
+	elements_.push_back(new LevelElement(tempPos, 6, lable, false, std::bind(&Menu::SetLevel, this, lable)));
+
+	lable = "LevelEight";
+	tempPos = sf::Vector2f(elements_[14]->GetPos().x, elements_[17]->GetPos().y + itemOffSet);
+	elements_.push_back(new LevelElement(tempPos, 7, lable, false, std::bind(&Menu::SetLevel, this, lable)));
+
 	elements_[11]->SetNext(elements_[14]);
 	elements_[11]->SetPrev(elements_[12]);
 	elements_[12]->SetNext(elements_[11]);
@@ -99,7 +115,15 @@ Menu::Menu(std::pair<float, float> windowDesmentions) : currentLevel(0), showSet
 	elements_[13]->SetNext(elements_[12]);
 	elements_[13]->SetPrev(elements_[14]);
 	elements_[14]->SetNext(elements_[13]);
-	elements_[14]->SetPrev(elements_[11]);
+	elements_[14]->SetPrev(elements_[15]);
+	elements_[15]->SetNext(elements_[14]);
+	elements_[15]->SetPrev(elements_[16]);
+	elements_[16]->SetNext(elements_[15]);
+	elements_[16]->SetPrev(elements_[17]);
+	elements_[17]->SetNext(elements_[16]);
+	elements_[17]->SetPrev(elements_[18]);
+	elements_[18]->SetNext(elements_[17]);
+	elements_[18]->SetPrev(elements_[11]);
 
 	curretElement_ = elements_[0];
 }
@@ -155,6 +179,10 @@ void Menu::ToggleLevelSelect() {
 	elements_[12]->ToggleDraw();
 	elements_[13]->ToggleDraw();
 	elements_[14]->ToggleDraw();
+	elements_[15]->ToggleDraw();
+	elements_[16]->ToggleDraw();
+	elements_[17]->ToggleDraw();
+	elements_[18]->ToggleDraw();
 }
 
 void Menu::SetLevel(sf::String s){
@@ -167,6 +195,14 @@ void Menu::SetLevel(sf::String s){
 		currentLevel = 2;
 	else if (s == "LevelFour")
 		currentLevel = 3;
+	else if (s == "LevelFive")
+		currentLevel = 4;
+	else if (s == "LevelSix")
+		currentLevel = 5;
+	else if (s == "LevelSeven")
+		currentLevel = 6;
+	else if (s == "LevelEight")
+		currentLevel = 7;
 }
 
 void Menu::ToggleStartGame() {
