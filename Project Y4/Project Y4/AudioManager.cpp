@@ -36,27 +36,36 @@ void AudioManager::loadAudio() {
 }
 
 void AudioManager::PlayTrack(std::string s, bool looped) {
-	for (auto itrA = sounds_.begin(); itrA < sounds_.end(); itrA++)
+	std::vector<std::pair<sf::Sound, std::string >>::iterator itrA = sounds_.begin();
+	assert(s != "");  // assert that string != ""; abort() if string is empty.
+	assert(itrA != sounds_.end()); // asset that bool != NULL; about() if string is Null.
+	for (; itrA < sounds_.end(); itrA++)
 	{
 		if (sf::Sound::Status::Stopped == (*itrA).first.getStatus())
 		{
 			(*itrA).second = "Empty";
 		}
 	}
-	for (auto itrA = sounds_.begin(); itrA < sounds_.end(); itrA++)
+	itrA = sounds_.begin();
+	assert(itrA != sounds_.end()); // asset that bool != NULL; about() if string is Null.
+	for (; itrA < sounds_.end(); itrA++)
 	{
-		if ("Empty" == (*itrA).second)
+		std::pair<sf::Sound, std::string > temp = (*itrA);
+		if ("Empty" == temp.second)
 		{
-			for (auto itrB = buffer_.begin(); itrB < buffer_.end(); itrB++)
+			std::vector<std::pair<sf::SoundBuffer*, std::string >>::iterator itrB = buffer_.begin();
+			assert(itrB != buffer_.end()); // asset that buffer != NULL; about() if string is Null.
+			for (; itrB < buffer_.end(); itrB++)
 			{
 				if ((*itrB).second == s)
 				{
 					if (s == "Background")
-						(*itrA).first.setVolume(35);
-					(*itrA).first.setBuffer(*(*itrB).first);
-					(*itrA).second = s;
-					(*itrA).first.play();
-					(*itrA).first.setLoop(looped);
+						temp.first.setVolume(35);
+					temp.first.setBuffer(*(*itrB).first);
+					temp.second = s;
+					temp.first.play();
+					temp.first.setLoop(looped);
+					*itrA = temp;
 					return;
 				}
 			}

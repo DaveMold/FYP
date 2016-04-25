@@ -1,24 +1,100 @@
-﻿Build started 20/04/2016 12:33:07.
-     1>Project "C:\Users\lab422\Desktop\FYP\Project Y4\Project Y4\Project Y4.vcxproj" on node 2 (Build target(s)).
+﻿Build started 4/25/2016 9:31:45 AM.
+     1>Project "C:\Users\Eigenaar\Desktop\GE\FYP\Project Y4\Project Y4\Project Y4.vcxproj" on node 2 (Build target(s)).
      1>PreBuildEvent:
-         xcopy "C:\SFML-2.3.2\bin\sfml-audio-d-2.dll" "C:\Users\lab422\Desktop\FYP\Project Y4\Debug\" /Q /D /Y /F
-         xcopy "C:\SFML-2.3.2\bin\sfml-graphics-d-2.dll" "C:\Users\lab422\Desktop\FYP\Project Y4\Debug\" /Q /D /Y /F
-         xcopy "C:\SFML-2.3.2\bin\sfml-network-d-2.dll" "C:\Users\lab422\Desktop\FYP\Project Y4\Debug\" /Q /D /Y /F
-         xcopy "C:\SFML-2.3.2\bin\sfml-system-d-2.dll" "C:\Users\lab422\Desktop\FYP\Project Y4\Debug\" /Q /D /Y /F
-         xcopy "C:\SFML-2.3.2\bin\sfml-window-d-2.dll" "C:\Users\lab422\Desktop\FYP\Project Y4\Debug\" /Q /D /Y /F
+         xcopy "C:\SFML-2.3.2\bin\sfml-audio-d-2.dll" "C:\Users\Eigenaar\Desktop\GE\FYP\Project Y4\Debug\" /Q /D /Y /F
+         xcopy "C:\SFML-2.3.2\bin\sfml-graphics-d-2.dll" "C:\Users\Eigenaar\Desktop\GE\FYP\Project Y4\Debug\" /Q /D /Y /F
+         xcopy "C:\SFML-2.3.2\bin\sfml-network-d-2.dll" "C:\Users\Eigenaar\Desktop\GE\FYP\Project Y4\Debug\" /Q /D /Y /F
+         xcopy "C:\SFML-2.3.2\bin\sfml-system-d-2.dll" "C:\Users\Eigenaar\Desktop\GE\FYP\Project Y4\Debug\" /Q /D /Y /F
+         xcopy "C:\SFML-2.3.2\bin\sfml-window-d-2.dll" "C:\Users\Eigenaar\Desktop\GE\FYP\Project Y4\Debug\" /Q /D /Y /F
          :VCEnd
-         0 File(s) copied
-         0 File(s) copied
-         0 File(s) copied
-         0 File(s) copied
-         0 File(s) copied
+         1 File(s) copied
+         1 File(s) copied
+         1 File(s) copied
+         1 File(s) copied
+         1 File(s) copied
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt AudioManager.cpp CheckPoint.cpp DistructionObject.cpp EndGameGoal.cpp Game.cpp GameEntity.cpp InputManager.cpp jsoncpp.cpp JumpPlatform.cpp Level.cpp LevelElement.cpp Menu.cpp MenuElement.cpp OnScreenLable.cpp Platform.cpp Player.cpp SwapPoint.cpp
+         SwapPoint.cpp
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\swappoint.cpp(3): warning C4244: 'argument': conversion from 'float' to 'size_t', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\swappoint.cpp(9): warning C4305: '=': truncation from 'double' to 'float'
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\swappoint.cpp(12): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\swappoint.cpp(19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\swappoint.cpp(76): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+         Player.cpp
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\player.cpp(256): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\player.cpp(259): warning C4018: '<': signed/unsigned mismatch
+         Platform.cpp
+         OnScreenLable.cpp
+         MenuElement.cpp
+         Menu.cpp
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\menu.cpp(154): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\menu.cpp(255): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\menu.cpp(269): warning C4018: '<': signed/unsigned mismatch
+         LevelElement.cpp
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\levelelement.cpp(10): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
+         Level.cpp
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(40): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(41): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(73): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(74): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(80): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(86): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(91): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(95): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(101): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(106): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(110): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(114): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(118): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(122): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(126): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(139): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(143): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(147): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(151): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\level.cpp(155): warning C4018: '<': signed/unsigned mismatch
+         JumpPlatform.cpp
+         jsoncpp.cpp
+         InputManager.cpp
+         GameEntity.cpp
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(5): warning C4244: 'argument': conversion from 'float' to 'size_t', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(9): warning C4305: '=': truncation from 'double' to 'float'
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(12): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(78): warning C4244: 'argument': conversion from 'float' to 'size_t', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(81): warning C4305: '=': truncation from 'double' to 'float'
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(84): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(131): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(138): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(141): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(174): warning C4101: 'max': unreferenced local variable
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(174): warning C4101: 'tempS1': unreferenced local variable
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(174): warning C4101: 'min': unreferenced local variable
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(174): warning C4101: 'tempS2': unreferenced local variable
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(266): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(291): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(309): warning C4018: '<': signed/unsigned mismatch
+     1>c:\program files (x86)\microsoft visual studio 14.0\vc\include\utility(158): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+         c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(200): note: see reference to function template instantiation 'std::pair<bool,float>::pair<bool,double,void>(std::pair<bool,double> &&) noexcept' being compiled
+         c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\gameentity.cpp(200): note: see reference to function template instantiation 'std::pair<bool,float>::pair<bool,double,void>(std::pair<bool,double> &&) noexcept' being compiled
          Game.cpp
-     1>c:\users\lab422\desktop\fyp\project y4\project y4\game.cpp(67): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\lab422\desktop\fyp\project y4\project y4\game.cpp(85): warning C4305: 'argument': truncation from 'double' to 'float'
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\game.cpp(67): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\game.cpp(86): warning C4305: 'argument': truncation from 'double' to 'float'
+         EndGameGoal.cpp
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\endgamegoal.cpp(3): warning C4244: 'argument': conversion from 'float' to 'size_t', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\endgamegoal.cpp(13): warning C4305: '=': truncation from 'double' to 'float'
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\endgamegoal.cpp(16): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\endgamegoal.cpp(23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\endgamegoal.cpp(78): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+         DistructionObject.cpp
+         CheckPoint.cpp
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\checkpoint.cpp(6): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\checkpoint.cpp(9): warning C4244: 'argument': conversion from 'float' to 'size_t', possible loss of data
+     1>c:\users\eigenaar\desktop\ge\fyp\project y4\project y4\checkpoint.cpp(78): warning C4018: '<': signed/unsigned mismatch
+         AudioManager.cpp
+         Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\lab422\Desktop\FYP\Project Y4\Debug\Project Y41.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.3.2\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\lab422\Desktop\FYP\Project Y4\Debug\Project Y41.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\lab422\Desktop\FYP\Project Y4\Debug\Project Y41.lib" /MACHINE:X86 Debug\AudioManager.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Eigenaar\Desktop\GE\FYP\Project Y4\Debug\Project Y41.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.3.2\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Eigenaar\Desktop\GE\FYP\Project Y4\Debug\Project Y41.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Eigenaar\Desktop\GE\FYP\Project Y4\Debug\Project Y41.lib" /MACHINE:X86 Debug\AudioManager.obj
          Debug\CheckPoint.obj
          Debug\DistructionObject.obj
          Debug\EndGameGoal.obj
@@ -35,9 +111,10 @@
          Debug\Platform.obj
          Debug\Player.obj
          Debug\SwapPoint.obj
-         Project Y4.vcxproj -> C:\Users\lab422\Desktop\FYP\Project Y4\Debug\Project Y41.exe
-     1>Done Building Project "C:\Users\lab422\Desktop\FYP\Project Y4\Project Y4\Project Y4.vcxproj" (Build target(s)).
+         LINK : C:\Users\Eigenaar\Desktop\GE\FYP\Project Y4\Debug\Project Y41.exe not found or not built by the last incremental link; performing full link
+         Project Y4.vcxproj -> C:\Users\Eigenaar\Desktop\GE\FYP\Project Y4\Debug\Project Y41.exe
+     1>Done Building Project "C:\Users\Eigenaar\Desktop\GE\FYP\Project Y4\Project Y4\Project Y4.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.66
+Time Elapsed 00:00:26.75

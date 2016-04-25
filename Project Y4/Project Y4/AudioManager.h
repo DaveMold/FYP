@@ -8,6 +8,7 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/OpenGL.hpp"
 #include <SFML/Audio.hpp>
+#include <assert.h>
 
 
 class AudioManager {
