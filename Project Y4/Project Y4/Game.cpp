@@ -15,6 +15,8 @@
 #pragma comment(lib,"opengl32.lib")
 #pragma comment(lib,"glu32.lib")
 
+#define NDEBUG //checks for assert to be used in debug.
+
 //#include "stdafx.h"
 #include "SFML/Graphics.hpp"
 #include "SFML/OpenGL.hpp"
