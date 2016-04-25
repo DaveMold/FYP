@@ -1,0 +1,111 @@
+Original Method.
+//looks for an available sound and plays the track. if not sound is available the sound will not be played.
+
+void AudioManager::PlayTrack(std::string s, bool looped) {
+	for (auto itrA = sounds_.begin(); itrA < sounds_.end(); itrA++)
+	{
+		if (sf::Sound::Status::Stopped == (*itrA).first.getStatus())
+		{
+			(*itrA).second = "Empty";
+		}
+	}
+	for (auto itrA = sounds_.begin(); itrA < sounds_.end(); itrA++)
+	{
+		if ("Empty" == (*itrA).second)
+		{
+			for (auto itrB = buffer_.begin(); itrB < buffer_.end(); itrB++)
+			{
+				if ((*itrB).second == s)
+				{
+					if (s == "Background")
+						(*itrA).first.setVolume(35);
+					(*itrA).first.setBuffer(*(*itrB).first);
+					(*itrA).second = s;
+					(*itrA).first.play();
+					(*itrA).first.setLoop(looped);
+					return;
+				}
+			}
+		}
+	}
+}
+
+Cyclometric Complexity of the Method.
+(0)	PlayTrack(std::string s, bool looped) {
+(1)		for ((1A)auto itrA = sounds_.begin(); (1B)itrA < sounds_.end(); (1C)itrA++)
+(-)		{
+(2)			if (sf::Sound::Status::Stopped == (*itrA).first.getStatus())
+(-)			{
+(3)				(*itrA).second = "Empty";
+(-)			}
+(-)		}
+(4)		for ((4A)auto itrA = sounds_.begin(); (4B)itrA < sounds_.end(); (4C)itrA++)
+(-)		{
+(5)			if ("Empty" == (*itrA).second)
+(-)			{
+(6)				for ((6A)auto itrB = buffer_.begin(); (6B)itrB < buffer_.end(); (6C)itrB++)
+(-)				{
+(7)					if ((*itrB).second == s)
+(-)					{
+(8)						if (s == "Background")
+(9)							(*itrA).first.setVolume(35);
+(10)					(*itrA).first.setBuffer(*(*itrB).first);
+(11)					(*itrA).second = s;
+(12)					(*itrA).first.play();
+(13)					(*itrA).first.setLoop(looped);
+(14)					return;
+(-)					}
+(-)				}
+(-)			}
+(-)		}
+(-)	}
+
+Cyclometric Complexity = 8; //No. of predicates + 1.
+Outcomes
+	- ("",true) program will exit at 5. no sound played.
+	- ("",false) program will exit at 5. no sound played.
+	- ("not valid name",false) program will exit at 5. no sound played.
+	- ("not valid name",true) program will exit at 5. no sound played.
+	- ("Jump", true) program will exit at 14. the jump sound will be played on repeat.
+	- ("Select", false) program will exit at 14. the select sound will be played once.
+	- ("BackGround", true) program will exit at 14. the jump sound will be played on repeat.
+	- ("JumpPlatform", false) program will exit at 14. the select sound will be played once.
+
+Suggested Change.
+void AudioManager::PlayTrack(std::string s, bool looped) {
+	std::vector<std::pair<sf::Sound, std::string >>::iterator itrA = sounds_.begin();
+	assert(s != "");  // assert that string != ""; abort() if string is empty.
+	assert(itrA != sounds_.end()); // asset that bool != NULL; about() if string is Null.
+	for (; itrA < sounds_.end(); itrA++)
+	{
+		if (sf::Sound::Status::Stopped == (*itrA).first.getStatus())
+		{
+			(*itrA).second = "Empty";
+		}
+	}
+	itrA = sounds_.begin();
+	assert(itrA != sounds_.end()); // asset that bool != NULL; about() if string is Null.
+	for (; itrA < sounds_.end(); itrA++)
+	{
+		std::pair<sf::Sound, std::string > temp = (*itrA);
+		if ("Empty" == temp.second)
+		{
+			std::vector<std::pair<sf::SoundBuffer*, std::string >>::iterator itrB = buffer_.begin();
+			assert(itrB != buffer_.end()); // asset that buffer != NULL; about() if string is Null.
+			for (; itrB < buffer_.end(); itrB++)
+			{
+				if ((*itrB).second == s)
+				{
+					if (s == "Background")
+						temp.first.setVolume(35);
+					temp.first.setBuffer(*(*itrB).first);
+					temp.second = s;
+					temp.first.play();
+					temp.first.setLoop(looped);
+					*itrA = temp;
+					return;
+				}
+			}
+		}
+	}
+}
